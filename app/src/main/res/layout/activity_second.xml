@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+        tools:context=".SecondAct">
+    <TextView
+            android:drawableLeft="@drawable/ic_star_black"
+            android:layout_margin="10dp"
+            android:textColor="@android:color/white"
+            android:id="@+id/textDest"
+            android:textSize="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:id="@+id/rView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+    <LinearLayout
+            android:id="@+id/lastLayout"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <ImageButton
+                android:id="@+id/backwardN"
+                android:layout_margin="10dp"
+                android:background="@android:color/black"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_keyboard_arrow_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <TextView
+                android:textColor="@android:color/white"
+                android:text="1"
+                android:textSize="20sp"
+                android:id="@+id/trackN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <ImageButton
+                android:id="@+id/forwardN"
+                android:layout_margin="10dp"
+                android:background="@android:color/black"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_keyboard_arrow_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+</LinearLayout>

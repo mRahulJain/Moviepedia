@@ -1,6 +1,7 @@
 package com.example.moviepedia
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -46,60 +47,88 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         navView.setNavigationItemSelectedListener(this)
         onOpen()
+
+        lastLayout.isVisible = false
+        forward.setOnClickListener {
+            track.text = (track.text.toString().toInt() + 1).toString()
+            onOpen1()
+        }
+        backward.setOnClickListener {
+            track.text = (track.text.toString().toInt() - 1).toString()
+            onOpen1()
+        }
+
+        btn1.setOnClickListener {
+            var intent = Intent(this, SecondAct::class.java)
+            intent.putExtra("type", "Trending")
+            startActivity(intent)
+        }
+        btn2.setOnClickListener {
+            var intent = Intent(this, SecondAct::class.java)
+            intent.putExtra("type", "Now Playing")
+            startActivity(intent)
+        }
+        btn3.setOnClickListener {
+            var intent = Intent(this, SecondAct::class.java)
+            intent.putExtra("type", "Upcoming")
+            startActivity(intent)
+        }
+        btn4.setOnClickListener {
+            var intent = Intent(this, SecondAct::class.java)
+            intent.putExtra("type", "Popular")
+            startActivity(intent)
+        }
+        btn5.setOnClickListener {
+            var intent = Intent(this, SecondAct::class.java)
+            intent.putExtra("type", "Top Rated")
+            startActivity(intent)
+        }
     }
 
     fun onOpen() {
-        val serviceTrending = retrofit.create(TrendingAPI::class.java)
+        val service = retrofit.create(API::class.java)
 
-        serviceTrending.getTrending(media_type, time_window, api_key).enqueue(retrofitCallback{ throwable, response ->
+        service.getTrending(media_type, time_window, api_key, track.text.toString()).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
                 if(it.isSuccessful) {
-                    rViewT.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
-                    rViewT.adapter = TrendingAdapter(this, it.body()!!.results)
+                    rView1.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
+                    rView1.adapter = TrendingAdapter(this, it.body()!!.results)
                 }
             }
         })
 
-        val serviceNowPlaying = retrofit.create(NowPlayingAPI::class.java)
-
-        serviceNowPlaying.getNowPlaying(api_key).enqueue(retrofitCallback{ throwable, response ->
+        service.getNowPlaying(api_key, track.text.toString()).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
                 if(it.isSuccessful) {
-                    rViewNP.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
-                    rViewNP.adapter = CommonAdapter(this, it.body()!!.results, false)
+                    rView2.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
+                    rView2.adapter = CommonAdapter(this, it.body()!!.results, false)
                 }
             }
         })
 
-        val serviceUpcoming = retrofit.create(UpcomingAPI::class.java)
-
-        serviceUpcoming.getUpcoming(api_key).enqueue(retrofitCallback{ throwable, response ->
+        service.getUpcoming(api_key, track.text.toString()).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
                 if(it.isSuccessful) {
-                    rViewU.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
-                    rViewU.adapter = CommonAdapter(this, it.body()!!.results, false)
+                    rView3.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
+                    rView3.adapter = CommonAdapter(this, it.body()!!.results, false)
                 }
             }
         })
 
-        val servicePopular = retrofit.create(PopularAPI::class.java)
-
-        servicePopular.getPopular(api_key).enqueue(retrofitCallback{ throwable, response ->
+        service.getPopular(api_key, track.text.toString()).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
                 if(it.isSuccessful) {
-                    rViewP.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
-                    rViewP.adapter = CommonAdapter(this, it.body()!!.results, false)
+                    rView4.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
+                    rView4.adapter = CommonAdapter(this, it.body()!!.results, false)
                 }
             }
         })
 
-        val serviceTopRated = retrofit.create(TopRatedAPI::class.java)
-
-        serviceTopRated.getTopRated(api_key).enqueue(retrofitCallback{ throwable, response ->
+        service.getTopRated(api_key, track.text.toString()).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
                 if(it.isSuccessful) {
-                    rViewTR.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
-                    rViewTR.adapter = CommonAdapter(this, it.body()!!.results, false)
+                    rView5.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
+                    rView5.adapter = CommonAdapter(this, it.body()!!.results, false)
                 }
             }
         })
@@ -107,13 +136,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     @SuppressLint("WrongConstant")
     fun onOpen1() {
-        val servicePeople = retrofit.create(PopularPeopleAPI::class.java)
+        val service = retrofit.create(API::class.java)
 
-        servicePeople.getPopularPeople(api_key).enqueue(retrofitCallback{ throwable, response ->
+        service.getPopularPeople(api_key, track.text.toString().toInt()).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
                 if(it.isSuccessful) {
-                    rViewT.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
-                    rViewT.adapter = PeopleAdapter(this, it.body()!!.results, false)
+                    rView1.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
+                    rView1.adapter = PeopleAdapter(this, it.body()!!, false)
                 }
             }
         })
@@ -149,27 +178,29 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_home -> {
-                lLayout5.isVisible = true
-                lLayout4.isVisible = true
-                lLayout3.isVisible = true
-                lLayout2.isVisible = true
-                rViewTR.isVisible = true
-                rViewP.isVisible = true
-                rViewU.isVisible = true
-                rViewNP.isVisible = true
-                view1.text = "  Trending"
+                lastLayout.isVisible = false
+                btn5.isVisible = true
+                btn4.isVisible = true
+                btn3.isVisible = true
+                btn2.isVisible = true
+                rView5.isVisible = true
+                rView4.isVisible = true
+                rView3.isVisible = true
+                rView2.isVisible = true
+                btn1.text = "  Trending"
                 onOpen()
             }
             R.id.nav_people -> {
-                lLayout5.isVisible = false
-                lLayout4.isVisible = false
-                lLayout3.isVisible = false
-                lLayout2.isVisible = false
-                rViewTR.isVisible = false
-                rViewP.isVisible = false
-                rViewU.isVisible = false
-                rViewNP.isVisible = false
-                view1.text = "  Popular People"
+                lastLayout.isVisible = true
+                btn5.isVisible = false
+                btn4.isVisible = false
+                btn3.isVisible = false
+                btn2.isVisible = false
+                rView5.isVisible = false
+                rView4.isVisible = false
+                rView3.isVisible = false
+                rView2.isVisible = false
+                btn1.text = "  Popular People"
                 onOpen1()
             }
             R.id.nav_slideshow -> {

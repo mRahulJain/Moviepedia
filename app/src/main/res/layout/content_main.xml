@@ -7,6 +7,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/app_bar_main"
+        android:background="@android:color/black"
         tools:context=".MainActivity">
     <ScrollView
             android:layout_width="match_parent"
@@ -15,136 +16,139 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-            <LinearLayout
-                    android:id="@+id/lLayout1"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                <TextView
-                        android:id="@+id/view1"
+                <Button
+                        android:drawableRight="@drawable/ic_keyboard_arrow_right"
+                        android:background="@android:color/black"
+                        android:textColor="@android:color/white"
+                        android:id="@+id/btn1"
                         android:layout_weight="1"
                         android:layout_margin="10dp"
+                        android:gravity="left"
                         android:text="  Trending"
                         android:textSize="30dp"
-                        android:drawableLeft="@drawable/ic_trending_up"
-                        android:layout_width="wrap_content"
+                        android:drawableLeft="@drawable/ic_star_black"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
-                <ImageButton
-                        android:background="@android:color/white"
-                        android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"/>
-            </LinearLayout>
+
             <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rViewT"
+                    android:id="@+id/rView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <Button
+                    android:drawableRight="@drawable/ic_keyboard_arrow_right"
+                    android:background="@android:color/black"
+                    android:textColor="@android:color/white"
+                    android:id="@+id/btn2"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp"
+                    android:gravity="left"
+                    android:text="  Now Playing"
+                    android:textSize="30dp"
+                    android:drawableLeft="@drawable/ic_star_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <Button
+                    android:drawableRight="@drawable/ic_keyboard_arrow_right"
+                    android:background="@android:color/black"
+                    android:textColor="@android:color/white"
+                    android:id="@+id/btn3"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp"
+                    android:gravity="left"
+                    android:text="  Upcoming"
+                    android:textSize="30dp"
+                    android:drawableLeft="@drawable/ic_star_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <Button
+                    android:drawableRight="@drawable/ic_keyboard_arrow_right"
+                    android:background="@android:color/black"
+                    android:textColor="@android:color/white"
+                    android:id="@+id/btn4"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp"
+                    android:gravity="left"
+                    android:text="  Popular"
+                    android:textSize="30dp"
+                    android:drawableLeft="@drawable/ic_star_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <Button
+                    android:drawableRight="@drawable/ic_keyboard_arrow_right"
+                    android:background="@android:color/black"
+                    android:textColor="@android:color/white"
+                    android:id="@+id/btn5"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp"
+                    android:gravity="left"
+                    android:text="  Top Rated"
+                    android:textSize="30dp"
+                    android:drawableLeft="@drawable/ic_star_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rView5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
             </androidx.recyclerview.widget.RecyclerView>
             <LinearLayout
-                    android:id="@+id/lLayout2"
-                    android:orientation="horizontal"
+                    android:id="@+id/lastLayout"
+                    android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                <TextView
-                        android:id="@+id/view2"
-                        android:layout_weight="1"
-                        android:layout_margin="10dp"
-                        android:text="  Now Playing"
-                        android:textSize="30dp"
-                        android:drawableLeft="@drawable/ic_play_arrow"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
                 <ImageButton
-                        android:background="@android:color/white"
-                        android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"/>
-            </LinearLayout>
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rViewNP"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-            </androidx.recyclerview.widget.RecyclerView>
-            <LinearLayout
-                    android:id="@+id/lLayout3"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                <TextView
-                        android:id="@+id/view3"
-                        android:layout_weight="1"
+                        android:id="@+id/backward"
                         android:layout_margin="10dp"
-                        android:text="  Upcoming"
-                        android:textSize="30dp"
-                        android:drawableLeft="@drawable/ic_event_available"
+                        android:background="@android:color/black"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_keyboard_arrow_left"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
-                <ImageButton
-                        android:background="@android:color/white"
-                        android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"/>
-            </LinearLayout>
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rViewU"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-            </androidx.recyclerview.widget.RecyclerView>
-            <LinearLayout
-                    android:id="@+id/lLayout4"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"/>
                 <TextView
-                        android:id="@+id/view4"
-                        android:layout_weight="1"
-                        android:layout_margin="10dp"
-                        android:text="  Popular"
-                        android:textSize="30dp"
-                        android:drawableLeft="@drawable/ic_favorite_border"
+                        android:textColor="@android:color/white"
+                        android:text="1"
+                        android:textSize="20sp"
+                        android:id="@+id/track"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="wrap_content"/>
                 <ImageButton
-                        android:background="@android:color/white"
-                        android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"/>
-            </LinearLayout>
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rViewP"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-            </androidx.recyclerview.widget.RecyclerView>
-            <LinearLayout
-                    android:id="@+id/lLayout5"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                <TextView
-                        android:id="@+id/view5"
-                        android:layout_weight="1"
+                        android:id="@+id/forward"
                         android:layout_margin="10dp"
-                        android:text="  Top Rated"
-                        android:textSize="30dp"
-                        android:drawableLeft="@drawable/ic_vertical_align"
+                        android:background="@android:color/black"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_keyboard_arrow_right"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
-                <ImageButton
-                        android:background="@android:color/white"
-                        android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="wrap_content"/>
             </LinearLayout>
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rViewTR"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-            </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
     </ScrollView>
 

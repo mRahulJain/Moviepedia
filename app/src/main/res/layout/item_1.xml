@@ -6,6 +6,7 @@
         android:layout_margin="10dp"
         android:elevation="10dp"
         app:cardCornerRadius="4dp"
+        android:id="@+id/parentLayout"
         android:layout_width="200dp"
         android:layout_height="250dp">
 
@@ -14,10 +15,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <ImageView
+                android:src="@drawable/ic_cloud_download"
+                android:layout_gravity="center"
+                android:background="@android:color/black"
                 android:id="@+id/iView"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"/>
         <TextView
+                android:gravity="center"
+                android:background="@android:color/black"
+                android:textColor="@android:color/white"
                 android:id="@+id/tView"
                 android:textSize="20sp"
                 android:layout_width="match_parent"

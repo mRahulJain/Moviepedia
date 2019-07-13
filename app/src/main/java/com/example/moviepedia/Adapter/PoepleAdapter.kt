@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.moviepedia.DataClass.People_results
+import com.example.moviepedia.DataClass.People
 import com.example.moviepedia.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_1.view.*
 
-class PeopleAdapter(val context: Context, val nameList: ArrayList<People_results>, val check : Boolean) : RecyclerView.Adapter<PeopleAdapter.NameViewHolder>() {
+class PeopleAdapter(val context: Context, val nameList: People, val check : Boolean) : RecyclerView.Adapter<PeopleAdapter.NameViewHolder>() {
 
     val baseURL = "https://image.tmdb.org/t/p/w342/"
 
@@ -22,16 +22,16 @@ class PeopleAdapter(val context: Context, val nameList: ArrayList<People_results
 
     override fun getItemCount(): Int {
         if(check==false) {
-            return nameList.size
+            return nameList.results.size
         }
         return 0
     }
 
     override fun onBindViewHolder(holder: PeopleAdapter.NameViewHolder, position: Int) {
         if(check==false) {
-            holder.itemView.tView.text = nameList[position].name
+            holder.itemView.tView.text = nameList.results[position].name
 
-            val target = nameList[position].profile_path
+            val target = nameList.results[position].profile_path
             Picasso.with(this.context).load(baseURL + target).into(holder.itemView.iView)
         }
     }

@@ -1,0 +1,113 @@
+package com.example.moviepedia
+
+import android.annotation.SuppressLint
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import androidx.recyclerview.widget.GridLayoutManager
+import com.example.moviepedia.Adapter.CommonAdapter
+import com.example.moviepedia.Api.API
+import kotlinx.android.synthetic.main.activity_second.*
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
+class SecondAct : AppCompatActivity() {
+
+    val media_type = "all"
+    val time_window = "week"
+    val api_key: String = "40c1d09ce2457ccd5cabde67ee04c652"
+    val retrofit = Retrofit.Builder()
+        .baseUrl("https://api.themoviedb.org/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+    lateinit var type : String
+    var maxLimit : Int = 0
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_second)
+
+        type = intent.getStringExtra("type")
+        textDest.text = type
+        if(type=="Trending") {
+            maxLimit = 1000
+            toBeCalled()
+        } else if(type == "Now Playing") {
+            maxLimit = 47
+            toBeCalled()
+        } else if(type == "Upcoming") {
+            maxLimit = 11
+            toBeCalled()
+        } else if(type == "Popular") {
+            maxLimit = 996
+            toBeCalled()
+        } else if(type == "Top Rated") {
+            maxLimit = 371
+            toBeCalled()
+        }
+
+        forwardN.setOnClickListener {
+            if(trackN.text.toString().toInt() == maxLimit) {
+                return@setOnClickListener
+            }
+            trackN.text = ((trackN.text.toString().toInt()) + 1).toString()
+            toBeCalled()
+        }
+        backwardN.setOnClickListener {
+            if(trackN.text.toString().toInt()==1) {
+                return@setOnClickListener
+            }
+            trackN.text = ((trackN.text.toString().toInt()) - 1).toString()
+            toBeCalled()
+        }
+    }
+
+    @SuppressLint("WrongConstant")
+    fun toBeCalled() {
+        val service = retrofit.create(API::class.java)
+        if(type=="Trending") {
+            service.getTrending(media_type, time_window, api_key, trackN.text.toString()).enqueue(retrofitCallback{ throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                        rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                        rView.adapter = TrendingAdapter(this, it.body()!!.results)
+                    }
+                }
+            })
+        } else if(type == "Now Playing") {
+            service.getNowPlaying(api_key, trackN.text.toString()).enqueue(retrofitCallback{ throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                        rView.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
+                        rView.adapter = CommonAdapter(this, it.body()!!.results, false)
+                    }
+                }
+            })
+        } else if(type == "Upcoming") {
+            service.getUpcoming(api_key, trackN.text.toString()).enqueue(retrofitCallback{ throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                        rView.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
+                        rView.adapter = CommonAdapter(this, it.body()!!.results, false)
+                    }
+                }
+            })
+        } else if(type == "Popular") {
+            service.getPopular(api_key, trackN.text.toString()).enqueue(retrofitCallback{ throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                        rView.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
+                        rView.adapter = CommonAdapter(this, it.body()!!.results, false)
+                    }
+                }
+            })
+        } else if(type == "Top Rated") {
+            service.getTopRated(api_key, trackN.text.toString()).enqueue(retrofitCallback{ throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                        rView.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
+                        rView.adapter = CommonAdapter(this, it.body()!!.results, false)
+                    }
+                }
+            })
+        }
+    }
+}
