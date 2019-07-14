@@ -7,6 +7,7 @@ data class Common(
 )
 
 data class Common_results(
+    val id : String,
     val original_title : String,
     val poster_path : String
 )

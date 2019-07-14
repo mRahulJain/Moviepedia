@@ -7,6 +7,12 @@ data class People(
 )
 
 data class People_results(
+    val id : String,
     val name : String,
     val profile_path : String
+)
+
+data class People_search(
+    val profile_path : String,
+    val name : String
 )

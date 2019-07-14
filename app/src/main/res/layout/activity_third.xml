@@ -1,43 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:fitsSystemWindows="true"
         tools:context=".ThirdAct">
-    <ScrollView
+
+    <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:fitsSystemWindows="true"
+            android:background="@android:color/black"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-        <com.google.android.material.appbar.AppBarLayout
-                android:theme="@style/AppTheme.AppBarOverlay"
-                android:id="@+id/appBar"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapseToolBar"
+                android:fitsSystemWindows="true"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                    app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-                    app:contentScrim="@color/colorPrimary"
-                    android:id="@+id/collapseToolBar"
+                android:layout_height="match_parent"
+                app:toolbarId="@+id/toolbar"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:contentScrim="?attr/colorPrimary">
+            <ImageView
+                    android:id="@+id/iView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                <ImageView
-                        android:id="@+id/iView"
-                        android:scaleType="centerCrop"
-                        android:layout_width="match_parent"
-                        android:layout_height="250dp"/>
-                <androidx.appcompat.widget.Toolbar
-                        app:popupTheme="@style/AppTheme.AppBarOverlay"
-                        android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize">
+                    android:layout_height="500dp"/>
 
-                </androidx.appcompat.widget.Toolbar>
+            <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_width="match_parent"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"/>
 
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-        </com.google.android.material.appbar.AppBarLayout>
-    </ScrollView>
-
+    <include layout="@layout/content_scrolling"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

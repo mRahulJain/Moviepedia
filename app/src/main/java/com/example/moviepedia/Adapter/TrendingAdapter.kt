@@ -37,6 +37,7 @@ class TrendingAdapter(val context: Context,val nameList: ArrayList<Trending_resu
         holder.itemView.parentLayout.setOnClickListener {
             var intent = Intent(context, ThirdAct::class.java)
             intent.putExtra("id", nameList[position].id)
+            intent.putExtra("type", "Movie")
             startActivity(context, intent, null)
         }
     }

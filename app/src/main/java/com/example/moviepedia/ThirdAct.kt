@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ThirdAct : AppCompatActivity() {
 
-    val baseURL = "https://image.tmdb.org/t/p/w185/"
+    val baseURL = "https://image.tmdb.org/t/p/original/"
     val api_key: String = "40c1d09ce2457ccd5cabde67ee04c652"
     val retrofit = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/")
@@ -24,18 +24,41 @@ class ThirdAct : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_third)
 
-        collapseToolBar.title = "RAHUL"
+        setSupportActionBar(toolbar)
+
+        collapseToolBar.title = "Loading..."
         val id = intent.getStringExtra("id").toInt()
+        val type = intent.getStringExtra("type")
 
         val service = retrofit.create(API::class.java)
-        service.getMovie(id, api_key).enqueue(retrofitCallback{ throwable, response ->
-            response?.let {
-                if(it.isSuccessful) {
-                    collapseToolBar.title = it.body()!!.original_title
-                    Picasso.with(this).load(baseURL + it.body()!!.poster_path).into(iView)
+        if(type=="Movie") {
+            service.getMovie(id, api_key).enqueue(retrofitCallback{ throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                        collapseToolBar.title = it.body()!!.original_title
+                        Picasso
+                            .with(this)
+                            .load(baseURL + it.body()!!.poster_path)
+                            .resize(450,500)
+                            .into(iView)
+                    }
                 }
-            }
-        })
+            })
+        } else {
+            service.getPeope(id, api_key).enqueue(retrofitCallback{ throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                        collapseToolBar.title = it.body()!!.name
+                        Picasso
+                            .with(this)
+                            .load(baseURL + it.body()!!.profile_path)
+                            .resize(450,500)
+                            .into(iView)
+                    }
+                }
+            })
+        }
+
 
 
     }
