@@ -3,6 +3,7 @@ package com.example.moviepedia.Api
 import com.example.moviepedia.DataClass.Common
 import com.example.moviepedia.DataClass.People
 import com.example.moviepedia.DataClass.People_search
+import com.example.moviepedia.Movie_review_search
 import com.example.moviepedia.Movie_search
 import com.example.moviepedia.Trending
 import retrofit2.Call
@@ -23,6 +24,18 @@ interface API {
         @Path("id") id : Int,
         @Query("api_key") key : String
     ) : Call<Movie_search>
+
+    @GET("3/movie/{id}/similar")
+    fun getSimilarMovie(
+        @Path("id") id : Int,
+        @Query("api_key") key : String
+    ) : Call<Common>
+
+    @GET("3/movie/{id}/reviews")
+    fun getReview(
+        @Path("id") id : Int,
+        @Query("api_key") key : String
+    ) : Call<Movie_review_search>
 
     @GET("3/person/{id}")
     fun getPeope(

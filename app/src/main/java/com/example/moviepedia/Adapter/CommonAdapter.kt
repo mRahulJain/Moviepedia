@@ -2,6 +2,7 @@ package com.example.moviepedia.Adapter
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +34,7 @@ class CommonAdapter(val context: Context, val nameList: ArrayList<Common_results
     override fun onBindViewHolder(holder: CommonAdapter.NameViewHolder, position: Int) {
         if(check==false) {
             holder.itemView.tView.text = nameList[position].original_title
-
+            Log.d("CHECK", "${holder.itemView.tView.text}")
             val target = nameList[position].poster_path
             Picasso.with(this.context).load(baseURL + target).into(holder.itemView.iView)
 

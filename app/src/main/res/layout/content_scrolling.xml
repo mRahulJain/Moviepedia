@@ -7,12 +7,119 @@
         tools:showIn="@layout/activity_third"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/black"
         tools:context=".ThirdAct">
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+    <LinearLayout
             android:layout_margin="10dp"
-            android:text="RAHUL JAIN"/>
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+                android:textColor="@android:color/white"
+                tools:text = "Overview"
+                android:textSize="25sp"
+                android:id="@+id/tVTagline"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"/>
+        <TextView
+                android:textColor="@android:color/white"
+                tools:text = "Overview"
+                android:textSize="15sp"
+                android:id="@+id/tVoverview"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"/>
+        <TextView
+                android:textColor="@android:color/white"
+                android:gravity="right"
+                tools:text="2019-06-05"
+                android:textSize="20sp"
+                android:id="@+id/tVreleaseDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:textStyle="bold"/>
+        <TextView
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:text="Similar Movies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="10dp"
+                android:id="@+id/rViewSimilar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
+        <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:textColor="@android:color/white"
+                    android:gravity="left"
+                    android:text = "Genre :"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+            <TextView
+                    android:textColor="@android:color/white"
+                    tools:text = "Horror"
+                    android:textSize="15sp"
+                    android:id="@+id/tVgenre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <TextView
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/white"
+                android:background="@android:color/black"
+                android:gravity="left"
+                android:text = "Reviews :"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="10dp"
+                android:id="@+id/rViewreview"
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+        <TextView
+                android:textColor="@android:color/white"
+                android:textSize="10sp"
+                android:text="Add a review here.."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <EditText
+                    android:background="@color/cardview_dark_background"
+                    android:layout_weight="1"
+                    android:id="@+id/userReview"
+                    android:textColor="@android:color/white"
+                    android:gravity="left"
+                    android:textSize="30sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            <ImageButton
+                    android:background="@android:color/black"
+                    android:layout_gravity="center"
+                    android:src="@android:drawable/ic_menu_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+        </LinearLayout>
+
+        <Button
+                android:textColor="@android:color/white"
+                android:background="@android:color/black"
+                android:gravity="center"
+                android:text = "Browse videos here!"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+    </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
