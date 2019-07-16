@@ -20,10 +20,20 @@ data class PeopleWork(
     val cast : ArrayList<Details_work>
 )
 
+data class PeoplePhoto(
+    val profiles : ArrayList<Photo_work>
+)
+
 data class Details_work(
     val id : String,
     val original_title : String,
     val media_type : String,
     val poster_path : String
 )
+
+data class Photo_work(
+    val file_path : String
+)
+
+
 

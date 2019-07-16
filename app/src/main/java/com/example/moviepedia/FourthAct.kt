@@ -1,17 +1,17 @@
 package com.example.moviepedia
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.MovementMethod
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviepedia.Adapter.GetWorkAdapter
-import com.example.moviepedia.Adapter.PeopleAdapter
 import com.example.moviepedia.Api.API
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_fourth.*
-import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.content_scrolling_2.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -30,7 +30,7 @@ class FourthAct : AppCompatActivity() {
         setContentView(R.layout.activity_fourth)
 
         setSupportActionBar(toolbar)
-        tVbio.movementMethod = ScrollingMovementMethod()
+        tVbio.movementMethod = ScrollingMovementMethod() as MovementMethod?
 
         collapseToolBar.title = "Loading..."
         val id = intent.getStringExtra("id").toInt()
@@ -56,6 +56,7 @@ class FourthAct : AppCompatActivity() {
                     tVpopularity.setTextColor(Color.CYAN)
                     tVpopularity.text = it.body()!!.popularity + " / 100"
                     tVkfd.text = it.body()!!.known_for_department
+                    tVkfd.setTextColor(Color.CYAN)
                 }
             }
         })
@@ -68,5 +69,12 @@ class FourthAct : AppCompatActivity() {
                 }
             }
         })
+
+        getPhotos.setOnClickListener {
+            val intent = Intent(this, PhotoAct::class.java)
+            intent.putExtra("id", id.toString())
+            startActivity(intent)
+        }
+
     }
 }

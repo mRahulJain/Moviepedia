@@ -1,9 +1,6 @@
 package com.example.moviepedia.Api
 
-import com.example.moviepedia.DataClass.Common
-import com.example.moviepedia.DataClass.People
-import com.example.moviepedia.DataClass.PeopleWork
-import com.example.moviepedia.DataClass.People_results
+import com.example.moviepedia.DataClass.*
 import com.example.moviepedia.Movie_review_search
 import com.example.moviepedia.Movie_search
 import com.example.moviepedia.Trending
@@ -61,6 +58,12 @@ interface API {
         @Path("id") id : Int,
         @Query("api_key") key : String
     ) : Call<PeopleWork>
+
+    @GET("3/person/{id}/images")
+    fun getPhoto(
+        @Path("id") id : Int,
+        @Query("api_key") key : String
+    ) : Call<PeoplePhoto>
 
     @GET("3/movie/top_rated")
     fun getTopRated(
