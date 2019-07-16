@@ -177,7 +177,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_home -> {
+            R.id.nav_movie -> {
                 lastLayout.isVisible = false
                 btn5.isVisible = true
                 btn4.isVisible = true
@@ -203,16 +203,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 btn1.text = "  Popular People"
                 onOpen1()
             }
-            R.id.nav_slideshow -> {
+            R.id.nav_tv -> {
 
             }
-            R.id.nav_tools -> {
+            R.id.nav_fav -> {
 
             }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
+            R.id.nav_watchList -> {
 
             }
         }

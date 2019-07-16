@@ -5,33 +5,31 @@
 
     <group android:checkableBehavior="single">
         <item
-                android:id="@+id/nav_home"
-                android:icon="@drawable/ic_home_black"
-                android:title="@string/menu_home"/>
+                android:id="@+id/nav_movie"
+                android:icon="@drawable/ic_movie_black"
+                android:title="Movie"/>
+
+        <item
+                android:id="@+id/nav_tv"
+                android:icon="@drawable/ic_tv_black"
+                android:title="TV"/>
+
         <item
                 android:id="@+id/nav_people"
                 android:icon="@drawable/ic_people_black"
                 android:title="People"/>
-        <item
-                android:id="@+id/nav_slideshow"
-                android:icon="@drawable/ic_menu_slideshow"
-                android:title="@string/menu_slideshow"/>
-        <item
-                android:id="@+id/nav_tools"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="@string/menu_tools"/>
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Your Place">
         <menu>
             <item
-                    android:id="@+id/nav_share"
-                    android:icon="@drawable/ic_menu_share"
-                    android:title="@string/menu_share"/>
+                    android:id="@+id/nav_fav"
+                    android:icon="@drawable/ic_favorite_black"
+                    android:title="Favourite"/>
             <item
-                    android:id="@+id/nav_send"
-                    android:icon="@drawable/ic_menu_send"
-                    android:title="@string/menu_send"/>
+                    android:id="@+id/nav_watchList"
+                    android:icon="@drawable/ic_bookmark_black"
+                    android:title="Watchlist"/>
         </menu>
     </item>
 

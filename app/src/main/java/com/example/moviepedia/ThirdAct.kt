@@ -52,6 +52,7 @@ class ThirdAct : AppCompatActivity() {
                         tVreleaseDate.text = "Release date : "
                         tVreleaseDate.text = tVreleaseDate.text.toString() + it.body()!!.release_date
                         tVoverview.text = it.body()!!.overview
+                        tVvote.text = it.body()!!.vote_average + " / 10 "
                         tVgenre.text = " "
                         for(i in it.body()!!.genres) {
                             tVgenre.setText(tVgenre.text.toString() + i.name + ", ")

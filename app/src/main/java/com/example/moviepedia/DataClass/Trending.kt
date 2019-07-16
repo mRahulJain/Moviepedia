@@ -21,8 +21,7 @@ data class Movie_search(
     val overview : String,
     val release_date : String,
     val tagline : String,
-    val vote_average : String,
-    val vote_count : String
+    val vote_average : String
 )
 
 data class Movie_review_search(
