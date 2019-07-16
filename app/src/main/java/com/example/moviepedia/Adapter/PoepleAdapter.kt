@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviepedia.DataClass.People
+import com.example.moviepedia.FourthAct
 import com.example.moviepedia.R
 import com.example.moviepedia.ThirdAct
 import com.squareup.picasso.Picasso
@@ -39,9 +40,8 @@ class PeopleAdapter(val context: Context, val nameList: People, val check : Bool
         }
 
         holder.itemView.parentLayout.setOnClickListener {
-            var intent = Intent(context, ThirdAct::class.java)
+            var intent = Intent(context, FourthAct::class.java)
             intent.putExtra("id", nameList.results[position].id)
-            intent.putExtra("type", "People")
             ContextCompat.startActivity(context, intent, null)
         }
     }

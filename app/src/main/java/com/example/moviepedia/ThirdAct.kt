@@ -3,16 +3,12 @@ package com.example.moviepedia
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviepedia.Adapter.CommonAdapter
 import com.example.moviepedia.Adapter.ReviewAdapter
 import com.example.moviepedia.Api.API
-import com.example.moviepedia.DataClass.Common_results
-import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_third.*
-import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.content_scrolling.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -34,10 +30,8 @@ class ThirdAct : AppCompatActivity() {
 
         collapseToolBar.title = "Loading..."
         val id = intent.getStringExtra("id").toInt()
-        val type = intent.getStringExtra("type")
 
         val service = retrofit.create(API::class.java)
-        if(type=="Movie") {
             service.getMovie(id, api_key).enqueue(retrofitCallback{ throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
@@ -76,22 +70,5 @@ class ThirdAct : AppCompatActivity() {
                     rViewreview.adapter = ReviewAdapter(this, it.body()!!.results)
                 }
             })
-        } else {
-            service.getPeope(id, api_key).enqueue(retrofitCallback{ throwable, response ->
-                response?.let {
-                    if(it.isSuccessful) {
-                        collapseToolBar.title = it.body()!!.name
-                        Picasso
-                            .with(this)
-                            .load(baseURL + it.body()!!.profile_path)
-                            .resize(450,600)
-                            .into(iView)
-                    }
-                }
-            })
-        }
-
-
-
     }
 }
