@@ -90,4 +90,54 @@ interface API {
         @Query("api_key") key : String,
         @Query("page") page : String
     ) : Call<Common>
+
+    @GET("3/tv/airing_today")
+    fun getTVAiringToday(
+        @Query("api_key") key : String
+    ) : Call<TV>
+
+    @GET("3/tv/on_the_air")
+    fun getTVonAir(
+        @Query("api_key") key : String
+    ) : Call<TV>
+
+    @GET("3/tv/popular")
+    fun getTVPopular(
+        @Query("api_key") key : String
+    ) : Call<TV>
+
+    @GET("3/tv/top_rated")
+    fun getTVTopRated(
+        @Query("api_key") key : String
+    ) : Call<TV>
+
+    @GET("3/tv/airing_today")
+    fun getTVAiringTodayF(
+        @Query("api_key") key : String,
+        @Query("page") page : String
+    ) : Call<TV>
+
+    @GET("3/tv/on_the_air")
+    fun getTVonAirF(
+        @Query("api_key") key : String,
+        @Query("page") page : String
+    ) : Call<TV>
+
+    @GET("3/tv/popular")
+    fun getTVPopularF(
+        @Query("api_key") key : String,
+        @Query("page") page : String
+    ) : Call<TV>
+
+    @GET("3/tv/top_rated")
+    fun getTVTopRatedF(
+        @Query("api_key") key : String,
+        @Query("page") page : String
+    ) : Call<TV>
+
+    @GET("3/tv/{id}")
+    fun getTV(
+        @Path("id") id : Int,
+        @Query("api_key") key : String
+    ) : Call<TV_details>
 }

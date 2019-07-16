@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviepedia.Adapter.CommonAdapter
+import com.example.moviepedia.Adapter.TVAdapter
 import com.example.moviepedia.Api.API
 import kotlinx.android.synthetic.main.activity_second.*
 import retrofit2.Retrofit
@@ -29,20 +30,17 @@ class SecondAct : AppCompatActivity() {
         textDest.text = type
         if(type=="Trending") {
             maxLimit = 1000
-            toBeCalled()
         } else if(type == "Now Playing") {
             maxLimit = 47
-            toBeCalled()
         } else if(type == "Upcoming") {
             maxLimit = 11
-            toBeCalled()
         } else if(type == "Popular") {
             maxLimit = 996
-            toBeCalled()
         } else if(type == "Top Rated") {
             maxLimit = 371
-            toBeCalled()
         }
+
+        toBeCalled()
 
         forwardN.setOnClickListener {
             if(trackN.text.toString().toInt() == maxLimit) {
@@ -105,6 +103,42 @@ class SecondAct : AppCompatActivity() {
                     if(it.isSuccessful) {
                         rView.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
                         rView.adapter = CommonAdapter(this, it.body()!!.results, false)
+                    }
+                }
+            })
+        } else if(type == "TV Airing Today") {
+            service.getTVAiringTodayF(api_key, trackN.text.toString()).enqueue(retrofitCallback{ throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                        rView.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
+                        rView.adapter = TVAdapter(this, it.body()!!.results)
+                    }
+                }
+            })
+        } else if(type == "TV On Air") {
+            service.getTVonAirF(api_key, trackN.text.toString()).enqueue(retrofitCallback{ throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                        rView.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
+                        rView.adapter = TVAdapter(this, it.body()!!.results)
+                    }
+                }
+            })
+        } else if(type == "TV Popular") {
+            service.getTVPopularF(api_key, trackN.text.toString()).enqueue(retrofitCallback{ throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                        rView.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
+                        rView.adapter = TVAdapter(this, it.body()!!.results)
+                    }
+                }
+            })
+        } else if(type == "TV Top Rated") {
+            service.getTVTopRatedF(api_key, trackN.text.toString()).enqueue(retrofitCallback{ throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                        rView.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
+                        rView.adapter = TVAdapter(this, it.body()!!.results)
                     }
                 }
             })

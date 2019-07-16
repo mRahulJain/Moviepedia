@@ -14,6 +14,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviepedia.Adapter.CommonAdapter
 import com.example.moviepedia.Adapter.PeopleAdapter
+import com.example.moviepedia.Adapter.TVAdapter
 import com.example.moviepedia.Api.*
 import kotlinx.android.synthetic.main.content_main.*
 import retrofit2.Retrofit
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         .baseUrl("https://api.themoviedb.org/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
+    var bool : Boolean = false
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,22 +62,38 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         btn1.setOnClickListener {
             var intent = Intent(this, SecondAct::class.java)
-            intent.putExtra("type", "Trending")
+            if(bool == true) {
+                intent.putExtra("type", "TV Airing Today")
+            } else {
+                intent.putExtra("type", "Trending")
+            }
             startActivity(intent)
         }
         btn2.setOnClickListener {
             var intent = Intent(this, SecondAct::class.java)
-            intent.putExtra("type", "Now Playing")
+            if(bool == true) {
+                intent.putExtra("type", "TV On Air")
+            } else {
+                intent.putExtra("type", "Now Playing")
+            }
             startActivity(intent)
         }
         btn3.setOnClickListener {
             var intent = Intent(this, SecondAct::class.java)
-            intent.putExtra("type", "Upcoming")
+            if(bool == true) {
+                intent.putExtra("type", "TV Popular")
+            } else {
+                intent.putExtra("type", "Upcoming")
+            }
             startActivity(intent)
         }
         btn4.setOnClickListener {
             var intent = Intent(this, SecondAct::class.java)
-            intent.putExtra("type", "Popular")
+            if(bool == true) {
+                intent.putExtra("type", "TV Top Rated")
+            } else {
+                intent.putExtra("type", "Popular")
+            }
             startActivity(intent)
         }
         btn5.setOnClickListener {
@@ -149,6 +167,46 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
+    fun onOpen2() {
+        val service = retrofit.create(API::class.java)
+
+        service.getTVAiringToday(api_key).enqueue(retrofitCallback{ throwable, response ->
+            response?.let {
+                if(it.isSuccessful) {
+                    rView1.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
+                    rView1.adapter = TVAdapter(this, it.body()!!.results)
+                }
+            }
+        })
+
+        service.getTVonAir(api_key).enqueue(retrofitCallback{ throwable, response ->
+            response?.let {
+                if(it.isSuccessful) {
+                    rView2.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
+                    rView2.adapter = TVAdapter(this, it.body()!!.results)
+                }
+            }
+        })
+
+        service.getTVPopular(api_key).enqueue(retrofitCallback{ throwable, response ->
+            response?.let {
+                if(it.isSuccessful) {
+                    rView3.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
+                    rView3.adapter = TVAdapter(this, it.body()!!.results)
+                }
+            }
+        })
+
+        service.getTVTopRated(api_key).enqueue(retrofitCallback{ throwable, response ->
+            response?.let {
+                if(it.isSuccessful) {
+                    rView4.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
+                    rView4.adapter = TVAdapter(this, it.body()!!.results)
+                }
+            }
+        })
+    }
+
     override fun onBackPressed() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -178,6 +236,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_movie -> {
+                bool = false
+                btn1.isClickable = true
                 lastLayout.isVisible = false
                 btn5.isVisible = true
                 btn4.isVisible = true
@@ -191,6 +251,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen()
             }
             R.id.nav_people -> {
+                btn1.isClickable = false
                 lastLayout.isVisible = true
                 btn5.isVisible = false
                 btn4.isVisible = false
@@ -204,7 +265,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen1()
             }
             R.id.nav_tv -> {
-
+                bool = true
+                btn1.isClickable = true
+                lastLayout.isVisible = false
+                btn5.isVisible = false
+                btn4.isVisible = true
+                btn3.isVisible = true
+                btn2.isVisible = true
+                rView5.isVisible = false
+                rView4.isVisible = true
+                rView3.isVisible = true
+                rView2.isVisible = true
+                btn1.text = "  TV Airing Today"
+                btn2.text = "  TV On Air"
+                btn3.text = "  TV Popular"
+                btn4.text = "  TV Top Rated"
+                onOpen2()
             }
             R.id.nav_fav -> {
 

@@ -3,12 +3,9 @@ package com.example.moviepedia
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.moviepedia.Adapter.PhotoAdapter
 import com.example.moviepedia.Adapter.VideoAdapter
 import com.example.moviepedia.Api.API
-import kotlinx.android.synthetic.main.activity_photo.*
 import kotlinx.android.synthetic.main.activity_video.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
