@@ -1,5 +1,6 @@
 package com.example.moviepedia
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -70,5 +71,11 @@ class ThirdAct : AppCompatActivity() {
                     rViewreview.adapter = ReviewAdapter(this, it.body()!!.results)
                 }
             })
+
+        browseVideo.setOnClickListener {
+            val intent = Intent(this, VideoActivity::class.java)
+            intent.putExtra("id", id.toString())
+            startActivity(intent)
+        }
     }
 }

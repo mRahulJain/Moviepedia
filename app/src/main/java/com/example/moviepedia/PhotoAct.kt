@@ -41,7 +41,6 @@ class PhotoAct : AppCompatActivity() {
         setContentView(R.layout.activity_photo)
 
         val id = intent.getStringExtra("id").toInt()
-        Log.d("CHECKid", "$id")
 
         val photoService = retrofit.create(API::class.java)
         photoService.getPhoto(id,api_key).enqueue(retrofitCallback{ throwable, response ->

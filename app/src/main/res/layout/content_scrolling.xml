@@ -127,6 +127,7 @@
         </LinearLayout>
 
         <Button
+                android:id="@+id/browseVideo"
                 android:textColor="@android:color/white"
                 android:background="@android:color/black"
                 android:gravity="center"

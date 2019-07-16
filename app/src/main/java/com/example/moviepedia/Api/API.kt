@@ -53,6 +53,12 @@ interface API {
         @Query("page") number : Int
     ) : Call<People>
 
+    @GET("3/movie/{id}/videos")
+    fun getVideo(
+        @Path("id") id : Int,
+        @Query("api_key") key : String
+    ) : Call<Video>
+
     @GET("3/person/{id}/combined_credits")
     fun getPeopleWork(
         @Path("id") id : Int,

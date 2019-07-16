@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:elevation="10dp"
+        app:cardCornerRadius="4dp"
+        android:id="@+id/pL"
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:background="@android:color/black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <ImageView
+                android:id="@+id/iViewPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="270dp"/>
+        <TextView
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:id="@+id/tVvideoName"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"/>
+    </LinearLayout>
+
+
+
+</androidx.cardview.widget.CardView>
