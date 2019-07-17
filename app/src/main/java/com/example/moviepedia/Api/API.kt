@@ -175,4 +175,10 @@ interface API {
         @Path("id") id : Int,
         @Query("api_key") key : String
     ) : Call<Movie_review_search>
+
+    @GET("3/search/multi")
+    fun getSearch(
+        @Query("api_key") key : String,
+        @Query("query") query : String
+    ) : Call<Search>
 }

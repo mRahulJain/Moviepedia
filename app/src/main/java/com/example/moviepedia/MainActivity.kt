@@ -14,6 +14,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviepedia.Adapter.CommonAdapter
 import com.example.moviepedia.Adapter.PeopleAdapter
+import com.example.moviepedia.Adapter.SearchAdapter
 import com.example.moviepedia.Adapter.TVAdapter
 import com.example.moviepedia.Api.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -24,12 +25,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     val media_type = "all"
     val time_window = "week"
-    val api_key: String = "40c1d09ce2457ccd5cabde67ee04c652"
+    val api_key: String = "<API_KEY>"
     val retrofit = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
     var bool : Boolean = false
+    var type : String = "Movie"
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +51,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         navView.setNavigationItemSelectedListener(this)
         onOpen()
-
+        layoutSearch.isVisible = false
         lastLayout.isVisible = false
         forward.setOnClickListener {
             track.text = (track.text.toString().toInt() + 1).toString()
@@ -100,6 +102,87 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             var intent = Intent(this, SecondAct::class.java)
             intent.putExtra("type", "Top Rated")
             startActivity(intent)
+        }
+
+        backSearch.setOnClickListener {
+            eTSearch.setText("")
+            if(type == "Movie") {
+                type = "Movie"
+                layoutSearch.isVisible = false
+                bool = false
+                btn1.isClickable = true
+                lastLayout.isVisible = false
+                btn5.isVisible = true
+                btn4.isVisible = true
+                btn3.isVisible = true
+                btn2.isVisible = true
+                rView5.isVisible = true
+                rView4.isVisible = true
+                rView3.isVisible = true
+                rView2.isVisible = true
+                btn1.text = "  Trending"
+                onOpen()
+            } else if(type == "People") {
+                type = "People"
+                layoutSearch.isVisible = false
+                btn1.isClickable = false
+                lastLayout.isVisible = true
+                btn5.isVisible = false
+                btn4.isVisible = false
+                btn3.isVisible = false
+                btn2.isVisible = false
+                rView5.isVisible = false
+                rView4.isVisible = false
+                rView3.isVisible = false
+                rView2.isVisible = false
+                btn1.text = "  Popular People"
+                onOpen1()
+            } else if(type == "TV") {
+                type = "TV"
+                layoutSearch.isVisible = false
+                bool = true
+                btn1.isClickable = true
+                lastLayout.isVisible = false
+                btn5.isVisible = false
+                btn4.isVisible = true
+                btn3.isVisible = true
+                btn2.isVisible = true
+                rView5.isVisible = false
+                rView4.isVisible = true
+                rView3.isVisible = true
+                rView2.isVisible = true
+                btn1.text = "  TV Airing Today"
+                btn2.text = "  TV On Air"
+                btn3.text = "  TV Popular"
+                btn4.text = "  TV Top Rated"
+                onOpen2()
+            }
+        }
+
+        goSearch.setOnClickListener {
+            val text = eTSearch.text.toString()
+            if(text == "") {
+                return@setOnClickListener
+            }
+            btn1.isVisible = false
+            lastLayout.isVisible = false
+            btn5.isVisible = false
+            btn4.isVisible = false
+            btn3.isVisible = false
+            btn2.isVisible = false
+            rView5.isVisible = false
+            rView4.isVisible = false
+            rView3.isVisible = false
+            rView2.isVisible = false
+            val serviceSearch = retrofit.create(API::class.java)
+            serviceSearch.getSearch(api_key, text).enqueue(retrofitCallback{ throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                        rView1.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
+                        rView1.adapter = SearchAdapter(this, it.body()!!.results)
+                    }
+                }
+            })
         }
     }
 
@@ -226,16 +309,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
+        when(item.itemId) {
+            R.id.search -> {
+                eTSearch.setText("")
+                layoutSearch.isVisible = !layoutSearch.isVisible
+            }
         }
+        return true
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_movie -> {
+                type = "Movie"
+                layoutSearch.isVisible = false
                 bool = false
                 btn1.isClickable = true
                 lastLayout.isVisible = false
@@ -251,6 +339,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen()
             }
             R.id.nav_people -> {
+                type = "People"
+                layoutSearch.isVisible = false
                 btn1.isClickable = false
                 lastLayout.isVisible = true
                 btn5.isVisible = false
@@ -265,6 +355,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen1()
             }
             R.id.nav_tv -> {
+                type = "TV"
+                layoutSearch.isVisible = false
                 bool = true
                 btn1.isClickable = true
                 lastLayout.isVisible = false

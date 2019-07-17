@@ -9,7 +9,6 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_1.view.*
-import java.security.AccessController.getContext
 
 class TrendingAdapter(val context: Context,val nameList: ArrayList<Trending_results>) : RecyclerView.Adapter<TrendingAdapter.NameViewHolder>() {
 
