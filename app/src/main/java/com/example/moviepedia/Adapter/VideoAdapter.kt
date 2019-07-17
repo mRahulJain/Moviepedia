@@ -3,17 +3,14 @@ package com.example.moviepedia.Adapter
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebChromeClient
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviepedia.DataClass.Video
 import com.example.moviepedia.R
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.item_4.view.iViewPhoto
-import kotlinx.android.synthetic.main.item_5.*
 import kotlinx.android.synthetic.main.item_5.view.*
 import kotlinx.android.synthetic.main.item_5.view.iViewVideo
 
@@ -33,15 +30,13 @@ class VideoAdapter(val context: Context, val nameList: Video) : RecyclerView.Ada
 
     override fun onBindViewHolder(holder: VideoAdapter.NameViewHolder, position: Int) {
         holder.itemView.tVvideoName.text = nameList.results[position].name
-        baseURL = baseURL + nameList.results[position].key
         holder.itemView.iViewVideo.setOnClickListener {
             var i = Intent()
             i.action = Intent.ACTION_VIEW
-            i.data = Uri.parse(baseURL)
+            i.data = Uri.parse(baseURL + nameList.results[position].key)
             startActivity(context, i, null)
         }
     }
-
 
     class NameViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }

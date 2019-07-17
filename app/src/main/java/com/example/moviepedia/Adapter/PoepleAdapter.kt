@@ -8,13 +8,14 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviepedia.DataClass.People
+import com.example.moviepedia.DataClass.People_results
 import com.example.moviepedia.FourthAct
 import com.example.moviepedia.R
 import com.example.moviepedia.ThirdAct
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_1.view.*
 
-class PeopleAdapter(val context: Context, val nameList: People, val check : Boolean) : RecyclerView.Adapter<PeopleAdapter.NameViewHolder>() {
+class PeopleAdapter(val context: Context, val nameList: ArrayList<People_results>, val check : Boolean) : RecyclerView.Adapter<PeopleAdapter.NameViewHolder>() {
 
     val baseURL = "https://image.tmdb.org/t/p/w342/"
 
@@ -26,22 +27,22 @@ class PeopleAdapter(val context: Context, val nameList: People, val check : Bool
 
     override fun getItemCount(): Int {
         if(check==false) {
-            return nameList.results.size
+            return nameList.size
         }
         return 0
     }
 
     override fun onBindViewHolder(holder: PeopleAdapter.NameViewHolder, position: Int) {
         if(check==false) {
-            holder.itemView.tView.text = nameList.results[position].name
+            holder.itemView.tView.text = nameList[position].name
 
-            val target = nameList.results[position].profile_path
+            val target = nameList[position].profile_path
             Picasso.with(this.context).load(baseURL + target).into(holder.itemView.iView)
         }
 
         holder.itemView.parentLayout.setOnClickListener {
             var intent = Intent(context, FourthAct::class.java)
-            intent.putExtra("id", nameList.results[position].id)
+            intent.putExtra("id", nameList[position].id)
             ContextCompat.startActivity(context, intent, null)
         }
     }

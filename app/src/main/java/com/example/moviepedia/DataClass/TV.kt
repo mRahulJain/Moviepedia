@@ -16,3 +16,7 @@ data class TV_details(
     val poster_path : String,
     val first_air_date : String
 )
+
+data class TVCast(
+    val cast : ArrayList<People_results>
+)

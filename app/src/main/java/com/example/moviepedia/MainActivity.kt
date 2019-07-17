@@ -160,7 +160,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             response?.let {
                 if(it.isSuccessful) {
                     rView1.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
-                    rView1.adapter = PeopleAdapter(this, it.body()!!, false)
+                    rView1.adapter = PeopleAdapter(this, it.body()!!.results, false)
                 }
             }
         })

@@ -3,8 +3,10 @@ package com.example.moviepedia
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviepedia.Adapter.CommonAdapter
+import com.example.moviepedia.Adapter.PeopleAdapter
 import com.example.moviepedia.Adapter.TVAdapter
 import com.example.moviepedia.Api.API
 import kotlinx.android.synthetic.main.activity_second.*
@@ -26,6 +28,8 @@ class SecondAct : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
 
+        lastLayout.isVisible = true
+
         type = intent.getStringExtra("type")
         textDest.text = type
         if(type=="Trending") {
@@ -38,6 +42,8 @@ class SecondAct : AppCompatActivity() {
             maxLimit = 996
         } else if(type == "Top Rated") {
             maxLimit = 371
+        } else if(type == "Case") {
+            maxLimit = 1
         }
 
         toBeCalled()
@@ -139,6 +145,28 @@ class SecondAct : AppCompatActivity() {
                     if(it.isSuccessful) {
                         rView.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
                         rView.adapter = TVAdapter(this, it.body()!!.results)
+                    }
+                }
+            })
+        } else if(type == "TVCast") {
+            lastLayout.isVisible = false
+            val id = intent.getStringExtra("id").toInt()
+            service.getTVCast(id,api_key).enqueue(retrofitCallback{ throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                        rView.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
+                        rView.adapter = PeopleAdapter(this, it.body()!!.cast, false)
+                    }
+                }
+            })
+        } else if(type == "Cast") {
+            lastLayout.isVisible = false
+            val id = intent.getStringExtra("id").toInt()
+            service.getCast(id,api_key).enqueue(retrofitCallback{ throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                        rView.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
+                        rView.adapter = PeopleAdapter(this, it.body()!!.cast, false)
                     }
                 }
             })

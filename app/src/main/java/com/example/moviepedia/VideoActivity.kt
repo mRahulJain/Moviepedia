@@ -24,16 +24,28 @@ class VideoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_video)
 
         val id = intent.getStringExtra("id").toInt()
+        val type = intent.getStringExtra("type")
 
         val videoService = retrofit.create(API::class.java)
-        videoService.getVideo(id,api_key).enqueue(retrofitCallback{ throwable, response ->
-            response?.let {
-                if(it.isSuccessful) {
-                    rViewVideo.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
-                    rViewVideo.adapter = VideoAdapter(this, it.body()!!)
-                }
-            }
-        })
 
+        if(type=="Movie") {
+            videoService.getVideo(id,api_key).enqueue(retrofitCallback{ throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                        rViewVideo.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
+                        rViewVideo.adapter = VideoAdapter(this, it.body()!!)
+                    }
+                }
+            })
+        } else {
+            videoService.getVideoTV(id,api_key).enqueue(retrofitCallback{ throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                        rViewVideo.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
+                        rViewVideo.adapter = VideoAdapter(this, it.body()!!)
+                    }
+                }
+            })
+        }
     }
 }

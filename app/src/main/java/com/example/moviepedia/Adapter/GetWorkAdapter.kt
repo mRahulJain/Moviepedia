@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviepedia.DataClass.People
 import com.example.moviepedia.DataClass.PeopleWork
+import com.example.moviepedia.FifthAct
 import com.example.moviepedia.FourthAct
 import com.example.moviepedia.R
 import com.example.moviepedia.ThirdAct
@@ -45,9 +46,15 @@ class GetWorkAdapter(val context: Context, val nameList: PeopleWork) : RecyclerV
         }
 
             holder.itemView.parentLayout.setOnClickListener {
-                var intent = Intent(context, ThirdAct::class.java)
-                intent.putExtra("id", nameList.cast[position].id)
-                ContextCompat.startActivity(context, intent, null)
+                if(nameList.cast[position].media_type == "movie") {
+                    var intent = Intent(context, ThirdAct::class.java)
+                    intent.putExtra("id", nameList.cast[position].id)
+                    ContextCompat.startActivity(context, intent, null)
+                } else if(nameList.cast[position].media_type == "tv") {
+                    var intent = Intent(context, FifthAct::class.java)
+                    intent.putExtra("id", nameList.cast[position].id)
+                    ContextCompat.startActivity(context, intent, null)
+                }
         }
     }
 

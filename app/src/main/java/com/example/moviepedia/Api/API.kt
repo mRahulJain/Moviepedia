@@ -59,6 +59,12 @@ interface API {
         @Query("api_key") key : String
     ) : Call<Video>
 
+    @GET("3/tv/{id}/videos")
+    fun getVideoTV(
+        @Path("id") id : Int,
+        @Query("api_key") key : String
+    ) : Call<Video>
+
     @GET("3/person/{id}/combined_credits")
     fun getPeopleWork(
         @Path("id") id : Int,
@@ -140,4 +146,33 @@ interface API {
         @Path("id") id : Int,
         @Query("api_key") key : String
     ) : Call<TV_details>
+    @GET("3/tv/{id}/similar")
+    fun getTVSimilar(
+        @Path("id") id : Int,
+        @Query("api_key") key : String
+    ) : Call<TV>
+
+    @GET("3/tv/{id}/reviews")
+    fun getTVReviews(
+        @Path("id") id : Int,
+        @Query("api_key") key : String
+    ) : Call<TV>
+
+    @GET("3/tv/{id}/credits")
+    fun getTVCast(
+        @Path("id") id : Int,
+        @Query("api_key") key : String
+    ) : Call<TVCast>
+
+    @GET("3/movie/{id}/credits")
+    fun getCast(
+        @Path("id") id : Int,
+        @Query("api_key") key : String
+    ) : Call<TVCast>
+
+    @GET("3/tv/{id}/reviews")
+    fun getReviewTV(
+        @Path("id") id : Int,
+        @Query("api_key") key : String
+    ) : Call<Movie_review_search>
 }

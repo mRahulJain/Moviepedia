@@ -11,6 +11,7 @@ import com.example.moviepedia.Api.API
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_third.*
 import kotlinx.android.synthetic.main.content_scrolling.*
+import kotlinx.android.synthetic.main.content_scrolling_3.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -31,6 +32,8 @@ class ThirdAct : AppCompatActivity() {
 
         collapseToolBar.title = "Loading..."
         val id = intent.getStringExtra("id").toInt()
+
+        val type = intent.getStringExtra("type")
 
         val service = retrofit.create(API::class.java)
             service.getMovie(id, api_key).enqueue(retrofitCallback{ throwable, response ->
@@ -74,6 +77,14 @@ class ThirdAct : AppCompatActivity() {
 
         browseVideo.setOnClickListener {
             val intent = Intent(this, VideoActivity::class.java)
+            intent.putExtra("id", id.toString())
+            intent.putExtra("type", "Movie")
+            startActivity(intent)
+        }
+
+        seeCast.setOnClickListener {
+            val intent = Intent(this, SecondAct::class.java)
+            intent.putExtra("type", "Cast")
             intent.putExtra("id", id.toString())
             startActivity(intent)
         }

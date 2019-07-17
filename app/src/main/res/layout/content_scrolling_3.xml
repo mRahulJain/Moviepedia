@@ -62,8 +62,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
         </LinearLayout>
+        <Button
+                android:layout_marginTop="15dp"
+                android:id="@+id/seeCastTV"
+                android:textColor="@android:color/white"
+                android:background="@android:color/black"
+                android:gravity="right"
+                android:text = "See Cast Here!"
+                android:textSize="15sp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
         <LinearLayout
-                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

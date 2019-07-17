@@ -1,7 +1,11 @@
 package com.example.moviepedia
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.GridLayoutManager
+import com.example.moviepedia.Adapter.ReviewAdapter
+import com.example.moviepedia.Adapter.TVAdapter
 import com.example.moviepedia.Api.API
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_fifth.*
@@ -51,27 +55,35 @@ class FifthAct : AppCompatActivity() {
                 }
             }
         })
-//        val similarService = retrofit.create(API::class.java)
-//        similarService.getSimilarMovie(id,api_key).enqueue(retrofitCallback{ throwable, response ->
-//            response?.let {
-//                if(it.isSuccessful) {
-//                    rViewSimilar.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
-//                    rViewSimilar.adapter = CommonAdapter(this, it.body()!!.results, false)
-//                }
-//            }
-//        })
-//        val reviewService = retrofit.create(API::class.java)
-//        reviewService.getReview(id,api_key).enqueue(retrofitCallback{ throwable, response ->
-//            response?.let {
-//                rViewreview.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
-//                rViewreview.adapter = ReviewAdapter(this, it.body()!!.results)
-//            }
-//        })
+        val similarService = retrofit.create(API::class.java)
+        similarService.getTVSimilar(id,api_key).enqueue(retrofitCallback{ throwable, response ->
+            response?.let {
+                if(it.isSuccessful) {
+                    rViewSimilarTV.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
+                    rViewSimilarTV.adapter = TVAdapter(this, it.body()!!.results)
+                }
+            }
+        })
+        val reviewService = retrofit.create(API::class.java)
+        reviewService.getReviewTV(id,api_key).enqueue(retrofitCallback{ throwable, response ->
+            response?.let {
+                rViewreviewTV.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
+                rViewreviewTV.adapter = ReviewAdapter(this, it.body()!!.results)
+            }
+        })
 
-//        browseVideo.setOnClickListener {
-//            val intent = Intent(this, VideoActivity::class.java)
-//            intent.putExtra("id", id.toString())
-//            startActivity(intent)
-//        }
+        browseVideoTV.setOnClickListener {
+            val intent = Intent(this, VideoActivity::class.java)
+            intent.putExtra("id", id.toString())
+            intent.putExtra("type", "TV")
+            startActivity(intent)
+        }
+
+        seeCastTV.setOnClickListener {
+            val intent = Intent(this, SecondAct::class.java)
+            intent.putExtra("type", "TVCast")
+            intent.putExtra("id", id.toString())
+            startActivity(intent)
+        }
     }
 }
