@@ -9,40 +9,18 @@
         tools:showIn="@layout/app_bar_main"
         android:background="@android:color/black"
         tools:context=".MainActivity">
-    <ScrollView
+    <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <LinearLayout
-                android:orientation="vertical"
+
+        <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             <LinearLayout
-                    android:id="@+id/layoutSearch"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                <ImageButton
-                        android:id="@+id/backSearch"
-                        android:background="@android:color/black"
-                        android:src="@drawable/ic_arrow_back"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"/>
-                <EditText
-                        android:layout_marginLeft="20dp"
-                        android:layout_weight="1"
-                        android:background="@android:color/black"
-                        android:textColor="@android:color/white"
-                        android:textColorHint="@android:color/darker_gray"
-                        android:hint="Search here!"
-                        android:id="@+id/eTSearch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
-                <ImageButton
-                        android:id="@+id/goSearch"
-                        android:background="@android:color/black"
-                        android:src="@drawable/ic_arrow_forward"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"/>
-            </LinearLayout>
+                    android:layout_height="match_parent">
+
                 <Button
                         android:drawableRight="@drawable/ic_keyboard_arrow_right"
                         android:background="@android:color/black"
@@ -57,127 +35,159 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rView1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-            </androidx.recyclerview.widget.RecyclerView>
+                </androidx.recyclerview.widget.RecyclerView>
 
-            <Button
-                    android:drawableRight="@drawable/ic_keyboard_arrow_right"
-                    android:background="@android:color/black"
-                    android:textColor="@android:color/white"
-                    android:id="@+id/btn2"
-                    android:layout_weight="1"
-                    android:layout_margin="10dp"
-                    android:gravity="left"
-                    android:text="  Now Playing"
-                    android:textSize="30dp"
-                    android:drawableLeft="@drawable/ic_star_black"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-            </androidx.recyclerview.widget.RecyclerView>
-
-            <Button
-                    android:drawableRight="@drawable/ic_keyboard_arrow_right"
-                    android:background="@android:color/black"
-                    android:textColor="@android:color/white"
-                    android:id="@+id/btn3"
-                    android:layout_weight="1"
-                    android:layout_margin="10dp"
-                    android:gravity="left"
-                    android:text="  Upcoming"
-                    android:textSize="30dp"
-                    android:drawableLeft="@drawable/ic_star_black"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rView3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-            </androidx.recyclerview.widget.RecyclerView>
-
-            <Button
-                    android:drawableRight="@drawable/ic_keyboard_arrow_right"
-                    android:background="@android:color/black"
-                    android:textColor="@android:color/white"
-                    android:id="@+id/btn4"
-                    android:layout_weight="1"
-                    android:layout_margin="10dp"
-                    android:gravity="left"
-                    android:text="  Popular"
-                    android:textSize="30dp"
-                    android:drawableLeft="@drawable/ic_star_black"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rView4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-            </androidx.recyclerview.widget.RecyclerView>
-
-            <Button
-                    android:drawableRight="@drawable/ic_keyboard_arrow_right"
-                    android:background="@android:color/black"
-                    android:textColor="@android:color/white"
-                    android:id="@+id/btn5"
-                    android:layout_weight="1"
-                    android:layout_margin="10dp"
-                    android:gravity="left"
-                    android:text="  Top Rated"
-                    android:textSize="30dp"
-                    android:drawableLeft="@drawable/ic_star_black"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rView5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-            </androidx.recyclerview.widget.RecyclerView>
-            <LinearLayout
-                    android:id="@+id/lastLayout"
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                <ImageButton
-                        android:id="@+id/backward"
-                        android:layout_margin="10dp"
+                <Button
+                        android:drawableRight="@drawable/ic_keyboard_arrow_right"
                         android:background="@android:color/black"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_keyboard_arrow_left"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                <TextView
                         android:textColor="@android:color/white"
-                        android:text="1"
-                        android:textSize="20sp"
-                        android:id="@+id/track"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                <ImageButton
-                        android:id="@+id/forward"
+                        android:id="@+id/btn2"
+                        android:layout_weight="1"
                         android:layout_margin="10dp"
-                        android:background="@android:color/black"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_keyboard_arrow_right"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+                        android:gravity="left"
+                        android:text="  Now Playing"
+                        android:textSize="30dp"
+                        android:drawableLeft="@drawable/ic_star_black"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
 
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <Button
+                        android:drawableRight="@drawable/ic_keyboard_arrow_right"
+                        android:background="@android:color/black"
+                        android:textColor="@android:color/white"
+                        android:id="@+id/btn3"
+                        android:layout_weight="1"
+                        android:layout_margin="10dp"
+                        android:gravity="left"
+                        android:text="  Upcoming"
+                        android:textSize="30dp"
+                        android:drawableLeft="@drawable/ic_star_black"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <Button
+                        android:drawableRight="@drawable/ic_keyboard_arrow_right"
+                        android:background="@android:color/black"
+                        android:textColor="@android:color/white"
+                        android:id="@+id/btn4"
+                        android:layout_weight="1"
+                        android:layout_margin="10dp"
+                        android:gravity="left"
+                        android:text="  Popular"
+                        android:textSize="30dp"
+                        android:drawableLeft="@drawable/ic_star_black"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <Button
+                        android:drawableRight="@drawable/ic_keyboard_arrow_right"
+                        android:background="@android:color/black"
+                        android:textColor="@android:color/white"
+                        android:id="@+id/btn5"
+                        android:layout_weight="1"
+                        android:layout_margin="10dp"
+                        android:gravity="left"
+                        android:text="  Top Rated"
+                        android:textSize="30dp"
+                        android:drawableLeft="@drawable/ic_star_black"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rView5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                </androidx.recyclerview.widget.RecyclerView>
+                <LinearLayout
+
+                        android:id="@+id/lastLayout"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <ImageButton
+                            android:id="@+id/backward"
+                            android:layout_margin="10dp"
+                            android:background="@android:color/black"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_keyboard_arrow_left"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    <TextView
+                            android:textColor="@android:color/white"
+                            android:text="1"
+                            android:textSize="20sp"
+                            android:id="@+id/track"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    <ImageButton
+                            android:id="@+id/forward"
+                            android:layout_margin="10dp"
+                            android:background="@android:color/black"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_keyboard_arrow_right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+            <LinearLayout
+                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/layoutSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <ImageButton
+                        android:id="@+id/backSearch"
+                        android:background="@drawable/custom_background"
+                        android:src="@drawable/ic_arrow_back"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"/>
+                <EditText
+                        android:paddingLeft="20dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorPrimaryDark"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="@android:color/darker_gray"
+                        android:hint="Search here!"
+                        android:id="@+id/eTSearch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+                <ImageButton
+                        android:id="@+id/goSearch"
+                        android:background="@drawable/custom_background_2"
+                        android:src="@drawable/ic_arrow_forward"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"/>
+            </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>

@@ -25,6 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:id="@+id/usernamePreview"
             android:gravity="center"
             android:textSize="15sp"
             tools:text="Rahul"

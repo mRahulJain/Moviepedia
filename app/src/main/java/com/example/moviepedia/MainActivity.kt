@@ -3,7 +3,9 @@ package com.example.moviepedia
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -12,11 +14,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.room.Room
 import com.example.moviepedia.Adapter.CommonAdapter
 import com.example.moviepedia.Adapter.PeopleAdapter
 import com.example.moviepedia.Adapter.SearchAdapter
 import com.example.moviepedia.Adapter.TVAdapter
 import com.example.moviepedia.Api.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 import retrofit2.Retrofit
@@ -33,6 +37,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         .build()
     var bool : Boolean = false
     var type : String = "Movie"
+
+    val db: AppDatabase by lazy {
+        Room.databaseBuilder(
+            this,
+            AppDatabase::class.java,
+            "Users.db"
+        ).allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+    var bool1 = false
+    lateinit var name : String
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +68,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         navView.setNavigationItemSelectedListener(this)
         onOpen()
+
+        val userPresent = db.UsersDao().getAcitveUser()
+        if(userPresent!=null) {
+            name = userPresent.name
+            bool1 = true
+//            usernamePreview.setText(userPresent.name)
+            Log.d("Session_id", "${userPresent.session_id}")
+            val hView = nav_view.getHeaderView(0)
+            val textViewName = hView.findViewById(R.id.usernamePreview) as TextView
+            textViewName.setText(userPresent.name)
+        } else {
+            val intent = Intent(this, LoginAct::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+
+
+
         layoutSearch.isVisible = false
         lastLayout.isVisible = false
         forward.setOnClickListener {
@@ -385,6 +420,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val intent = Intent(this, LoginAct::class.java)
                 startActivity(intent)
             }
+
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
