@@ -30,6 +30,10 @@
                     android:id="@+id/nav_watchList"
                     android:icon="@drawable/ic_bookmark_black"
                     android:title="Watchlist"/>
+            <item
+                    android:id="@+id/nav_account"
+                    android:icon="@drawable/ic_person_pin"
+                    android:title="Account"/>
         </menu>
     </item>
 

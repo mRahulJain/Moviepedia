@@ -5,9 +5,7 @@ import com.example.moviepedia.Movie_review_search
 import com.example.moviepedia.Movie_search
 import com.example.moviepedia.Trending
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface API {
 
@@ -181,4 +179,20 @@ interface API {
         @Query("api_key") key : String,
         @Query("query") query : String
     ) : Call<Search>
+
+    @GET("3/authentication/token/new")
+    fun generateRequestToken(
+        @Query("api_key") key : String
+    ) : Call<ReqToken>
+
+    @POST("authenticate/{REQUEST_TOKEN}/allow")
+    fun allowToken(
+        @Path("REQUEST_TOKEN") token : String
+    ) : Call<Unit>
+
+    @POST("3/authentication/session/new")
+    fun create(
+        @Body token: ReqToken,
+        @Query("api_key") key : String
+    ) : Call<Session>
 }

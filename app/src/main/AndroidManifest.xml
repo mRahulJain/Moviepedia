@@ -11,6 +11,10 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".SignupAct">
+        </activity>
+        <activity android:name=".LoginAct">
+        </activity>
         <activity android:name=".FifthAct">
         </activity>
         <activity android:name=".VideoActivity">

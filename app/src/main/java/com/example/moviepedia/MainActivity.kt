@@ -18,6 +18,7 @@ import com.example.moviepedia.Adapter.SearchAdapter
 import com.example.moviepedia.Adapter.TVAdapter
 import com.example.moviepedia.Api.*
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.nav_header_main.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     val media_type = "all"
     val time_window = "week"
-    val api_key: String = "<API_KEY>"
+    val api_key: String = "40c1d09ce2457ccd5cabde67ee04c652"
     val retrofit = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/")
         .addConverterFactory(GsonConverterFactory.create())
@@ -379,6 +380,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_watchList -> {
 
+            }
+            R.id.nav_account -> {
+                val intent = Intent(this, LoginAct::class.java)
+                startActivity(intent)
             }
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
