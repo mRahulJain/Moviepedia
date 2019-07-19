@@ -10,7 +10,6 @@ interface UsersDao {
     @Insert
     fun insertRow(user: Users)
 
-    @Query("Select * from Users where state = 1")
-    fun getAcitveUser() : Users
-
+    @Query("Select * from Users")
+    fun getUser() : Users
 }

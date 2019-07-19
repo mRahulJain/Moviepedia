@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
     var bool1 = false
     lateinit var name : String
+    lateinit var userPresentA : Users
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,12 +70,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navView.setNavigationItemSelectedListener(this)
         onOpen()
 
-        val userPresent = db.UsersDao().getAcitveUser()
+        val userPresent = db.UsersDao().getUser()
+        userPresentA = userPresent
         if(userPresent!=null) {
             name = userPresent.name
             bool1 = true
 //            usernamePreview.setText(userPresent.name)
-            Log.d("Session_id", "${userPresent.session_id}")
+
             val hView = nav_view.getHeaderView(0)
             val textViewName = hView.findViewById(R.id.usernamePreview) as TextView
             textViewName.setText(userPresent.name)
@@ -83,9 +85,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             startActivity(intent)
             finish()
         }
-
-
-
 
         layoutSearch.isVisible = false
         lastLayout.isVisible = false
@@ -417,7 +416,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             }
             R.id.nav_account -> {
-                val intent = Intent(this, LoginAct::class.java)
+                val intent = Intent(this, AccountAct::class.java)
+                intent.putExtra("name", "${userPresentA.name}")
+                intent.putExtra("username", "${userPresentA.username}")
+                intent.putExtra("password", "${userPresentA.password}")
                 startActivity(intent)
             }
 

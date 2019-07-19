@@ -10,6 +10,5 @@ data class Users(
     val name : String,
     val username : String,
     val password : String,
-    val session_id : String,
-    val state : Int
+    val session_id : String
 )

@@ -4,6 +4,8 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
+import androidx.core.view.isVisible
 import androidx.room.Room
 import com.example.moviepedia.Api.API
 import com.example.moviepedia.DataClass.ReqToken
@@ -74,38 +76,55 @@ class LoginAct : AppCompatActivity() {
         }
 
         btnLogin.setOnClickListener {
-            flag = 2
-            val serviceRT = retrofit.create(API::class.java)
-            val req_token = ReqToken(reqToken)
-            serviceRT.create(req_token,api_key).enqueue(retrofitCallback{ throwable, response ->
-                response?.let {
-                    if(it.isSuccessful) {
-                        session_id = it.body()!!.session_id
-                        Snackbar.make(btnLogin, "You have successfully logged in. Now, click on BACK and enjoy this app", Snackbar.LENGTH_INDEFINITE).show()
-                    }
+                if(flag == 0) {
+                    Snackbar.make(btnLogin,
+                        "Please click ALLOW before signing up!",
+                        Snackbar.LENGTH_LONG)
+                        .show()
+                    return@setOnClickListener
                 }
-            })
+                flag = 2
+                val serviceRT = retrofit.create(API::class.java)
+                val req_token = ReqToken(reqToken)
+                serviceRT.create(req_token,api_key).enqueue(retrofitCallback{ throwable, response ->
+                    response?.let {
+                        if(it.isSuccessful) {
+                            session_id = it.body()!!.session_id
+                            Snackbar.make(btnLogin,
+                                "You have successfully logged in. Now, click on HOMEPAGE and enjoy this app",
+                                Snackbar.LENGTH_LONG)
+                                .show()
+                        }
+                    }
+                })
         }
 
         btnBack.setOnClickListener {
+            if(flag!=2) {
+                Snackbar.make(btnBack,
+                    "Create an account first.",
+                    Snackbar.LENGTH_LONG)
+                    .show()
+                return@setOnClickListener
+            }
+
             val s1 = nameUser.editText!!.text.toString()
             val s2 = username.editText!!.text.toString()
             val s3 = password.editText!!.text.toString()
             if(!s1.isEmpty() && !s2.isEmpty() && !s3.isEmpty() && flag==2) {
                 val user = Users(
-                    1,
-                    nameUser.editText!!.text.toString(),
-                    username.editText!!.text.toString(),
-                    password.editText!!.text.toString(),
-                    session_id,
-                    1
+                    name = nameUser.editText!!.text.toString(),
+                    username = username.editText!!.text.toString(),
+                    password = password.editText!!.text.toString(),
+                    session_id = session_id
                 )
 
                 db.UsersDao().insertRow(user)
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("session_id", "${session_id}")
+                startActivity(intent)
+                finish()
             }
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
         }
     }
 }

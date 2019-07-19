@@ -7,9 +7,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".LoginAct" xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    <Button
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/btnBack"
+            android:layout_gravity="left"
+            android:background="@android:color/holo_blue_light"
+            android:text="HOMEPAGE"
+            android:textSize="15sp"
+            android:layout_width="120dp"
+            android:layout_height="50dp"/>
     <TextView
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="50dp"
             android:textSize="50sp"
             android:gravity="center"
             android:text="Welcome to MOVIEPEDIA"
@@ -71,71 +80,39 @@
                 android:hint="Password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
-            android:layout_marginTop="30dp"
+            android:layout_margin="20dp"
+            android:layout_marginTop="50dp"
             android:orientation="horizontal"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         <Button
-                android:layout_marginLeft="80dp"
+                android:layout_marginLeft="60dp"
                 android:id="@+id/btnAllow"
-                android:layout_gravity="left"
                 android:background="@android:color/holo_blue_light"
                 android:text="ALLOW"
                 android:textSize="15sp"
-                android:layout_width="100dp"
+                android:layout_width="120dp"
                 android:layout_height="50dp"/>
-        <TextView
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
         <Button
-                android:layout_marginRight="80dp"
+                android:layout_marginLeft="50dp"
                 android:id="@+id/btnLogin"
-                android:layout_gravity="right"
                 android:background="@android:color/holo_blue_light"
-                android:text="LOGIN"
+                android:text="SIGNUP"
                 android:textSize="15sp"
-                android:layout_width="100dp"
+                android:layout_width="120dp"
                 android:layout_height="50dp"/>
     </LinearLayout>
 
-    <LinearLayout
-            android:layout_marginTop="60dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <Button
-                android:layout_marginLeft="80dp"
-                android:id="@+id/btnBack"
-                android:layout_gravity="left"
-                android:background="@android:color/holo_blue_light"
-                android:text="BACK"
-                android:textSize="15sp"
-                android:layout_width="100dp"
-                android:layout_height="50dp"/>
-        <TextView
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-        <Button
-                android:layout_marginRight="80dp"
-                android:id="@+id/btnLogout"
-                android:layout_gravity="center"
-                android:background="@android:color/holo_blue_light"
-                android:text="Logout"
-                android:textSize="15sp"
-                android:layout_width="100dp"
-                android:layout_height="50dp"/>
-    </LinearLayout>
-
-
-
-
-
+    <TextView
+            android:textStyle="bold"
+            android:layout_marginTop="220dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/white"
+            android:text="P.S. It's a one time login only!"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 </LinearLayout>
