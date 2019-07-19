@@ -8,7 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
+import com.example.moviepedia.AppDatabase
 import com.example.moviepedia.DataClass.Common_results
+import com.example.moviepedia.FavDatabase
 import com.example.moviepedia.R
 import com.example.moviepedia.ThirdAct
 import com.squareup.picasso.Picasso

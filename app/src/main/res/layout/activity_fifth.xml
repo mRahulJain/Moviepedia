@@ -29,6 +29,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="600dp"/>
 
+            <ImageButton
+                    android:id="@+id/favTV"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="520dp"
+                    android:layout_gravity="right"
+                    android:background="@drawable/custom_background_3"
+                    android:src="@drawable/ic_favorite_border"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"/>
+
             <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbarTV"
                     android:layout_height="?attr/actionBarSize"

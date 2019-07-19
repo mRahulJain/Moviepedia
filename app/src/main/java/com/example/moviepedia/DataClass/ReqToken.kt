@@ -7,3 +7,7 @@ data class ReqToken(
 data class Session(
     val session_id : String
 )
+
+data class AccDetails(
+    val id : String
+)

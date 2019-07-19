@@ -8,37 +8,47 @@
         android:fitsSystemWindows="true"
         tools:context=".ThirdAct">
 
-    <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/app_bar"
-            android:fitsSystemWindows="true"
-            android:background="@android:color/black"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/collapseToolBar"
+        <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/app_bar"
                 android:fitsSystemWindows="true"
+                android:background="@android:color/black"
+                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:toolbarId="@+id/toolbar"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:contentScrim="?attr/colorPrimary">
-            <ImageView
-                    android:id="@+id/iView"
+                android:theme="@style/AppTheme.AppBarOverlay">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:id="@+id/collapseToolBar"
+                    android:fitsSystemWindows="true"
                     android:layout_width="match_parent"
-                    android:layout_height="600dp"/>
+                    android:layout_height="match_parent"
+                    app:toolbarId="@+id/toolbar"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    app:contentScrim="?attr/colorPrimary">
+                <ImageView
+                        android:id="@+id/iView"
+                        android:layout_width="match_parent"
+                        android:layout_height="600dp"/>
 
-            <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_height="?attr/actionBarSize"
-                    android:layout_width="match_parent"
-                    app:layout_collapseMode="pin"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"/>
+                <ImageButton
+                        android:id="@+id/favMovie"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginTop="520dp"
+                        android:layout_gravity="right"
+                        android:background="@drawable/custom_background_3"
+                        android:src="@drawable/ic_favorite_border"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"/>
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+                <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_width="match_parent"
+                        app:layout_collapseMode="pin"
+                        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"/>
 
-    <include layout="@layout/content_scrolling"/>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <include layout="@layout/content_scrolling"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

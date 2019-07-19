@@ -4,7 +4,10 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.room.Room
 import com.example.moviepedia.Adapter.CommonAdapter
 import com.example.moviepedia.Adapter.ReviewAdapter
 import com.example.moviepedia.Api.API
@@ -23,6 +26,15 @@ class ThirdAct : AppCompatActivity() {
         .baseUrl("https://api.themoviedb.org/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
+    val db: FavDatabase by lazy {
+        Room.databaseBuilder(
+            this,
+            FavDatabase::class.java,
+            "Favs.db"
+        ).allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
+            .build()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +46,21 @@ class ThirdAct : AppCompatActivity() {
         val id = intent.getStringExtra("id").toInt()
 
         val type = intent.getStringExtra("type")
+//        var checkFav = intent.getStringExtra("checkFav").toString().toInt()
+//        if(checkFav == 0) {
+//            favMovie.setImageResource(R.drawable.ic_favorite_border)
+//        } else {
+//            favMovie.setImageResource(R.drawable.ic_favorite_black)
+//        }
+        var chk : Int
+        val isFav = db.FavDao().checkFavourite(id.toString())
+        if(isFav == null) {
+            chk = 0
+            favMovie.setImageResource(R.drawable.ic_favorite_border)
+        } else {
+            chk = 1
+            favMovie.setImageResource(R.drawable.ic_favorite_black)
+        }
 
         val service = retrofit.create(API::class.java)
             service.getMovie(id, api_key).enqueue(retrofitCallback{ throwable, response ->
@@ -87,6 +114,23 @@ class ThirdAct : AppCompatActivity() {
             intent.putExtra("type", "Cast")
             intent.putExtra("id", id.toString())
             startActivity(intent)
+        }
+
+        favMovie.setOnClickListener {
+            val fav = Favourites(
+                movie_id = id.toString()
+            )
+            if(chk == 0) {
+                chk = 1
+                db.FavDao().insertRow(fav)
+                Toast.makeText(this, "Added to favourite", Toast.LENGTH_SHORT).show()
+                favMovie.setImageResource(R.drawable.ic_favorite_black)
+            } else {
+                chk = 0
+                db.FavDao().delete(id.toString())
+                Toast.makeText(this, "Removed from favourite", Toast.LENGTH_SHORT).show()
+                favMovie.setImageResource(R.drawable.ic_favorite_border)
+            }
         }
     }
 }

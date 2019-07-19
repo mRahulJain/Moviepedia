@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     var bool1 = false
     lateinit var name : String
     lateinit var userPresentA : Users
+    lateinit var AccountID : String
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,12 +75,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         userPresentA = userPresent
         if(userPresent!=null) {
             name = userPresent.name
+            Log.d("SESSION_ID", "${userPresent.session_id}")
             bool1 = true
 //            usernamePreview.setText(userPresent.name)
 
             val hView = nav_view.getHeaderView(0)
             val textViewName = hView.findViewById(R.id.usernamePreview) as TextView
             textViewName.setText(userPresent.name)
+            val serviceAccount = retrofit.create(API::class.java)
+            serviceAccount.getAccountDetail(api_key, "${userPresent.session_id}").enqueue(retrofitCallback{ throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                            AccountID = it.body()!!.id
+                    }
+                }
+            })
+
         } else {
             val intent = Intent(this, LoginAct::class.java)
             startActivity(intent)

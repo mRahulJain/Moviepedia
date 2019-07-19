@@ -195,4 +195,11 @@ interface API {
         @Body token: ReqToken,
         @Query("api_key") key : String
     ) : Call<Session>
+
+    @GET("3/account")
+    fun getAccountDetail(
+        @Query("api_key") key : String,
+        @Query("session_id") id : String
+    ) : Call<AccDetails>
+
 }

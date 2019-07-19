@@ -3,14 +3,15 @@ package com.example.moviepedia
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.room.Room
 import com.example.moviepedia.Adapter.ReviewAdapter
 import com.example.moviepedia.Adapter.TVAdapter
 import com.example.moviepedia.Api.API
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_fifth.*
-import kotlinx.android.synthetic.main.activity_third.collapseToolBar
-import kotlinx.android.synthetic.main.activity_third.toolbar
+import kotlinx.android.synthetic.main.activity_third.*
 import kotlinx.android.synthetic.main.content_scrolling.*
 import kotlinx.android.synthetic.main.content_scrolling_3.*
 import retrofit2.Retrofit
@@ -24,6 +25,15 @@ class FifthAct : AppCompatActivity() {
         .baseUrl("https://api.themoviedb.org/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
+    val db: FavDatabase by lazy {
+        Room.databaseBuilder(
+            this,
+            FavDatabase::class.java,
+            "Favs.db"
+        ).allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
+            .build()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +43,15 @@ class FifthAct : AppCompatActivity() {
 
         collapseToolBarTV.title = "Loading..."
         val id = intent.getStringExtra("id").toInt()
+        var chk : Int
+        val isFav = db.FavDao().checkFavourite(id.toString())
+        if(isFav == null) {
+            chk = 0
+            favTV.setImageResource(R.drawable.ic_favorite_border)
+        } else {
+            chk = 1
+            favTV.setImageResource(R.drawable.ic_favorite_black)
+        }
 
         val service = retrofit.create(API::class.java)
         service.getTV(id, api_key).enqueue(retrofitCallback{ throwable, response ->
@@ -84,6 +103,23 @@ class FifthAct : AppCompatActivity() {
             intent.putExtra("type", "TVCast")
             intent.putExtra("id", id.toString())
             startActivity(intent)
+        }
+
+        favTV.setOnClickListener {
+            val fav = Favourites(
+                movie_id = id.toString()
+            )
+            if(chk == 0) {
+                chk = 1
+                db.FavDao().insertRow(fav)
+                Toast.makeText(this, "Added to favourite", Toast.LENGTH_SHORT).show()
+                favTV.setImageResource(R.drawable.ic_favorite_black)
+            } else {
+                chk = 0
+                db.FavDao().delete(id.toString())
+                Toast.makeText(this, "Removed from favourite", Toast.LENGTH_SHORT).show()
+                favTV.setImageResource(R.drawable.ic_favorite_border)
+            }
         }
     }
 }
