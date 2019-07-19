@@ -14,3 +14,8 @@ abstract class AppDatabase : RoomDatabase() {
 abstract class FavDatabase : RoomDatabase() {
     abstract fun FavDao() : FavouritesDao
 }
+
+@Database(entities = arrayOf(Watchlist::class), version = 1)
+abstract class WatchDatabase : RoomDatabase() {
+    abstract fun WatchDao() : WatchlistDao
+}

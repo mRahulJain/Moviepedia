@@ -28,14 +28,25 @@
                 android:id="@+id/tVoverview"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"/>
-        <TextView
-                android:textColor="@android:color/white"
-                android:gravity="right"
-                tools:text="2019-06-05"
-                android:textSize="20sp"
-                android:id="@+id/tVreleaseDate"
+        <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:textStyle="bold"/>
+                android:layout_height="wrap_content">
+            <ImageButton
+                    android:id="@+id/btnWatchlist"
+                    android:src="@drawable/ic_playlist_add_black_24dp"
+                    android:background="@android:color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+            <TextView
+                    android:textColor="@android:color/white"
+                    android:gravity="right|bottom"
+                    tools:text="2019-06-05"
+                    android:textSize="20sp"
+                    android:id="@+id/tVreleaseDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" android:textStyle="bold"/>
+        </LinearLayout>
         <TextView
                 android:textColor="@android:color/white"
                 android:textSize="20sp"

@@ -3,6 +3,7 @@ package com.example.moviepedia
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.room.Room
@@ -25,6 +26,15 @@ class FifthAct : AppCompatActivity() {
         .baseUrl("https://api.themoviedb.org/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
+    val db1: AppDatabase by lazy {
+        Room.databaseBuilder(
+            this,
+            AppDatabase::class.java,
+            "Users.db"
+        ).allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
+            .build()
+    }
     val db: FavDatabase by lazy {
         Room.databaseBuilder(
             this,
@@ -34,6 +44,17 @@ class FifthAct : AppCompatActivity() {
             .fallbackToDestructiveMigration()
             .build()
     }
+    val db2: WatchDatabase by lazy {
+        Room.databaseBuilder(
+            this,
+            WatchDatabase::class.java,
+            "Watch.db"
+        ).allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+    lateinit var AccountID : String
+    lateinit var tv_id : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +64,16 @@ class FifthAct : AppCompatActivity() {
 
         collapseToolBarTV.title = "Loading..."
         val id = intent.getStringExtra("id").toInt()
+        val userPresent = db1.UsersDao().getUser()
+        val serviceAccount = retrofit.create(API::class.java)
+        serviceAccount.getAccountDetail(api_key, "${userPresent.session_id}").enqueue(retrofitCallback{ throwable, response ->
+            response?.let {
+                if(it.isSuccessful) {
+                    AccountID = it.body()!!.id
+                    Log.d("SESSION_ID", "${AccountID}")
+                }
+            }
+        })
         var chk : Int
         val isFav = db.FavDao().checkFavourite(id.toString())
         if(isFav == null) {
@@ -53,10 +84,21 @@ class FifthAct : AppCompatActivity() {
             favTV.setImageResource(R.drawable.ic_favorite_black)
         }
 
+        var chkW : Int
+        val isWatchlist = db2.WatchDao().checkWatchlist(id.toString())
+        if(isWatchlist == null) {
+            chkW = 0
+            btnWatchlistTV.setImageResource(R.drawable.ic_playlist_add_black_24dp)
+        } else {
+            chkW = 1
+            btnWatchlistTV.setImageResource(R.drawable.ic_playlist_add_check_black_24dp)
+        }
+
         val service = retrofit.create(API::class.java)
         service.getTV(id, api_key).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
                 if(it.isSuccessful) {
+                    tv_id = it.body()!!.id
                     collapseToolBarTV.title = it.body()!!.name
                     Picasso
                         .with(this)
@@ -110,15 +152,53 @@ class FifthAct : AppCompatActivity() {
                 movie_id = id.toString()
             )
             if(chk == 0) {
+                val fab = com.example.moviepedia.DataClass.fav(
+                    "tv",
+                    tv_id.toInt(),
+                    true
+                )
                 chk = 1
                 db.FavDao().insertRow(fav)
+                val serviceFav = retrofit.create(API::class.java)
+                serviceFav.putFavourite(AccountID, "application/json;charset=utf-8" ,fab, api_key, userPresent.session_id)
+                    .enqueue(retrofitCallback { throwable, response ->
+                        response?.let {
+                            if(it.isSuccessful) {
+                                Log.d("ADDEDFAV", "IS SUCCESS")
+                            }
+                        }
+                    })
                 Toast.makeText(this, "Added to favourite", Toast.LENGTH_SHORT).show()
                 favTV.setImageResource(R.drawable.ic_favorite_black)
-            } else {
-                chk = 0
-                db.FavDao().delete(id.toString())
-                Toast.makeText(this, "Removed from favourite", Toast.LENGTH_SHORT).show()
-                favTV.setImageResource(R.drawable.ic_favorite_border)
+            } else  {
+                Toast.makeText(this, "Already added!", Toast.LENGTH_SHORT).show()
+            }
+        }
+        btnWatchlistTV.setOnClickListener {
+            val watch = Watchlist(
+                movie_id = id.toString()
+            )
+            if(chk == 0) {
+                val watchL = com.example.moviepedia.DataClass.watchlist(
+                    "tv",
+                    tv_id.toInt(),
+                    true
+                )
+                chk = 1
+                db2.WatchDao().insertRow(watch)
+                val serviceFav = retrofit.create(API::class.java)
+                serviceFav.putWatchlist(AccountID, "application/json;charset=utf-8" ,watchL, api_key, userPresent.session_id)
+                    .enqueue(retrofitCallback { throwable, response ->
+                        response?.let {
+                            if(it.isSuccessful) {
+                                Log.d("ADDEDFAV", "IS SUCCESS")
+                            }
+                        }
+                    })
+                Toast.makeText(this, "Added to Watchlist", Toast.LENGTH_SHORT).show()
+                btnWatchlistTV.setImageResource(R.drawable.ic_playlist_add_check_black_24dp)
+            } else  {
+                Toast.makeText(this, "Already added!", Toast.LENGTH_SHORT).show()
             }
         }
     }

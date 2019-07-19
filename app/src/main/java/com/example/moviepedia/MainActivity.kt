@@ -22,7 +22,6 @@ import com.example.moviepedia.Adapter.TVAdapter
 import com.example.moviepedia.Api.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
-import kotlinx.android.synthetic.main.nav_header_main.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -82,14 +81,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val hView = nav_view.getHeaderView(0)
             val textViewName = hView.findViewById(R.id.usernamePreview) as TextView
             textViewName.setText(userPresent.name)
+
+            Log.d("SESSION_ID", "${userPresent.session_id}")
             val serviceAccount = retrofit.create(API::class.java)
             serviceAccount.getAccountDetail(api_key, "${userPresent.session_id}").enqueue(retrofitCallback{ throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
                             AccountID = it.body()!!.id
+                        Log.d("SESSION_ID", "${AccountID}")
                     }
                 }
             })
+
 
         } else {
             val intent = Intent(this, LoginAct::class.java)
@@ -101,11 +104,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         lastLayout.isVisible = false
         forward.setOnClickListener {
             track.text = (track.text.toString().toInt() + 1).toString()
-            onOpen1()
+            if(type=="People") {
+                onOpen1()
+            } else if(type == "Movies") {
+                onOpen3()
+            } else if(type =="TV") {
+                onOpen4()
+            } else if(type == "MovieWatch") {
+                onOpen5()
+            } else {
+                onOpen6()
+            }
         }
         backward.setOnClickListener {
             track.text = (track.text.toString().toInt() - 1).toString()
-            onOpen1()
+            if(type=="People") {
+                onOpen1()
+            } else if(type == "Movies") {
+                onOpen3()
+            } else if(type =="TV") {
+                onOpen4()
+            } else if(type == "MovieWatch") {
+                onOpen5()
+            } else {
+                onOpen6()
+            }
         }
 
         btn1.setOnClickListener {
@@ -296,6 +319,62 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
+    @SuppressLint("WrongConstant")
+    fun onOpen3() {
+        val serviceFav = retrofit.create(API::class.java)
+        serviceFav.getFavouriteMovie(AccountID, api_key, userPresentA.session_id, track.text.toString().toInt())
+            .enqueue(retrofitCallback { throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                        rView1.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
+                        rView1.adapter = CommonAdapter(this, it.body()!!.results, false)
+                    }
+                }
+            })
+    }
+
+    @SuppressLint("WrongConstant")
+    fun onOpen4() {
+        val serviceFav = retrofit.create(API::class.java)
+        serviceFav.getFavouriteTV(AccountID, api_key, userPresentA.session_id, track.text.toString().toInt())
+            .enqueue(retrofitCallback { throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                        rView1.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
+                        rView1.adapter = TVAdapter(this, it.body()!!.results)
+                    }
+                }
+            })
+    }
+
+    @SuppressLint("WrongConstant")
+    fun onOpen5() {
+        val serviceWatchMovie = retrofit.create(API::class.java)
+        serviceWatchMovie.getMovieWatchlist(AccountID, api_key, userPresentA.session_id, track.text.toString().toInt())
+            .enqueue(retrofitCallback { throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                        rView1.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
+                        rView1.adapter = CommonAdapter(this, it.body()!!.results, false)
+                    }
+                }
+            })
+    }
+
+    @SuppressLint("WrongConstant")
+    fun onOpen6() {
+        val serviceTVWatchlist = retrofit.create(API::class.java)
+        serviceTVWatchlist.getTVWatchlist(AccountID, api_key, userPresentA.session_id, track.text.toString().toInt())
+            .enqueue(retrofitCallback { throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                        rView1.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
+                        rView1.adapter = TVAdapter(this, it.body()!!.results)
+                    }
+                }
+            })
+    }
+
     fun onOpen2() {
         val service = retrofit.create(API::class.java)
 
@@ -364,6 +443,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
+    @SuppressLint("WrongConstant")
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
@@ -420,11 +500,69 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 btn4.text = "  TV Top Rated"
                 onOpen2()
             }
-            R.id.nav_fav -> {
-
+            R.id.nav_fav_movies -> {
+                type = "Favorite"
+                layoutSearch.isVisible = false
+                btn1.isClickable = false
+                lastLayout.isVisible = true
+                btn5.isVisible = false
+                btn4.isVisible = false
+                btn3.isVisible = false
+                btn2.isVisible = false
+                rView5.isVisible = false
+                rView4.isVisible = false
+                rView3.isVisible = false
+                rView2.isVisible = false
+                btn1.text = "  Favorite Movies"
+                onOpen3()
             }
-            R.id.nav_watchList -> {
-
+            R.id.nav_fav_TV -> {
+                type = "TV"
+                layoutSearch.isVisible = false
+                btn1.isClickable = false
+                lastLayout.isVisible = true
+                btn5.isVisible = false
+                btn4.isVisible = false
+                btn3.isVisible = false
+                btn2.isVisible = false
+                rView5.isVisible = false
+                rView4.isVisible = false
+                rView3.isVisible = false
+                rView2.isVisible = false
+                btn1.text = "  Favorite TV Shows"
+                onOpen4()
+            }
+            R.id.nav_watchList_Movies -> {
+                type = "MovieWatch"
+                layoutSearch.isVisible = false
+                btn1.isClickable = false
+                lastLayout.isVisible = true
+                btn5.isVisible = false
+                btn4.isVisible = false
+                btn3.isVisible = false
+                btn2.isVisible = false
+                rView5.isVisible = false
+                rView4.isVisible = false
+                rView3.isVisible = false
+                rView2.isVisible = false
+                btn1.text = "  Movie Watchlist"
+                onOpen5()
+            }
+            R.id.nav_watchList_TV -> {
+                type = "TVWatch"
+                layoutSearch.isVisible = false
+                btn1.isClickable = false
+                lastLayout.isVisible = true
+                btn5.isVisible = false
+                btn4.isVisible = false
+                btn3.isVisible = false
+                btn2.isVisible = false
+                rView5.isVisible = false
+                rView4.isVisible = false
+                rView3.isVisible = false
+                rView2.isVisible = false
+                btn1.text = "  TV Watchlist"
+                onOpen6()
             }
             R.id.nav_account -> {
                 val intent = Intent(this, AccountAct::class.java)

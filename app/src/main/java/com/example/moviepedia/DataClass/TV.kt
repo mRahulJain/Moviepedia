@@ -3,6 +3,7 @@ package com.example.moviepedia.DataClass
 import com.example.moviepedia.Genre
 
 data class TV(
+    val page : String,
     val total_pages : String,
     val results : ArrayList<TV_details>
 )

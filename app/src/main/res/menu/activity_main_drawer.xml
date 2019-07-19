@@ -20,20 +20,46 @@
                 android:title="People"/>
     </group>
 
-    <item android:title="Your Place">
+    <item android:title="Movies">
         <menu>
-            <item
-                    android:id="@+id/nav_fav"
-                    android:icon="@drawable/ic_favorite_black"
-                    android:title="Favourite"/>
-            <item
-                    android:id="@+id/nav_watchList"
-                    android:icon="@drawable/ic_bookmark_black"
-                    android:title="Watchlist"/>
-            <item
-                    android:id="@+id/nav_account"
-                    android:icon="@drawable/ic_person_pin"
-                    android:title="Account"/>
+            <group android:checkableBehavior="single">
+                <item
+                        android:id="@+id/nav_fav_movies"
+                        android:icon="@drawable/ic_favorite_black"
+                        android:title="Favourite Movies"/>
+
+                <item
+                        android:id="@+id/nav_watchList_Movies"
+                        android:icon="@drawable/ic_bookmark_black"
+                        android:title="Watchlist Movies"/>
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="TV">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                        android:id="@+id/nav_fav_TV"
+                        android:icon="@drawable/ic_favorite_black"
+                        android:title="Favourite TV Shows"/>
+
+                <item
+                        android:id="@+id/nav_watchList_TV"
+                        android:icon="@drawable/ic_bookmark_black"
+                        android:title="Watchlist TV Shows"/>
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="Account">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                        android:id="@+id/nav_account"
+                        android:icon="@drawable/ic_person_pin"
+                        android:title="Account"/>
+            </group>
         </menu>
     </item>
 

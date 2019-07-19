@@ -11,3 +11,15 @@ data class Session(
 data class AccDetails(
     val id : String
 )
+
+data class fav(
+    val media_type : String,
+    val media_id : Int,
+    val favorite : Boolean
+)
+
+data class watchlist(
+    val media_type : String,
+    val media_id : Int,
+    val watchlist : Boolean
+)

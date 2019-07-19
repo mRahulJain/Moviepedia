@@ -14,9 +14,6 @@ interface FavouritesDao {
     @Query("Select * from Favourites where movie_id =  :id")
     fun checkFavourite(id : String) : Favourites
 
-//    @Delete
-//    fun deleteRow(favourite: Favourites) : Favourites
-
     @Query("Delete from Favourites where movie_id = :id")
     fun delete(id : String)
 }

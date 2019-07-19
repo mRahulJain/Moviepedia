@@ -202,4 +202,53 @@ interface API {
         @Query("session_id") id : String
     ) : Call<AccDetails>
 
+    @POST("3/account/{account_id}/favorite")
+    fun putFavourite(
+        @Path("account_id") id : String,
+        @Header("Content_type")type: String,
+        @Body fab : fav,
+        @Query("api_key") key : String,
+        @Query("session_id") session_id : String
+    ) : Call<Unit>
+
+    @POST("3/account/{account_id}/watchlist")
+    fun putWatchlist(
+        @Path("account_id") id : String,
+        @Header("Content_type")type: String,
+        @Body watchL : watchlist,
+        @Query("api_key") key : String,
+        @Query("session_id") session_id : String
+    ) : Call<Unit>
+
+    @GET("3/account/{account_id}/favorite/movies")
+    fun getFavouriteMovie(
+        @Path("account_id") id : String,
+        @Query("api_key") key : String,
+        @Query("session_id") session_id : String,
+        @Query("page") num : Int
+    ) : Call<Common>
+
+    @GET("3/account/{account_id}/favorite/tv")
+    fun getFavouriteTV(
+        @Path("account_id") id : String,
+        @Query("api_key") key : String,
+        @Query("session_id") session_id : String,
+        @Query("page") num : Int
+    ) : Call<TV>
+
+    @GET("3/account/{account_id}/watchlist/movies")
+    fun getMovieWatchlist(
+        @Path("account_id") id : String,
+        @Query("api_key") key : String,
+        @Query("session_id") session_id : String,
+        @Query("page") num : Int
+    ) : Call<Common>
+
+    @GET("3/account/{account_id}/watchlist/tv")
+    fun getTVWatchlist(
+        @Path("account_id") id : String,
+        @Query("api_key") key : String,
+        @Query("session_id") session_id : String,
+        @Query("page") num : Int
+    ) : Call<TV>
 }
