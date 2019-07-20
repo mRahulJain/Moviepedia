@@ -14,6 +14,7 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +23,9 @@ import com.example.moviepedia.Adapter.*
 import com.example.moviepedia.Api.*
 import com.example.moviepedia.DataClass.Common_results
 import com.example.moviepedia.DataClass.TV_details
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.item_1.view.*
@@ -37,7 +40,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     val media_type = "all"
     val time_window = "week"
-    val api_key: String = "40c1d09ce2457ccd5cabde67ee04c652"
+    val api_key: String = "<api_key>"
     val retrofit = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/")
         .addConverterFactory(GsonConverterFactory.create())
@@ -67,6 +70,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var name : String
     lateinit var userPresentA : Users
     lateinit var AccountID : String
+    var trial : Int = 0
+    val KEY_APP_OPEN = "app_open"
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,9 +92,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navView.setNavigationItemSelectedListener(this)
         onOpen()
 
+        val prefs = getPreferences(Context.MODE_PRIVATE)
+        trial = prefs.getInt(KEY_APP_OPEN, 0)
+
         val userPresent = db.UsersDao().getUser()
         userPresentA = userPresent
         if(userPresent!=null) {
+            trial = 0
+            prefs.edit {
+                putInt(KEY_APP_OPEN, trial)
+            }
             name = userPresent.name
             Log.d("SESSION_ID", "${userPresent.session_id}")
             bool1 = true
@@ -109,14 +121,27 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     }
                 }
             })
-
-
         } else {
-            val intent = Intent(this, LoginAct::class.java)
-            startActivity(intent)
-            finish()
+            val hView = nav_view.getHeaderView(0)
+            val textViewName = hView.findViewById(R.id.usernamePreview) as TextView
+            val mode = intent.getStringExtra("mode")
+            if(mode!=null) {
+                trial = 1
+                prefs.edit {
+                    putInt(KEY_APP_OPEN, trial)
+                }
+                textViewName.setText("FREE TRIAL VERSION")
+            } else {
+                if(trial == 1) {
+                    textViewName.setText("FREE TRIAL VERSION")
+                } else {
+                    val intent = Intent(this, LoginAct::class.java)
+                    intent.putExtra("trialCheck", "not still")
+                    startActivity(intent)
+                    finish()
+                }
+            }
         }
-
         layoutSearch.isVisible = false
         lastLayout.isVisible = false
         forward.setOnClickListener {
@@ -550,6 +575,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen2()
             }
             R.id.nav_fav_movies -> {
+                if(trial == 1) {
+                    Snackbar.make(nav_view,
+                        "Login required",
+                        Snackbar.LENGTH_LONG)
+                        .show()
+                    return true
+                }
                 type = "Favorite"
                 layoutSearch.isVisible = false
                 btn1.isClickable = false
@@ -566,6 +598,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen3()
             }
             R.id.nav_fav_TV -> {
+                if(trial == 1) {
+                    Snackbar.make(nav_view,
+                        "Login required",
+                        Snackbar.LENGTH_LONG)
+                        .show()
+                    return true
+                }
                 type = "TV"
                 layoutSearch.isVisible = false
                 btn1.isClickable = false
@@ -582,6 +621,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen4()
             }
             R.id.nav_watchList_Movies -> {
+                if(trial == 1) {
+                    Snackbar.make(nav_view,
+                        "Login required",
+                        Snackbar.LENGTH_LONG)
+                        .show()
+                    return true
+                }
                 type = "MovieWatch"
                 layoutSearch.isVisible = false
                 btn1.isClickable = false
@@ -598,6 +644,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen5()
             }
             R.id.nav_watchList_TV -> {
+                if(trial == 1) {
+                    Snackbar.make(nav_view,
+                        "Login required",
+                        Snackbar.LENGTH_LONG)
+                        .show()
+                    return true
+                }
                 type = "TVWatch"
                 layoutSearch.isVisible = false
                 btn1.isClickable = false
@@ -614,13 +667,27 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen6()
             }
             R.id.nav_account -> {
-                val intent = Intent(this, AccountAct::class.java)
-                intent.putExtra("name", "${userPresentA.name}")
-                intent.putExtra("username", "${userPresentA.username}")
-                intent.putExtra("password", "${userPresentA.password}")
-                startActivity(intent)
+                if(trial == 1) {
+                    val intent = Intent(this, LoginAct::class.java)
+                    intent.putExtra("trialCheck", "already")
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(this, AccountAct::class.java)
+                    intent.putExtra("name", "${userPresentA.name}")
+                    intent.putExtra("username", "${userPresentA.username}")
+                    intent.putExtra("password", "${userPresentA.password}")
+                    startActivity(intent)
+                    finish()
+                }
             }
             R.id.nav_rated_movie -> {
+                if(trial == 1) {
+                    Snackbar.make(nav_view,
+                        "Login required",
+                        Snackbar.LENGTH_LONG)
+                        .show()
+                    return true
+                }
                 type = "Rated Movie"
                 layoutSearch.isVisible = false
                 btn1.isClickable = false
@@ -637,6 +704,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen7()
             }
             R.id.nav_rated_tv -> {
+                if(trial == 1) {
+                    Snackbar.make(nav_view,
+                        "Login required",
+                        Snackbar.LENGTH_LONG)
+                        .show()
+                    return true
+                }
                 type = "Rated TV"
                 layoutSearch.isVisible = false
                 btn1.isClickable = false

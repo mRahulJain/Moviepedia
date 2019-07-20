@@ -24,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class ThirdAct : AppCompatActivity() {
 
     val baseURL = "https://image.tmdb.org/t/p/original/"
-    val api_key: String = "40c1d09ce2457ccd5cabde67ee04c652"
+    val api_key: String = "<api_key>"
     val retrofit = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/")
         .addConverterFactory(GsonConverterFactory.create())
@@ -67,6 +67,8 @@ class ThirdAct : AppCompatActivity() {
     }
     lateinit var AccountID : String
     lateinit var movieID : String
+    var chk : Int = 3
+    var chkW : Int = 3
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,34 +83,33 @@ class ThirdAct : AppCompatActivity() {
 
         val userPresent = db1.UsersDao().getUser()
         val serviceAccount = retrofit.create(API::class.java)
-        serviceAccount.getAccountDetail(api_key, "${userPresent.session_id}").enqueue(retrofitCallback{ throwable, response ->
-            response?.let {
-                if(it.isSuccessful) {
-                    AccountID = it.body()!!.id
-                    Log.d("SESSION_ID", "${AccountID}")
+        if(userPresent!=null) {
+            serviceAccount.getAccountDetail(api_key, "${userPresent.session_id}").enqueue(retrofitCallback{ throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                        AccountID = it.body()!!.id
+                        Log.d("SESSION_ID", "${AccountID}")
+                    }
                 }
+            })
+            val isFav = db.FavDao().checkFavourite(id.toString())
+            if(isFav == null) {
+                chk = 0
+                favMovie.setImageResource(R.drawable.ic_favorite_border)
+            } else {
+                chk = 1
+                favMovie.setImageResource(R.drawable.ic_favorite_black)
             }
-        })
-        var chk : Int
-        val isFav = db.FavDao().checkFavourite(id.toString())
-        if(isFav == null) {
-            chk = 0
-            favMovie.setImageResource(R.drawable.ic_favorite_border)
-        } else {
-            chk = 1
-            favMovie.setImageResource(R.drawable.ic_favorite_black)
-        }
 
-        var chkW : Int
-        val isWatchlist = db2.WatchDao().checkWatchlist(id.toString())
-        if(isWatchlist == null) {
-            chkW = 0
-            btnWatchlist.setImageResource(R.drawable.ic_playlist_add_black_24dp)
-        } else {
-            chkW = 1
-            btnWatchlist.setImageResource(R.drawable.ic_playlist_add_check_black_24dp)
+            val isWatchlist = db2.WatchDao().checkWatchlist(id.toString())
+            if(isWatchlist == null) {
+                chkW = 0
+                btnWatchlist.setImageResource(R.drawable.ic_playlist_add_black_24dp)
+            } else {
+                chkW = 1
+                btnWatchlist.setImageResource(R.drawable.ic_playlist_add_check_black_24dp)
+            }
         }
-
         val service = retrofit.create(API::class.java)
             service.getMovie(id, api_key).enqueue(retrofitCallback{ throwable, response ->
                 response?.let {
@@ -169,6 +170,10 @@ class ThirdAct : AppCompatActivity() {
         }
 
         rateM.setOnClickListener {
+            if(userPresent== null) {
+                Toast.makeText(this, "Login required!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             val alreadyRated = db3.RatedDao().getRated(movieID)
             if(alreadyRated != null) {
                 Toast.makeText(this, "Already Rated!", Toast.LENGTH_SHORT).show()
@@ -192,6 +197,10 @@ class ThirdAct : AppCompatActivity() {
         }
 
         favMovie.setOnClickListener {
+            if(userPresent== null) {
+                Toast.makeText(this, "Login required!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             val fav = Favourites(
                 movie_id = id.toString()
             )
@@ -220,6 +229,10 @@ class ThirdAct : AppCompatActivity() {
         }
 
         btnWatchlist.setOnClickListener {
+            if(userPresent== null) {
+                Toast.makeText(this, "Login required!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             val watch = Watchlist(
                 movie_id = id.toString()
             )

@@ -19,7 +19,7 @@ class SecondAct : AppCompatActivity() {
 
     val media_type = "all"
     val time_window = "week"
-    val api_key: String = "40c1d09ce2457ccd5cabde67ee04c652"
+    val api_key: String = "<api_key>"
     val retrofit = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/")
         .addConverterFactory(GsonConverterFactory.create())

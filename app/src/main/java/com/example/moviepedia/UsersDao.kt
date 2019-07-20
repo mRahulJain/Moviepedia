@@ -12,4 +12,7 @@ interface UsersDao {
 
     @Query("Select * from Users")
     fun getUser() : Users
+
+    @Query("Delete from Users")
+    fun deleteUser()
 }

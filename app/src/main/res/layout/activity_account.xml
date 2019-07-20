@@ -6,7 +6,7 @@
         android:background="@drawable/okay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".LoginAct" xmlns:app="http://schemas.android.com/apk/res-auto">
+        tools:context=".LoginAct">
     <TextView
             android:layout_marginTop="50dp"
             android:textSize="50sp"
@@ -15,17 +15,10 @@
             android:textColor="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-    <TextView
-            android:textSize="25sp"
-            android:gravity="center"
-            android:text="Join the Moviedb community here"
-            android:textColor="@android:color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
 
     <TextView
             android:textColor="@android:color/white"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="140dp"
             android:id="@+id/nameUserA"
             android:textSize="30sp"
             android:layout_width="match_parent"
@@ -47,13 +40,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-    <TextView
-            android:textStyle="bold"
-            android:layout_marginTop="220dp"
+    <Button
             android:layout_marginLeft="10dp"
-            android:textColor="@android:color/white"
-            android:text="P.S. It's a one time login only! \n You can clear the  storage and add a new account though"
-            android:textSize="20sp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="140dp"
+            android:layout_gravity="right"
+            android:id="@+id/btnLogout"
+            android:background="@android:color/holo_blue_light"
+            android:text="LOGOUT"
+            android:textSize="15sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 </LinearLayout>
