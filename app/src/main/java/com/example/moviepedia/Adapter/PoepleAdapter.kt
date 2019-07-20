@@ -13,7 +13,7 @@ import com.example.moviepedia.FourthAct
 import com.example.moviepedia.R
 import com.example.moviepedia.ThirdAct
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.item_1.view.*
+import kotlinx.android.synthetic.main.item_7.view.*
 
 class PeopleAdapter(val context: Context, val nameList: ArrayList<People_results>, val check : Boolean) : RecyclerView.Adapter<PeopleAdapter.NameViewHolder>() {
 
@@ -21,7 +21,7 @@ class PeopleAdapter(val context: Context, val nameList: ArrayList<People_results
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NameViewHolder {
         val li = parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val itemView = li.inflate(R.layout.item_1, parent, false)
+        val itemView = li.inflate(R.layout.item_7, parent, false)
         return NameViewHolder(itemView)
     }
 
@@ -35,7 +35,7 @@ class PeopleAdapter(val context: Context, val nameList: ArrayList<People_results
     override fun onBindViewHolder(holder: PeopleAdapter.NameViewHolder, position: Int) {
         if(check==false) {
             holder.itemView.tView.text = nameList[position].name
-
+            holder.itemView.tViewAs.text = nameList[position].character
             val target = nameList[position].profile_path
             Picasso.with(this.context).load(baseURL + target).into(holder.itemView.iView)
         }

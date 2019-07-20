@@ -9,6 +9,7 @@ data class TV(
 )
 
 data class TV_details(
+    val rating : String,
     val id : String,
     val genres : ArrayList<Genre>,
     val name : String,

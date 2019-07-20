@@ -7,6 +7,7 @@ data class People(
 )
 
 data class People_results(
+    val character : String,
     val id : String,
     val known_for_department : String,
     val also_known_as : ArrayList<String>,

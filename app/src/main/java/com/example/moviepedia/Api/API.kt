@@ -150,11 +150,6 @@ interface API {
         @Query("api_key") key : String
     ) : Call<TV>
 
-    @GET("3/tv/{id}/reviews")
-    fun getTVReviews(
-        @Path("id") id : Int,
-        @Query("api_key") key : String
-    ) : Call<TV>
 
     @GET("3/tv/{id}/credits")
     fun getTVCast(
@@ -185,10 +180,6 @@ interface API {
         @Query("api_key") key : String
     ) : Call<ReqToken>
 
-    @POST("authenticate/{REQUEST_TOKEN}/allow")
-    fun allowToken(
-        @Path("REQUEST_TOKEN") token : String
-    ) : Call<Unit>
 
     @POST("3/authentication/session/new")
     fun create(
@@ -251,4 +242,56 @@ interface API {
         @Query("session_id") session_id : String,
         @Query("page") num : Int
     ) : Call<TV>
+
+    @POST("3/movie/{movie_id}/rating")
+    fun putRatingMovie(
+        @Path("movie_id") id : String,
+        @Header("Content_type")type: String,
+        @Body rate: Rate,
+        @Query("api_key") key : String,
+        @Query("session_id") session_id : String
+    ) : Call<Unit>
+
+    @POST("3/tv/{tv_id}/rating")
+    fun putRatingTV(
+        @Path("tv_id") id : String,
+        @Header("Content_type")type: String,
+        @Body rate: Rate,
+        @Query("api_key") key : String,
+        @Query("session_id") session_id : String
+    ) : Call<Unit>
+
+
+
+    @GET("3/account/{account_id}/rated/movies")
+    fun getRatedMovie(
+        @Path("account_id") id : String,
+        @Query("api_key") key : String,
+        @Query("session_id") session_id : String,
+        @Query("page") num : Int
+    ) : Call<Common>
+
+    @GET("3/account/{account_id}/rated/tv")
+    fun getRatedTV(
+        @Path("account_id") id : String,
+        @Query("api_key") key : String,
+        @Query("session_id") session_id : String,
+        @Query("page") num : Int
+    ) : Call<TV>
+
+    @DELETE("3/movie/{movie_id}/rating")
+    fun deleteRated(
+        @Path("movie_id") id : String,
+        @Header("Content_type")type: String,
+        @Query("api_key") key : String,
+        @Query("session_id") session_id : String
+    ) : Call<Unit>
+
+    @DELETE("3/tv/{tv_id}/rating")
+    fun deletRatedTV(
+        @Path("tv_id") id : String,
+        @Header("Content_type")type: String,
+        @Query("api_key") key : String,
+        @Query("session_id") session_id : String
+    ) : Call<Unit>
 }

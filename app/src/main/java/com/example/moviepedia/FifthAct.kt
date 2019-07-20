@@ -1,5 +1,6 @@
 package com.example.moviepedia
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,11 +8,14 @@ import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.room.Room
+import com.example.moviepedia.Adapter.PeopleAdapter
 import com.example.moviepedia.Adapter.ReviewAdapter
 import com.example.moviepedia.Adapter.TVAdapter
 import com.example.moviepedia.Api.API
+import com.example.moviepedia.DataClass.Rate
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_fifth.*
+import kotlinx.android.synthetic.main.activity_second.*
 import kotlinx.android.synthetic.main.activity_third.*
 import kotlinx.android.synthetic.main.content_scrolling.*
 import kotlinx.android.synthetic.main.content_scrolling_3.*
@@ -53,9 +57,19 @@ class FifthAct : AppCompatActivity() {
             .fallbackToDestructiveMigration()
             .build()
     }
+    val db3: RatedDatabase by lazy {
+        Room.databaseBuilder(
+            this,
+            RatedDatabase::class.java,
+            "Rate.db"
+        ).allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
+            .build()
+    }
     lateinit var AccountID : String
     lateinit var tv_id : String
 
+    @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fifth)
@@ -125,11 +139,13 @@ class FifthAct : AppCompatActivity() {
                 }
             }
         })
-        val reviewService = retrofit.create(API::class.java)
-        reviewService.getReviewTV(id,api_key).enqueue(retrofitCallback{ throwable, response ->
+        val castService = retrofit.create(API::class.java)
+        castService.getTVCast(id,api_key).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
-                rViewreviewTV.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
-                rViewreviewTV.adapter = ReviewAdapter(this, it.body()!!.results)
+                if(it.isSuccessful) {
+                    rViewCastTV.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
+                    rViewCastTV.adapter = PeopleAdapter(this, it.body()!!.cast, false)
+                }
             }
         })
 
@@ -140,11 +156,34 @@ class FifthAct : AppCompatActivity() {
             startActivity(intent)
         }
 
-        seeCastTV.setOnClickListener {
+        seeReviewsTV.setOnClickListener {
             val intent = Intent(this, SecondAct::class.java)
-            intent.putExtra("type", "TVCast")
+            intent.putExtra("type", "TVReview")
             intent.putExtra("id", id.toString())
             startActivity(intent)
+        }
+
+        rateTVSeries.setOnClickListener {
+            val alreadyRated = db3.RatedDao().getRated(id.toString())
+            if(alreadyRated != null) {
+                Toast.makeText(this, "Already Rated!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val rate = Rate(
+                rateTV.rating * 2
+            )
+
+            val rated = Rated(
+                media_id = id.toString()
+            )
+            db3.RatedDao().insertRow(rated)
+            val serviceRating = retrofit.create(API::class.java)
+            serviceRating.putRatingTV(id.toString(), "application/json;charset=utf-8", rate, api_key, userPresent.session_id)
+                .enqueue(retrofitCallback{ throwable, response ->
+                    Log.d("SUCCESS", "IS SUCCESS, ${AccountID}, ${userPresent.session_id}")
+                })
+            Toast.makeText(this, "Thanks for rating", Toast.LENGTH_SHORT).show()
         }
 
         favTV.setOnClickListener {
@@ -178,13 +217,13 @@ class FifthAct : AppCompatActivity() {
             val watch = Watchlist(
                 movie_id = id.toString()
             )
-            if(chk == 0) {
+            if(chkW == 0) {
                 val watchL = com.example.moviepedia.DataClass.watchlist(
                     "tv",
                     tv_id.toInt(),
                     true
                 )
-                chk = 1
+                chkW = 1
                 db2.WatchDao().insertRow(watch)
                 val serviceFav = retrofit.create(API::class.java)
                 serviceFav.putWatchlist(AccountID, "application/json;charset=utf-8" ,watchL, api_key, userPresent.session_id)

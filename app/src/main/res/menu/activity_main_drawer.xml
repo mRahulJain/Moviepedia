@@ -32,6 +32,10 @@
                         android:id="@+id/nav_watchList_Movies"
                         android:icon="@drawable/ic_bookmark_black"
                         android:title="Watchlist Movies"/>
+                <item
+                        android:id="@+id/nav_rated_movie"
+                        android:icon="@drawable/ic_rate_review"
+                        android:title="Rated Movies"/>
             </group>
         </menu>
     </item>
@@ -48,6 +52,10 @@
                         android:id="@+id/nav_watchList_TV"
                         android:icon="@drawable/ic_bookmark_black"
                         android:title="Watchlist TV Shows"/>
+                <item
+                        android:id="@+id/nav_rated_tv"
+                        android:icon="@drawable/ic_rate_review"
+                        android:title="Rated TV Shows"/>
             </group>
         </menu>
     </item>

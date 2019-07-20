@@ -7,6 +7,7 @@ data class Common(
 )
 
 data class Common_results(
+    val rating : String,
     var id : String,
     var original_title : String,
     var poster_path : String

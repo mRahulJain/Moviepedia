@@ -1,6 +1,7 @@
 package com.example.moviepedia
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -12,16 +13,23 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.example.moviepedia.Adapter.CommonAdapter
-import com.example.moviepedia.Adapter.PeopleAdapter
-import com.example.moviepedia.Adapter.SearchAdapter
-import com.example.moviepedia.Adapter.TVAdapter
+import com.example.moviepedia.Adapter.*
 import com.example.moviepedia.Api.*
+import com.example.moviepedia.DataClass.Common_results
+import com.example.moviepedia.DataClass.TV_details
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.item_1.view.*
+import kotlinx.android.synthetic.main.item_6.view.*
+import kotlinx.android.synthetic.main.item_6.view.iView
+import kotlinx.android.synthetic.main.item_6.view.parentLayout
+import kotlinx.android.synthetic.main.item_6.view.tView
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -42,6 +50,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             this,
             AppDatabase::class.java,
             "Users.db"
+        ).allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+    val db3: RatedDatabase by lazy {
+        Room.databaseBuilder(
+            this,
+            RatedDatabase::class.java,
+            "Rate.db"
         ).allowMainThreadQueries()
             .fallbackToDestructiveMigration()
             .build()
@@ -112,8 +129,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen4()
             } else if(type == "MovieWatch") {
                 onOpen5()
-            } else {
+            } else if(type == "TVWatch") {
                 onOpen6()
+            } else if(type == "Rated Movie") {
+                onOpen7()
             }
         }
         backward.setOnClickListener {
@@ -126,8 +145,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen4()
             } else if(type == "MovieWatch") {
                 onOpen5()
-            } else {
+            } else if(type == "TVWatch") {
                 onOpen6()
+            } else if(type == "Rated Movie") {
+                onOpen7()
             }
         }
 
@@ -375,6 +396,34 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             })
     }
 
+    @SuppressLint("WrongConstant")
+    fun onOpen7() {
+        val serviceRatedMovie = retrofit.create(API::class.java)
+        serviceRatedMovie.getRatedMovie(AccountID, api_key, userPresentA.session_id, track.text.toString().toInt())
+            .enqueue(retrofitCallback { throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                        rView1.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
+                        rView1.adapter = RatedMovieAdapter(this, it.body()!!.results, false, userPresentA.session_id)
+                    }
+                }
+            })
+    }
+
+    @SuppressLint("WrongConstant")
+    fun onOpen8() {
+        val serviceRatedMovie = retrofit.create(API::class.java)
+        serviceRatedMovie.getRatedTV(AccountID, api_key, userPresentA.session_id, track.text.toString().toInt())
+            .enqueue(retrofitCallback { throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                        rView1.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
+                        rView1.adapter = TVRatedAdapter(this, it.body()!!.results, userPresentA.session_id)
+                    }
+                }
+            })
+    }
+
     fun onOpen2() {
         val service = retrofit.create(API::class.java)
 
@@ -571,10 +620,138 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 intent.putExtra("password", "${userPresentA.password}")
                 startActivity(intent)
             }
-
+            R.id.nav_rated_movie -> {
+                type = "Rated Movie"
+                layoutSearch.isVisible = false
+                btn1.isClickable = false
+                lastLayout.isVisible = true
+                btn5.isVisible = false
+                btn4.isVisible = false
+                btn3.isVisible = false
+                btn2.isVisible = false
+                rView5.isVisible = false
+                rView4.isVisible = false
+                rView3.isVisible = false
+                rView2.isVisible = false
+                btn1.text = "  Rated Movie"
+                onOpen7()
+            }
+            R.id.nav_rated_tv -> {
+                type = "Rated TV"
+                layoutSearch.isVisible = false
+                btn1.isClickable = false
+                lastLayout.isVisible = true
+                btn5.isVisible = false
+                btn4.isVisible = false
+                btn3.isVisible = false
+                btn2.isVisible = false
+                rView5.isVisible = false
+                rView4.isVisible = false
+                rView3.isVisible = false
+                rView2.isVisible = false
+                btn1.text = "  Rated TV"
+                onOpen8()
+            }
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    inner class RatedMovieAdapter(val context: Context, val nameList: ArrayList<Common_results>, val check : Boolean, val session_id : String) :
+        RecyclerView.Adapter<RatedMovieAdapter.NameViewHolder>() {
+
+        val baseURL = "https://image.tmdb.org/t/p/w342/"
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NameViewHolder {
+            val li = parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val itemView = li.inflate(R.layout.item_6, parent, false)
+            return NameViewHolder(itemView)
+        }
+
+        override fun getItemCount(): Int {
+            if(check==false) {
+                return nameList.size
+            }
+            return 0
+        }
+
+        override fun onBindViewHolder(holder: RatedMovieAdapter.NameViewHolder, position: Int) {
+            if(check==false) {
+                holder.itemView.rateView.text = nameList[position].rating + " / 10"
+                holder.itemView.tView.text = nameList[position].original_title
+                Log.d("CHECK", "${holder.itemView.tView.text}")
+                val target = nameList[position].poster_path
+                Picasso.with(this.context).load(baseURL + target).into(holder.itemView.iView)
+
+                holder.itemView.deletS.setOnClickListener {
+                    db3.RatedDao().deletRated(nameList[position].id)
+                    val serviceDeleteRatedMovie = retrofit.create(API::class.java)
+                    serviceDeleteRatedMovie.deleteRated(nameList[position].id, "application/json;charset=utf-8", api_key, session_id)
+                        .enqueue(retrofitCallback{ throwable, response ->
+                            response?.let {
+                                if(it.isSuccessful) {
+                                    onOpen7()
+                                }
+                            }
+                        })
+                }
+
+                holder.itemView.parentLayout.setOnClickListener {
+                    var intent = Intent(context, ThirdAct::class.java)
+                    intent.putExtra("id", nameList[position].id)
+                    intent.putExtra("type", "Movie")
+                    ContextCompat.startActivity(context, intent, null)
+                }
+            }
+        }
+
+        inner class NameViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    }
+
+    inner class TVRatedAdapter(val context: Context, val nameList: ArrayList<TV_details>, val session_id : String) :
+        RecyclerView.Adapter<TVRatedAdapter.NameViewHolder>() {
+
+        val baseURL = "https://image.tmdb.org/t/p/w342/"
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NameViewHolder {
+            val li = parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val itemView = li.inflate(R.layout.item_6, parent, false)
+            return NameViewHolder(itemView)
+        }
+
+        override fun getItemCount(): Int {
+            return nameList.size
+        }
+
+        override fun onBindViewHolder(holder: TVRatedAdapter.NameViewHolder, position: Int) {
+            holder.itemView.rateView.text = nameList[position].rating + " / 10"
+            holder.itemView.tView.text = nameList[position].name
+            Log.d("CHECK", "${holder.itemView.tView.text}")
+            val target = nameList[position].poster_path
+            Picasso.with(this.context).load(baseURL + target).into(holder.itemView.iView)
+
+            holder.itemView.deletS.setOnClickListener {
+                db3.RatedDao().deletRated(nameList[position].id)
+                val serviceDeleteRatedMovie = retrofit.create(API::class.java)
+                serviceDeleteRatedMovie.deletRatedTV(nameList[position].id, "application/json;charset=utf-8", api_key, session_id)
+                    .enqueue(retrofitCallback{ throwable, response ->
+                        response?.let {
+                            if(it.isSuccessful) {
+                                onOpen8()
+                            }
+                        }
+                    })
+            }
+
+            holder.itemView.parentLayout.setOnClickListener {
+                var intent = Intent(context, FifthAct::class.java)
+                intent.putExtra("id", nameList[position].id)
+                ContextCompat.startActivity(context, intent, null)
+            }
+        }
+
+
+        inner class NameViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     }
 }

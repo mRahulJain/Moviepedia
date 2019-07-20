@@ -7,9 +7,11 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviepedia.Adapter.CommonAdapter
 import com.example.moviepedia.Adapter.PeopleAdapter
+import com.example.moviepedia.Adapter.ReviewAdapter
 import com.example.moviepedia.Adapter.TVAdapter
 import com.example.moviepedia.Api.API
 import kotlinx.android.synthetic.main.activity_second.*
+import kotlinx.android.synthetic.main.content_scrolling_3.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -42,7 +44,7 @@ class SecondAct : AppCompatActivity() {
             maxLimit = 996
         } else if(type == "Top Rated") {
             maxLimit = 371
-        } else if(type == "Case") {
+        } else if(type == "Review") {
             maxLimit = 1
         }
 
@@ -148,25 +150,23 @@ class SecondAct : AppCompatActivity() {
                     }
                 }
             })
-        } else if(type == "TVCast") {
+        } else if(type == "TVReview") {
             lastLayout.isVisible = false
             val id = intent.getStringExtra("id").toInt()
-            service.getTVCast(id,api_key).enqueue(retrofitCallback{ throwable, response ->
+            service.getReviewTV(id,api_key).enqueue(retrofitCallback{ throwable, response ->
                 response?.let {
-                    if(it.isSuccessful) {
-                        rView.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
-                        rView.adapter = PeopleAdapter(this, it.body()!!.cast, false)
-                    }
+                    rView.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
+                    rView.adapter = ReviewAdapter(this, it.body()!!.results)
                 }
             })
-        } else if(type == "Cast") {
+        } else if(type == "Review") {
             lastLayout.isVisible = false
             val id = intent.getStringExtra("id").toInt()
-            service.getCast(id,api_key).enqueue(retrofitCallback{ throwable, response ->
+            service.getReview(id,api_key).enqueue(retrofitCallback{ throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
-                        rView.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
-                        rView.adapter = PeopleAdapter(this, it.body()!!.cast, false)
+                        rView.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.VERTICAL, false)
+                        rView.adapter = ReviewAdapter(this, it.body()!!.results)
                     }
                 }
             })

@@ -20,7 +20,7 @@
                 android:textSize="15sp"
                 android:id="@+id/tVoverviewTV"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"/>
+                android:layout_height="wrap_content"/>
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -41,16 +41,17 @@
                     android:layout_height="match_parent" android:textStyle="bold"/>
         </LinearLayout>
         <TextView
+                android:layout_marginTop="20dp"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
-                android:text="Similar TV Series"
+                android:text="Cast"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_marginTop="10dp"
-                android:id="@+id/rViewSimilarTV"
+                android:id="@+id/rViewCastTV"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="280dp">
 
         </androidx.recyclerview.widget.RecyclerView>
         <LinearLayout
@@ -73,24 +74,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
         </LinearLayout>
-        <Button
-                android:layout_marginTop="15dp"
-                android:id="@+id/seeCastTV"
+        <TextView
+                android:layout_marginTop="20dp"
                 android:textColor="@android:color/white"
-                android:background="@android:color/black"
-                android:gravity="right"
-                android:text = "See Cast Here!"
-                android:textSize="15sp"
+                android:textSize="20sp"
+                android:text="Similar TV Series"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="10dp"
+                android:id="@+id/rViewSimilarTV"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
         <LinearLayout
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            <TextView
+            <Button
                     android:textColor="@android:color/white"
                     android:background="@android:color/black"
                     android:gravity="left"
+                    android:id="@+id/seeReviewsTV"
                     android:text = "Reviews :"
                     android:textSize="20sp"
                     android:layout_width="wrap_content"
@@ -104,34 +111,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
         </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="10dp"
-                android:id="@+id/rViewreviewTV"
-                android:layout_width="match_parent"
-                android:layout_height="150dp">
-
-        </androidx.recyclerview.widget.RecyclerView>
-        <TextView
-                android:textColor="@android:color/white"
-                android:textSize="10sp"
-                android:text="Add a review here.."
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
         <LinearLayout
+
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            <EditText
-                    android:background="@color/cardview_dark_background"
-                    android:layout_weight="1"
-                    android:id="@+id/userReviewTV"
-                    android:textColor="@android:color/white"
-                    android:gravity="left|center"
-                    android:textSize="15sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="30sp"/>
+            <RatingBar
+                    android:rating="0"
+                    android:stepSize="0.5"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="95dp"
+                    android:theme="@style/RatingBar"
+                    android:numStars="5"
+                    android:id="@+id/rateTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
             <ImageButton
+                    android:id="@+id/rateTVSeries"
                     android:background="@android:color/black"
                     android:layout_gravity="center"
                     android:src="@android:drawable/ic_menu_add"
@@ -140,6 +136,7 @@
         </LinearLayout>
 
         <Button
+                android:layout_marginTop="10dp"
                 android:id="@+id/browseVideoTV"
                 android:textColor="@android:color/white"
                 android:background="@android:color/black"

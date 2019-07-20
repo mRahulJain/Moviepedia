@@ -23,3 +23,7 @@ data class watchlist(
     val media_id : Int,
     val watchlist : Boolean
 )
+
+data class Rate(
+    val value : Float
+)
