@@ -11,6 +11,7 @@ import androidx.room.Room
 import com.example.moviepedia.Adapter.PeopleAdapter
 import com.example.moviepedia.Adapter.ReviewAdapter
 import com.example.moviepedia.Adapter.TVAdapter
+import com.example.moviepedia.Adapter.VideoAdapter
 import com.example.moviepedia.Api.API
 import com.example.moviepedia.DataClass.Rate
 import com.squareup.picasso.Picasso
@@ -131,6 +132,15 @@ class FifthAct : AppCompatActivity() {
                 }
             }
         })
+        val videoService = retrofit.create(API::class.java)
+        videoService.getVideoTV(id,api_key).enqueue(retrofitCallback{ throwable, response ->
+            response?.let {
+                if(it.isSuccessful) {
+                    rViewVideoTV.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
+                    rViewVideoTV.adapter = VideoAdapter(this, it.body()!!)
+                }
+            }
+        })
         val similarService = retrofit.create(API::class.java)
         similarService.getTVSimilar(id,api_key).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
@@ -149,13 +159,6 @@ class FifthAct : AppCompatActivity() {
                 }
             }
         })
-
-        browseVideoTV.setOnClickListener {
-            val intent = Intent(this, VideoActivity::class.java)
-            intent.putExtra("id", id.toString())
-            intent.putExtra("type", "TV")
-            startActivity(intent)
-        }
 
         seeReviewsTV.setOnClickListener {
             val intent = Intent(this, SecondAct::class.java)

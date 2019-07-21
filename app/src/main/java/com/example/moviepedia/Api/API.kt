@@ -30,7 +30,8 @@ interface API {
     @GET("3/movie/{id}/reviews")
     fun getReview(
         @Path("id") id : Int,
-        @Query("api_key") key : String
+        @Query("api_key") key : String,
+        @Query("page") page : Int
     ) : Call<Movie_review_search>
 
     @GET("3/person/{id}")
@@ -166,7 +167,8 @@ interface API {
     @GET("3/tv/{id}/reviews")
     fun getReviewTV(
         @Path("id") id : Int,
-        @Query("api_key") key : String
+        @Query("api_key") key : String,
+        @Query("page") page : Int
     ) : Call<Movie_review_search>
 
     @GET("3/search/multi")

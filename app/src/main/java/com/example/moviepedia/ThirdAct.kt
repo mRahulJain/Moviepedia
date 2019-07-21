@@ -1,5 +1,6 @@
 package com.example.moviepedia
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import androidx.room.Room
 import com.example.moviepedia.Adapter.CommonAdapter
 import com.example.moviepedia.Adapter.PeopleAdapter
 import com.example.moviepedia.Adapter.ReviewAdapter
+import com.example.moviepedia.Adapter.VideoAdapter
 import com.example.moviepedia.Api.API
 import com.example.moviepedia.DataClass.Rate
 import com.squareup.picasso.Picasso
@@ -70,6 +72,7 @@ class ThirdAct : AppCompatActivity() {
     var chk : Int = 3
     var chkW : Int = 3
 
+    @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_third)
@@ -134,6 +137,15 @@ class ThirdAct : AppCompatActivity() {
                     }
                 }
             })
+            val videoService = retrofit.create(API::class.java)
+            videoService.getVideo(id,api_key).enqueue(retrofitCallback{ throwable, response ->
+                response?.let {
+                    if(it.isSuccessful) {
+                        rViewVideo.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
+                        rViewVideo.adapter = VideoAdapter(this, it.body()!!)
+                    }
+                 }
+            })
             val similarService = retrofit.create(API::class.java)
             similarService.getSimilarMovie(id,api_key).enqueue(retrofitCallback{ throwable, response ->
                 response?.let {
@@ -154,13 +166,6 @@ class ThirdAct : AppCompatActivity() {
                 }
             }
         })
-
-        browseVideo.setOnClickListener {
-            val intent = Intent(this, VideoActivity::class.java)
-            intent.putExtra("id", id.toString())
-            intent.putExtra("type", "Movie")
-            startActivity(intent)
-        }
 
         seeReview.setOnClickListener {
             val intent = Intent(this, SecondAct::class.java)

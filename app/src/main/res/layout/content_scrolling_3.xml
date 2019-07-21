@@ -44,6 +44,20 @@
                 android:layout_marginTop="20dp"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
+                android:text="Videos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="10dp"
+                android:id="@+id/rViewVideoTV"
+                android:layout_width="match_parent"
+                android:layout_height="230dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+        <TextView
+                android:layout_marginTop="20dp"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
                 android:text="Cast"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -74,20 +88,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
         </LinearLayout>
-        <TextView
-                android:layout_marginTop="20dp"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:text="Similar TV Series"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="10dp"
-                android:id="@+id/rViewSimilarTV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-        </androidx.recyclerview.widget.RecyclerView>
         <LinearLayout
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
@@ -98,7 +98,7 @@
                     android:background="@android:color/black"
                     android:gravity="left"
                     android:id="@+id/seeReviewsTV"
-                    android:text = "Reviews :"
+                    android:text = "Read Reviews!"
                     android:textSize="20sp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"/>
@@ -134,17 +134,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"/>
         </LinearLayout>
-
-        <Button
-                android:layout_marginTop="10dp"
-                android:id="@+id/browseVideoTV"
+        <TextView
+                android:layout_marginTop="20dp"
                 android:textColor="@android:color/white"
-                android:background="@android:color/black"
-                android:gravity="center"
-                android:text = "Browse videos here!"
                 android:textSize="20sp"
+                android:text="Similar TV Series"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="10dp"
+                android:id="@+id/rViewSimilarTV"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

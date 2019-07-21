@@ -3,7 +3,6 @@ package com.example.moviepedia.Adapter
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +10,8 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviepedia.DataClass.Video
 import com.example.moviepedia.R
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_5.view.*
-import kotlinx.android.synthetic.main.item_5.view.iViewVideo
 
 class VideoAdapter(val context: Context, val nameList: Video) : RecyclerView.Adapter<VideoAdapter.NameViewHolder>() {
 
@@ -29,8 +28,10 @@ class VideoAdapter(val context: Context, val nameList: Video) : RecyclerView.Ada
     }
 
     override fun onBindViewHolder(holder: VideoAdapter.NameViewHolder, position: Int) {
+        var url = "https://img.youtube.com/vi/${nameList.results[position].key}/0.jpg"
         holder.itemView.tVvideoName.text = nameList.results[position].name
-        holder.itemView.iViewVideo.setOnClickListener {
+        Picasso.with(context).load(url).resize(300, 200).into(holder.itemView.iViewVid)
+        holder.itemView.pL.setOnClickListener {
             var i = Intent()
             i.action = Intent.ACTION_VIEW
             i.data = Uri.parse(baseURL + nameList.results[position].key)

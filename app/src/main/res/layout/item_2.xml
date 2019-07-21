@@ -4,18 +4,18 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:elevation="10dp"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         app:cardCornerRadius="4dp"
         android:id="@+id/parentLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-                android:gravity="center"
-                android:background="@android:color/darker_gray"
+                android:gravity="left"
+                android:background="@color/colorPrimary"
                 android:textColor="@android:color/white"
                 android:id="@+id/tView"
-                android:textSize="10sp"
+                android:textSize="15sp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 

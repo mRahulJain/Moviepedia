@@ -39,6 +39,7 @@ class SecondAct : AppCompatActivity() {
     lateinit var list : ArrayList<Trending_results>
     lateinit var commonList : ArrayList<Common_results>
     lateinit var TVList : ArrayList<TV_details>
+    lateinit var ReviewList : ArrayList<reviews>
     var i = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -227,19 +228,33 @@ class SecondAct : AppCompatActivity() {
             })
         } else if(type == "TVReview") {
             val id = intent.getStringExtra("id").toInt()
-            service.getReviewTV(id,api_key).enqueue(retrofitCallback{ throwable, response ->
+            service.getReviewTV(id,api_key, currentPage).enqueue(retrofitCallback{ throwable, response ->
                 response?.let {
-                    rView.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
-                    rView.adapter = ReviewAdapter(this, it.body()!!.results)
+                    if(i==0) {
+                        ReviewList = it.body()!!.results
+                        rView.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
+                        rView.adapter = ReviewAdapter(this, ReviewList)
+                    } else {
+                        ReviewList.addAll(it.body()!!.results)
+                        rView.adapter!!.notifyDataSetChanged()
+                    }
+                    i++
                 }
             })
         } else if(type == "Review") {
             val id = intent.getStringExtra("id").toInt()
-            service.getReview(id,api_key).enqueue(retrofitCallback{ throwable, response ->
+            service.getReview(id,api_key, currentPage).enqueue(retrofitCallback{ throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
-                        rView.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.VERTICAL, false)
-                        rView.adapter = ReviewAdapter(this, it.body()!!.results)
+                        if(i==0) {
+                            ReviewList = it.body()!!.results
+                            rView.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
+                            rView.adapter = ReviewAdapter(this, ReviewList)
+                        } else {
+                            ReviewList.addAll(it.body()!!.results)
+                            rView.adapter!!.notifyDataSetChanged()
+                        }
+                        i++
                     }
                 }
             })
