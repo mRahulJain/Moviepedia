@@ -5,13 +5,13 @@
         android:orientation="vertical"
         android:layout_margin="10dp"
         android:elevation="10dp"
-        app:cardCornerRadius="4dp"
+        app:cardCornerRadius="8dp"
         android:id="@+id/parentLayout"
-        android:layout_width="match_parent"
-        android:layout_height="600dp">
+        android:layout_width="220dp"
+        android:layout_height="300dp">
 
         <ImageView
-                android:background="@android:color/black"
+                android:background="@android:color/darker_gray"
                 android:id="@+id/iViewPhoto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>

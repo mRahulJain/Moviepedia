@@ -22,7 +22,7 @@
                 android:textSize="15sp"
                 android:id="@+id/tVbio"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"/>
+                android:layout_height="wrap_content"/>
         <TextView
                 android:id="@+id/just1"
                 android:layout_marginTop="10dp"
@@ -46,6 +46,19 @@
                 android:id="@+id/tVpopularity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:textStyle="bold"/>
+        <TextView
+                android:layout_marginTop="20dp"
+                android:text="More Pictures"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rViewPhotos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
         <TextView
                 android:id="@+id/just2"
                 android:layout_marginTop="30dp"
@@ -73,17 +86,6 @@
                 android:layout_height="wrap_content">
 
         </androidx.recyclerview.widget.RecyclerView>
-
-        <Button
-                android:layout_marginTop="5dp"
-                android:id="@+id/getPhotos"
-                android:textColor="@android:color/primary_text_dark_nodisable"
-                android:background="@android:color/black"
-                android:gravity="center"
-                android:text = "See more photos!"
-                android:textSize="20sp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
 
     </LinearLayout>
 

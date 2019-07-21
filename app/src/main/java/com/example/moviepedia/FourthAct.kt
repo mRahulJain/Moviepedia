@@ -1,5 +1,6 @@
 package com.example.moviepedia
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviepedia.Adapter.GetWorkAdapter
+import com.example.moviepedia.Adapter.PhotoAdapter
 import com.example.moviepedia.Api.API
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_fourth.*
@@ -25,6 +27,7 @@ class FourthAct : AppCompatActivity() {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
+    @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fourth)
@@ -60,6 +63,16 @@ class FourthAct : AppCompatActivity() {
                 }
             }
         })
+
+        val photoService = retrofit.create(API::class.java)
+        photoService.getPhoto(id,api_key).enqueue(retrofitCallback{ throwable, response ->
+            response?.let {
+                if(it.isSuccessful) {
+                    rViewPhotos.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
+                    rViewPhotos.adapter = PhotoAdapter(this, it.body()!!)
+                }
+            }
+        })
         val getWorkService = retrofit.create(API::class.java)
         getWorkService.getPeopleWork(id, api_key).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
@@ -69,12 +82,6 @@ class FourthAct : AppCompatActivity() {
                 }
             }
         })
-
-        getPhotos.setOnClickListener {
-            val intent = Intent(this, PhotoAct::class.java)
-            intent.putExtra("id", id.toString())
-            startActivity(intent)
-        }
 
     }
 }
