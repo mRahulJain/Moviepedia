@@ -24,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class ThirdAct : AppCompatActivity() {
 
     val baseURL = "https://image.tmdb.org/t/p/original/"
-    val api_key: String = "<api_key>"
+    val api_key: String = "40c1d09ce2457ccd5cabde67ee04c652"
     val retrofit = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/")
         .addConverterFactory(GsonConverterFactory.create())

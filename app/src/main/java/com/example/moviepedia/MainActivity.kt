@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.AbsListView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
@@ -22,13 +23,13 @@ import androidx.room.Room
 import com.example.moviepedia.Adapter.*
 import com.example.moviepedia.Api.*
 import com.example.moviepedia.DataClass.Common_results
+import com.example.moviepedia.DataClass.People_results
 import com.example.moviepedia.DataClass.TV_details
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_second.*
 import kotlinx.android.synthetic.main.content_main.*
-import kotlinx.android.synthetic.main.item_1.view.*
 import kotlinx.android.synthetic.main.item_6.view.*
 import kotlinx.android.synthetic.main.item_6.view.iView
 import kotlinx.android.synthetic.main.item_6.view.parentLayout
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     val media_type = "all"
     val time_window = "week"
-    val api_key: String = "<api_key>"
+    val api_key: String = "40c1d09ce2457ccd5cabde67ee04c652"
     val retrofit = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/")
         .addConverterFactory(GsonConverterFactory.create())
@@ -72,6 +73,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var AccountID : String
     var trial : Int = 0
     val KEY_APP_OPEN = "app_open"
+    var isScrolling : Boolean = false
+    var currentItems : Int = 0
+    var totalItems : Int = 0
+    var scrolledOutItems : Int = 0
+    var currentPage : Int = 1
+    lateinit var layoutManager: RecyclerView.LayoutManager
+    private var gridLayoutManager: GridLayoutManager? = null
+    lateinit var PeopleList : ArrayList<People_results>
+    lateinit var FavMovieList : ArrayList<Common_results>
+    lateinit var FavTVList : ArrayList<TV_details>
+    lateinit var WatchMovieList : ArrayList<Common_results>
+    lateinit var WatchTVList : ArrayList<TV_details>
+
+    var i = 0
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -142,40 +157,59 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
             }
         }
+
+        rView1.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
+        rView1.adapter = LoadingAdapter(this)
+        rView2.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
+        rView2.adapter = LoadingAdapter(this)
+        rView3.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
+        rView3.adapter = LoadingAdapter(this)
+        rView4.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
+        rView4.adapter = LoadingAdapter(this)
+        rView5.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
+        rView5.adapter = LoadingAdapter(this)
         layoutSearch.isVisible = false
-        lastLayout.isVisible = false
-        forward.setOnClickListener {
-            track.text = (track.text.toString().toInt() + 1).toString()
-            if(type=="People") {
-                onOpen1()
-            } else if(type == "Movies") {
-                onOpen3()
-            } else if(type =="TV") {
-                onOpen4()
-            } else if(type == "MovieWatch") {
-                onOpen5()
-            } else if(type == "TVWatch") {
-                onOpen6()
-            } else if(type == "Rated Movie") {
-                onOpen7()
+
+        rView1.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                layoutManager = rView1.layoutManager!!
+                currentItems = layoutManager!!.childCount
+                totalItems = layoutManager!!.itemCount
+                when(layoutManager) {
+                    is GridLayoutManager -> gridLayoutManager = layoutManager as GridLayoutManager
+                }
+                scrolledOutItems = gridLayoutManager!!.findFirstVisibleItemPosition()
+
+                if((scrolledOutItems + currentItems == totalItems) && isScrolling) {
+                    currentPage++
+                    isScrolling = false
+                    if(type=="People") {
+                        onOpen1()
+                    } else if(type == "Movies") {
+                        onOpen3()
+                    } else if(type =="TV") {
+                        onOpen4()
+                    } else if(type == "MovieWatch") {
+                        onOpen5()
+                    } else if(type == "TVWatch") {
+                        onOpen6()
+                    } else if(type == "Rated Movie") {
+                        onOpen7()
+                    } else if(type == "Rated TV") {
+                        onOpen8()
+                    }
+                }
+
             }
-        }
-        backward.setOnClickListener {
-            track.text = (track.text.toString().toInt() - 1).toString()
-            if(type=="People") {
-                onOpen1()
-            } else if(type == "Movies") {
-                onOpen3()
-            } else if(type =="TV") {
-                onOpen4()
-            } else if(type == "MovieWatch") {
-                onOpen5()
-            } else if(type == "TVWatch") {
-                onOpen6()
-            } else if(type == "Rated Movie") {
-                onOpen7()
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                    isScrolling = true
+                }
             }
-        }
+        })
 
         btn1.setOnClickListener {
             var intent = Intent(this, SecondAct::class.java)
@@ -226,7 +260,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 layoutSearch.isVisible = false
                 bool = false
                 btn1.isClickable = true
-                lastLayout.isVisible = false
                 btn5.isVisible = true
                 btn4.isVisible = true
                 btn3.isVisible = true
@@ -241,7 +274,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 type = "People"
                 layoutSearch.isVisible = false
                 btn1.isClickable = false
-                lastLayout.isVisible = true
                 btn5.isVisible = false
                 btn4.isVisible = false
                 btn3.isVisible = false
@@ -257,7 +289,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 layoutSearch.isVisible = false
                 bool = true
                 btn1.isClickable = true
-                lastLayout.isVisible = false
                 btn5.isVisible = false
                 btn4.isVisible = true
                 btn3.isVisible = true
@@ -280,7 +311,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 return@setOnClickListener
             }
             btn1.isVisible = false
-            lastLayout.isVisible = false
             btn5.isVisible = false
             btn4.isVisible = false
             btn3.isVisible = false
@@ -304,7 +334,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     fun onOpen() {
         val service = retrofit.create(API::class.java)
 
-        service.getTrending(media_type, time_window, api_key, track.text.toString()).enqueue(retrofitCallback{ throwable, response ->
+        service.getTrending(media_type, time_window, api_key, currentPage.toString()).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
                 if(it.isSuccessful) {
                     rView1.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
@@ -313,7 +343,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         })
 
-        service.getNowPlaying(api_key, track.text.toString()).enqueue(retrofitCallback{ throwable, response ->
+        service.getNowPlaying(api_key, currentPage.toString()).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
                 if(it.isSuccessful) {
                     rView2.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
@@ -322,7 +352,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         })
 
-        service.getUpcoming(api_key, track.text.toString()).enqueue(retrofitCallback{ throwable, response ->
+        service.getUpcoming(api_key, currentPage.toString()).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
                 if(it.isSuccessful) {
                     rView3.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
@@ -331,7 +361,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         })
 
-        service.getPopular(api_key, track.text.toString()).enqueue(retrofitCallback{ throwable, response ->
+        service.getPopular(api_key, currentPage.toString()).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
                 if(it.isSuccessful) {
                     rView4.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
@@ -340,7 +370,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         })
 
-        service.getTopRated(api_key, track.text.toString()).enqueue(retrofitCallback{ throwable, response ->
+        service.getTopRated(api_key, currentPage.toString()).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
                 if(it.isSuccessful) {
                     rView5.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
@@ -354,11 +384,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     fun onOpen1() {
         val service = retrofit.create(API::class.java)
 
-        service.getPopularPeople(api_key, track.text.toString().toInt()).enqueue(retrofitCallback{ throwable, response ->
+        service.getPopularPeople(api_key, currentPage).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
                 if(it.isSuccessful) {
-                    rView1.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
-                    rView1.adapter = PeopleAdapter(this, it.body()!!.results, false)
+                    if(i==0) {
+                        PeopleList = it.body()!!.results
+                        rView1.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                        rView1.adapter = PeopleAdapter(this, PeopleList, false)
+                    } else {
+                        PeopleList.addAll(it.body()!!.results)
+                        rView1.adapter!!.notifyDataSetChanged()
+                    }
+                    i++
                 }
             }
         })
@@ -368,12 +405,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     @SuppressLint("WrongConstant")
     fun onOpen3() {
         val serviceFav = retrofit.create(API::class.java)
-        serviceFav.getFavouriteMovie(AccountID, api_key, userPresentA.session_id, track.text.toString().toInt())
+        serviceFav.getFavouriteMovie(AccountID, api_key, userPresentA.session_id, currentPage)
             .enqueue(retrofitCallback { throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
-                        rView1.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
-                        rView1.adapter = CommonAdapter(this, it.body()!!.results, false)
+                        if(i==0) {
+                            FavMovieList = it.body()!!.results
+                            rView1.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                            rView1.adapter = CommonAdapter(this, FavMovieList, false)
+                        } else {
+                            FavMovieList.addAll(it.body()!!.results)
+                            rView1.adapter!!.notifyDataSetChanged()
+                        }
+                        i++
                     }
                 }
             })
@@ -382,12 +426,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     @SuppressLint("WrongConstant")
     fun onOpen4() {
         val serviceFav = retrofit.create(API::class.java)
-        serviceFav.getFavouriteTV(AccountID, api_key, userPresentA.session_id, track.text.toString().toInt())
+        serviceFav.getFavouriteTV(AccountID, api_key, userPresentA.session_id, currentPage)
             .enqueue(retrofitCallback { throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
-                        rView1.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
-                        rView1.adapter = TVAdapter(this, it.body()!!.results)
+                        if(i==0) {
+                            FavTVList = it.body()!!.results
+                            rView1.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                            rView1.adapter = TVAdapter(this, FavTVList)
+                        } else {
+                            FavTVList.addAll(it.body()!!.results)
+                            rView1.adapter!!.notifyDataSetChanged()
+                        }
+                        i++
                     }
                 }
             })
@@ -396,12 +447,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     @SuppressLint("WrongConstant")
     fun onOpen5() {
         val serviceWatchMovie = retrofit.create(API::class.java)
-        serviceWatchMovie.getMovieWatchlist(AccountID, api_key, userPresentA.session_id, track.text.toString().toInt())
+        serviceWatchMovie.getMovieWatchlist(AccountID, api_key, userPresentA.session_id, currentPage)
             .enqueue(retrofitCallback { throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
-                        rView1.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
-                        rView1.adapter = CommonAdapter(this, it.body()!!.results, false)
+                        if(i==0) {
+                            FavMovieList = it.body()!!.results
+                            rView1.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                            rView1.adapter = CommonAdapter(this, FavMovieList, false)
+                        } else {
+                            FavMovieList.addAll(it.body()!!.results)
+                            rView1.adapter!!.notifyDataSetChanged()
+                        }
+                        i++
                     }
                 }
             })
@@ -410,12 +468,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     @SuppressLint("WrongConstant")
     fun onOpen6() {
         val serviceTVWatchlist = retrofit.create(API::class.java)
-        serviceTVWatchlist.getTVWatchlist(AccountID, api_key, userPresentA.session_id, track.text.toString().toInt())
+        serviceTVWatchlist.getTVWatchlist(AccountID, api_key, userPresentA.session_id, currentPage)
             .enqueue(retrofitCallback { throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
-                        rView1.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
-                        rView1.adapter = TVAdapter(this, it.body()!!.results)
+                        if(i==0) {
+                            FavTVList = it.body()!!.results
+                            rView1.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                            rView1.adapter = TVAdapter(this, FavTVList)
+                        } else {
+                            FavTVList.addAll(it.body()!!.results)
+                            rView1.adapter!!.notifyDataSetChanged()
+                        }
+                        i++
                     }
                 }
             })
@@ -424,12 +489,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     @SuppressLint("WrongConstant")
     fun onOpen7() {
         val serviceRatedMovie = retrofit.create(API::class.java)
-        serviceRatedMovie.getRatedMovie(AccountID, api_key, userPresentA.session_id, track.text.toString().toInt())
+        serviceRatedMovie.getRatedMovie(AccountID, api_key, userPresentA.session_id, currentPage)
             .enqueue(retrofitCallback { throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
-                        rView1.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
-                        rView1.adapter = RatedMovieAdapter(this, it.body()!!.results, false, userPresentA.session_id)
+                        if(i==0) {
+                            WatchMovieList = it.body()!!.results
+                            rView1.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                            rView1.adapter = RatedMovieAdapter(this, WatchMovieList, false, userPresentA.session_id)
+                        } else {
+                            WatchMovieList.addAll(it.body()!!.results)
+                            rView1.adapter!!.notifyDataSetChanged()
+                        }
+                        i++
                     }
                 }
             })
@@ -438,12 +510,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     @SuppressLint("WrongConstant")
     fun onOpen8() {
         val serviceRatedMovie = retrofit.create(API::class.java)
-        serviceRatedMovie.getRatedTV(AccountID, api_key, userPresentA.session_id, track.text.toString().toInt())
+        serviceRatedMovie.getRatedTV(AccountID, api_key, userPresentA.session_id, currentPage)
             .enqueue(retrofitCallback { throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
-                        rView1.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
-                        rView1.adapter = TVRatedAdapter(this, it.body()!!.results, userPresentA.session_id)
+                        if(i==0) {
+                            WatchTVList = it.body()!!.results
+                            rView1.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                            rView1.adapter = TVRatedAdapter(this, WatchTVList, userPresentA.session_id)
+                        } else {
+                            WatchTVList.addAll(it.body()!!.results)
+                            rView1.adapter!!.notifyDataSetChanged()
+                        }
+                        i++
                     }
                 }
             })
@@ -526,7 +605,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 layoutSearch.isVisible = false
                 bool = false
                 btn1.isClickable = true
-                lastLayout.isVisible = false
                 btn5.isVisible = true
                 btn4.isVisible = true
                 btn3.isVisible = true
@@ -539,10 +617,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen()
             }
             R.id.nav_people -> {
+                i = 0
+                currentPage = 1
                 type = "People"
                 layoutSearch.isVisible = false
                 btn1.isClickable = false
-                lastLayout.isVisible = true
                 btn5.isVisible = false
                 btn4.isVisible = false
                 btn3.isVisible = false
@@ -555,11 +634,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen1()
             }
             R.id.nav_tv -> {
+                i = 0
+                currentPage = 1
                 type = "TV"
                 layoutSearch.isVisible = false
                 bool = true
                 btn1.isClickable = true
-                lastLayout.isVisible = false
                 btn5.isVisible = false
                 btn4.isVisible = true
                 btn3.isVisible = true
@@ -575,6 +655,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen2()
             }
             R.id.nav_fav_movies -> {
+                i = 0
+                currentPage = 1
                 if(trial == 1) {
                     Snackbar.make(nav_view,
                         "Login required",
@@ -585,7 +667,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 type = "Favorite"
                 layoutSearch.isVisible = false
                 btn1.isClickable = false
-                lastLayout.isVisible = true
                 btn5.isVisible = false
                 btn4.isVisible = false
                 btn3.isVisible = false
@@ -598,6 +679,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen3()
             }
             R.id.nav_fav_TV -> {
+                i = 0
+                currentPage = 1
                 if(trial == 1) {
                     Snackbar.make(nav_view,
                         "Login required",
@@ -608,7 +691,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 type = "TV"
                 layoutSearch.isVisible = false
                 btn1.isClickable = false
-                lastLayout.isVisible = true
                 btn5.isVisible = false
                 btn4.isVisible = false
                 btn3.isVisible = false
@@ -621,6 +703,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen4()
             }
             R.id.nav_watchList_Movies -> {
+                i = 0
+                currentPage = 1
                 if(trial == 1) {
                     Snackbar.make(nav_view,
                         "Login required",
@@ -631,7 +715,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 type = "MovieWatch"
                 layoutSearch.isVisible = false
                 btn1.isClickable = false
-                lastLayout.isVisible = true
                 btn5.isVisible = false
                 btn4.isVisible = false
                 btn3.isVisible = false
@@ -644,6 +727,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen5()
             }
             R.id.nav_watchList_TV -> {
+                i = 0
+                currentPage = 1
                 if(trial == 1) {
                     Snackbar.make(nav_view,
                         "Login required",
@@ -654,7 +739,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 type = "TVWatch"
                 layoutSearch.isVisible = false
                 btn1.isClickable = false
-                lastLayout.isVisible = true
                 btn5.isVisible = false
                 btn4.isVisible = false
                 btn3.isVisible = false
@@ -681,6 +765,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
             }
             R.id.nav_rated_movie -> {
+                i = 0
+                currentPage = 1
                 if(trial == 1) {
                     Snackbar.make(nav_view,
                         "Login required",
@@ -691,7 +777,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 type = "Rated Movie"
                 layoutSearch.isVisible = false
                 btn1.isClickable = false
-                lastLayout.isVisible = true
                 btn5.isVisible = false
                 btn4.isVisible = false
                 btn3.isVisible = false
@@ -704,6 +789,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen7()
             }
             R.id.nav_rated_tv -> {
+                i = 0
+                currentPage = 1
                 if(trial == 1) {
                     Snackbar.make(nav_view,
                         "Login required",
@@ -714,7 +801,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 type = "Rated TV"
                 layoutSearch.isVisible = false
                 btn1.isClickable = false
-                lastLayout.isVisible = true
                 btn5.isVisible = false
                 btn4.isVisible = false
                 btn3.isVisible = false

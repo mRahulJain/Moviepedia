@@ -23,35 +23,5 @@
             android:layout_height="match_parent">
 
     </androidx.recyclerview.widget.RecyclerView>
-    <LinearLayout
-            android:id="@+id/lastLayout"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <ImageButton
-                android:id="@+id/backwardN"
-                android:layout_margin="10dp"
-                android:background="@android:color/black"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_keyboard_arrow_left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        <TextView
-                android:textColor="@android:color/white"
-                android:text="1"
-                android:textSize="20sp"
-                android:id="@+id/trackN"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        <ImageButton
-                android:id="@+id/forwardN"
-                android:layout_margin="10dp"
-                android:background="@android:color/black"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_keyboard_arrow_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-    </LinearLayout>
-
 
 </LinearLayout>

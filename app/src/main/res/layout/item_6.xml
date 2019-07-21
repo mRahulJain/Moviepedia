@@ -7,7 +7,7 @@
         android:elevation="10dp"
         app:cardCornerRadius="4dp"
         android:id="@+id/parentLayout"
-        android:layout_width="200dp"
+        android:layout_width="190dp"
         android:layout_height="270dp">
 
     <LinearLayout
@@ -21,7 +21,7 @@
             <ImageView
                     android:src="@drawable/ic_cloud_download"
                     android:layout_gravity="center"
-                    android:background="@android:color/black"
+                    android:background="@android:color/darker_gray"
                     android:id="@+id/iView"
                     android:layout_width="match_parent"
                     android:layout_height="220dp"/>
@@ -42,10 +42,9 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"/>
         <TextView
-                android:layout_marginLeft="20dp"
-                android:gravity="left"
+                android:gravity="center"
                 android:background="@android:color/black"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/darker_gray"
                 android:id="@+id/rateView"
                 android:textSize="15sp"
                 android:layout_width="match_parent"

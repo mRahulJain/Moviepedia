@@ -11,24 +11,16 @@
         android:layout_height="250dp">
 
     <LinearLayout
+            android:background="@android:color/black"
+            android:gravity="center"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <ImageView
-                android:src="@drawable/ic_cloud_download"
+        <ProgressBar
                 android:layout_gravity="center"
-                android:background="@android:color/darker_gray"
-                android:id="@+id/iView"
-                android:layout_width="match_parent"
-                android:layout_height="220dp"/>
-        <TextView
-                android:gravity="center"
-                android:background="@android:color/black"
-                android:textColor="@android:color/white"
-                android:id="@+id/tView"
-                android:textSize="20sp"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
