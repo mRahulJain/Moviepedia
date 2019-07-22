@@ -2,6 +2,7 @@ package com.example.moviepedia
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -26,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class FifthAct : AppCompatActivity() {
 
     val baseURL = "https://image.tmdb.org/t/p/original/"
-    val api_key: String = "40c1d09ce2457ccd5cabde67ee04c652"
+    val api_key: String = "<api_key>"
     val retrofit = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/")
         .addConverterFactory(GsonConverterFactory.create())
@@ -125,6 +126,7 @@ class FifthAct : AppCompatActivity() {
                     tVreleaseDateTV.text = tVreleaseDateTV.text.toString() + it.body()!!.first_air_date
                     tVoverviewTV.text = it.body()!!.overview
                     tVvoteTV.text = it.body()!!.vote_average + " / 10 "
+                    tVvoteTV.setTextColor(Color.CYAN)
                     tVgenreTV.text = " "
                     for(i in it.body()!!.genres) {
                         tVgenreTV.setText(tVgenreTV.text.toString() + i.name + ", ")

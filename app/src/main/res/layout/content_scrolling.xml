@@ -58,7 +58,7 @@
                 android:layout_marginTop="10dp"
                 android:id="@+id/rViewVideo"
                 android:layout_width="match_parent"
-                android:layout_height="230dp">
+                android:layout_height="wrap_content">
 
         </androidx.recyclerview.widget.RecyclerView>
 
