@@ -260,6 +260,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 layoutSearch.isVisible = false
                 bool = false
                 btn1.isClickable = true
+                btn1.isVisible = true
                 btn5.isVisible = true
                 btn4.isVisible = true
                 btn3.isVisible = true
@@ -274,6 +275,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 type = "People"
                 layoutSearch.isVisible = false
                 btn1.isClickable = false
+                btn1.isVisible = true
                 btn5.isVisible = false
                 btn4.isVisible = false
                 btn3.isVisible = false
@@ -289,6 +291,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 layoutSearch.isVisible = false
                 bool = true
                 btn1.isClickable = true
+                btn1.isVisible = true
                 btn5.isVisible = false
                 btn4.isVisible = true
                 btn3.isVisible = true
@@ -851,6 +854,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         .enqueue(retrofitCallback{ throwable, response ->
                             response?.let {
                                 if(it.isSuccessful) {
+                                    i = 0
                                     onOpen7()
                                 }
                             }
@@ -898,13 +902,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .enqueue(retrofitCallback{ throwable, response ->
                         response?.let {
                             if(it.isSuccessful) {
+                                i = 0
                                 onOpen8()
                             }
                         }
                     })
             }
 
-            holder.itemView.parentLayout.setOnClickListener {
+            holder.itemView.iView.setOnClickListener {
                 var intent = Intent(context, FifthAct::class.java)
                 intent.putExtra("id", nameList[position].id)
                 ContextCompat.startActivity(context, intent, null)

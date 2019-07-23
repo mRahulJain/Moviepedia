@@ -51,6 +51,9 @@ class FourthAct : AppCompatActivity() {
                         .load(baseURL + it.body()!!.profile_path)
                         .resize(450,600)
                         .into(iView)
+                    if(it.body()!!.profile_path == null) {
+                        Picasso.with(this).load(R.drawable.baseline_broken_image_white_18dp).into(iView)
+                    }
                     tVbio.text = it.body()!!.biography
                     tVaka.text = ""
                     for(i in it.body()!!.also_known_as) {

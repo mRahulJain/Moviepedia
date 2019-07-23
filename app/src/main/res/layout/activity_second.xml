@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"/>
     <androidx.recyclerview.widget.RecyclerView
             android:layout_weight="1"
+            android:layout_gravity="center"
             android:layout_margin="10dp"
             android:id="@+id/rView"
             android:layout_width="match_parent"

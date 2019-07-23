@@ -39,6 +39,9 @@ class GetWorkAdapter(val context: Context, val nameList: PeopleWork) : RecyclerV
 
             val target = nameList.cast[position].poster_path
             Picasso.with(this.context).load(baseURL + target).into(holder.itemView.iView)
+        if(target == null) {
+            Picasso.with(this.context).load(R.drawable.baseline_broken_image_black_18dp).into(holder.itemView.iView)
+        }
         if(nameList.cast[position].media_type=="movie") {
             holder.itemView.iViewType.setImageResource(R.drawable.ic_movie_white)
         } else {

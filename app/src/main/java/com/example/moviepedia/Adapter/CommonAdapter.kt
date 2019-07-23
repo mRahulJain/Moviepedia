@@ -40,6 +40,9 @@ class CommonAdapter(val context: Context, val nameList: ArrayList<Common_results
             Log.d("CHECK", "${holder.itemView.tView.text}")
             val target = nameList[position].poster_path
             Picasso.with(this.context).load(baseURL + target).into(holder.itemView.iView)
+            if(target == null) {
+                Picasso.with(this.context).load(R.drawable.baseline_broken_image_black_18dp).into(holder.itemView.iView)
+            }
 
             holder.itemView.parentLayout.setOnClickListener {
                 var intent = Intent(context, ThirdAct::class.java)

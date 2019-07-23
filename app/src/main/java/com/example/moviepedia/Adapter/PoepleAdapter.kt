@@ -38,6 +38,9 @@ class PeopleAdapter(val context: Context, val nameList: ArrayList<People_results
             holder.itemView.tViewAs.text = nameList[position].character
             val target = nameList[position].profile_path
             Picasso.with(this.context).load(baseURL + target).into(holder.itemView.iView)
+            if(target == null) {
+                Picasso.with(this.context).load(R.drawable.baseline_broken_image_black_18dp).into(holder.itemView.iView)
+            }
         }
 
         holder.itemView.parentLayout.setOnClickListener {

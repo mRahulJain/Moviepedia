@@ -10,16 +10,12 @@ import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.room.Room
 import com.example.moviepedia.Adapter.PeopleAdapter
-import com.example.moviepedia.Adapter.ReviewAdapter
 import com.example.moviepedia.Adapter.TVAdapter
 import com.example.moviepedia.Adapter.VideoAdapter
 import com.example.moviepedia.Api.API
 import com.example.moviepedia.DataClass.Rate
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_fifth.*
-import kotlinx.android.synthetic.main.activity_second.*
-import kotlinx.android.synthetic.main.activity_third.*
-import kotlinx.android.synthetic.main.content_scrolling.*
 import kotlinx.android.synthetic.main.content_scrolling_3.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -122,6 +118,9 @@ class FifthAct : AppCompatActivity() {
                         .load(baseURL + it.body()!!.poster_path)
                         .resize(450,600)
                         .into(iViewTV)
+                    if(it.body()!!.poster_path == null) {
+                        Picasso.with(this).load(R.drawable.baseline_broken_image_white_18dp).into(iViewTV)
+                    }
                     tVreleaseDateTV.text = "Release date : "
                     tVreleaseDateTV.text = tVreleaseDateTV.text.toString() + it.body()!!.first_air_date
                     tVoverviewTV.text = it.body()!!.overview

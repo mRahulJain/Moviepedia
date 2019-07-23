@@ -11,15 +11,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.room.Room
 import com.example.moviepedia.Adapter.CommonAdapter
 import com.example.moviepedia.Adapter.PeopleAdapter
-import com.example.moviepedia.Adapter.ReviewAdapter
 import com.example.moviepedia.Adapter.VideoAdapter
 import com.example.moviepedia.Api.API
 import com.example.moviepedia.DataClass.Rate
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_second.*
 import kotlinx.android.synthetic.main.activity_third.*
 import kotlinx.android.synthetic.main.content_scrolling.*
-import kotlinx.android.synthetic.main.content_scrolling_3.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -124,6 +121,9 @@ class ThirdAct : AppCompatActivity() {
                             .load(baseURL + it.body()!!.poster_path)
                             .resize(450,600)
                             .into(iView)
+                        if(it.body()!!.poster_path == null) {
+                            Picasso.with(this).load(R.drawable.baseline_broken_image_white_18dp).into(iView)
+                        }
                         tVTagline.text = it.body()!!.tagline
                         tVTagline.setTextColor(Color.CYAN)
                         tVreleaseDate.text = "Release date : "
@@ -210,13 +210,13 @@ class ThirdAct : AppCompatActivity() {
             val fav = Favourites(
                 movie_id = id.toString()
             )
-            if(chkW == 0) {
+            if(chk == 0) {
                 val fab = com.example.moviepedia.DataClass.fav(
                     "movie",
                     movieID.toInt(),
                     true
                 )
-                chkW = 1
+                chk = 1
                 db.FavDao().insertRow(fav)
                 val serviceFav = retrofit.create(API::class.java)
                 serviceFav.putFavourite(AccountID, "application/json;charset=utf-8" ,fab, api_key, userPresent.session_id)
@@ -242,13 +242,13 @@ class ThirdAct : AppCompatActivity() {
             val watch = Watchlist(
                 movie_id = id.toString()
             )
-            if(chk == 0) {
+            if(chkW == 0) {
                 val watchL = com.example.moviepedia.DataClass.watchlist(
                     "movie",
                     movieID.toInt(),
                     true
                 )
-                chk = 1
+                chkW = 1
                 db2.WatchDao().insertRow(watch)
                 val serviceFav = retrofit.create(API::class.java)
                 serviceFav.putWatchlist(AccountID, "application/json;charset=utf-8" ,watchL, api_key, userPresent.session_id)
