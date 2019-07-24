@@ -66,8 +66,8 @@ class FifthAct : AppCompatActivity() {
     }
     lateinit var AccountID : String
     lateinit var tv_id : String
-    var chk : Int = 3
-    var chkW : Int = 3
+    var chk : Int = 0
+    var chkW : Int = 0
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -190,9 +190,8 @@ class FifthAct : AppCompatActivity() {
             val serviceRating = retrofit.create(API::class.java)
             serviceRating.putRatingTV(id.toString(), "application/json;charset=utf-8", rate, api_key, userPresent.session_id)
                 .enqueue(retrofitCallback{ throwable, response ->
-                    Log.d("SUCCESS", "IS SUCCESS, ${AccountID}, ${userPresent.session_id}")
+                    Toast.makeText(this, "Thanks for rating", Toast.LENGTH_SHORT).show()
                 })
-            Toast.makeText(this, "Thanks for rating", Toast.LENGTH_SHORT).show()
         }
 
         favTV.setOnClickListener {
@@ -216,12 +215,11 @@ class FifthAct : AppCompatActivity() {
                     .enqueue(retrofitCallback { throwable, response ->
                         response?.let {
                             if(it.isSuccessful) {
-                                Log.d("ADDEDFAV", "IS SUCCESS")
+                                Toast.makeText(this, "Added to favourite", Toast.LENGTH_SHORT).show()
+                                favTV.setImageResource(R.drawable.ic_favorite_black)
                             }
                         }
                     })
-                Toast.makeText(this, "Added to favourite", Toast.LENGTH_SHORT).show()
-                favTV.setImageResource(R.drawable.ic_favorite_black)
             } else  {
                 Toast.makeText(this, "Already added!", Toast.LENGTH_SHORT).show()
             }
@@ -247,12 +245,11 @@ class FifthAct : AppCompatActivity() {
                     .enqueue(retrofitCallback { throwable, response ->
                         response?.let {
                             if(it.isSuccessful) {
-                                Log.d("ADDEDFAV", "IS SUCCESS")
+                                Toast.makeText(this, "Added to Watchlist", Toast.LENGTH_SHORT).show()
+                                btnWatchlistTV.setImageResource(R.drawable.ic_playlist_add_check_black_24dp)
                             }
                         }
                     })
-                Toast.makeText(this, "Added to Watchlist", Toast.LENGTH_SHORT).show()
-                btnWatchlistTV.setImageResource(R.drawable.ic_playlist_add_check_black_24dp)
             } else  {
                 Toast.makeText(this, "Already added!", Toast.LENGTH_SHORT).show()
             }
