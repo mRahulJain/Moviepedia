@@ -97,6 +97,7 @@ class FifthAct : AppCompatActivity() {
                 chk = 1
                 favTV.setImageResource(R.drawable.ic_favorite_black)
             }
+
             val isWatchlist = db2.WatchDao().checkWatchlist(id.toString())
             if(isWatchlist == null) {
                 chkW = 0
@@ -186,11 +187,15 @@ class FifthAct : AppCompatActivity() {
             val rated = Rated(
                 media_id = id.toString()
             )
-            db3.RatedDao().insertRow(rated)
             val serviceRating = retrofit.create(API::class.java)
             serviceRating.putRatingTV(id.toString(), "application/json;charset=utf-8", rate, api_key, userPresent.session_id)
                 .enqueue(retrofitCallback{ throwable, response ->
-                    Toast.makeText(this, "Thanks for rating", Toast.LENGTH_SHORT).show()
+                    response?.let {
+                        if(it.isSuccessful) {
+                            db3.RatedDao().insertRow(rated)
+                            Toast.makeText(this, "Thanks for rating", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 })
         }
 
@@ -208,13 +213,13 @@ class FifthAct : AppCompatActivity() {
                     tv_id.toInt(),
                     true
                 )
-                chk = 1
-                db.FavDao().insertRow(fav)
                 val serviceFav = retrofit.create(API::class.java)
                 serviceFav.putFavourite(AccountID, "application/json;charset=utf-8" ,fab, api_key, userPresent.session_id)
                     .enqueue(retrofitCallback { throwable, response ->
                         response?.let {
                             if(it.isSuccessful) {
+                                chk = 1
+                                db.FavDao().insertRow(fav)
                                 Toast.makeText(this, "Added to favourite", Toast.LENGTH_SHORT).show()
                                 favTV.setImageResource(R.drawable.ic_favorite_black)
                             }
@@ -238,13 +243,13 @@ class FifthAct : AppCompatActivity() {
                     tv_id.toInt(),
                     true
                 )
-                chkW = 1
-                db2.WatchDao().insertRow(watch)
                 val serviceFav = retrofit.create(API::class.java)
                 serviceFav.putWatchlist(AccountID, "application/json;charset=utf-8" ,watchL, api_key, userPresent.session_id)
                     .enqueue(retrofitCallback { throwable, response ->
                         response?.let {
                             if(it.isSuccessful) {
+                                chkW = 1
+                                db2.WatchDao().insertRow(watch)
                                 Toast.makeText(this, "Added to Watchlist", Toast.LENGTH_SHORT).show()
                                 btnWatchlistTV.setImageResource(R.drawable.ic_playlist_add_check_black_24dp)
                             }
