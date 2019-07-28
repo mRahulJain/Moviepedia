@@ -70,9 +70,12 @@ class LoginAct : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            var intent = Intent()
-            intent.action = Intent.ACTION_VIEW
-            intent.data = Uri.parse("https://www.themoviedb.org/authenticate/${reqToken}")
+//            var intent = Intent()
+//            intent.action = Intent.ACTION_VIEW
+//            intent.data = Uri.parse("https://www.themoviedb.org/authenticate/${reqToken}")
+//            startActivity(intent)
+            var intent = Intent(this, WebActivity::class.java)
+            intent.putExtra("reqToken", "${reqToken}")
             startActivity(intent)
         }
 
@@ -103,6 +106,8 @@ class LoginAct : AppCompatActivity() {
                         intent.putExtra("mode", "account")
                         startActivity(intent)
                         finish()
+                    } else {
+                        Snackbar.make(btnLogin, "Somethings wrong!", Snackbar.LENGTH_LONG).show()
                     }
                 }
             })

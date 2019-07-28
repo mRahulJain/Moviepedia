@@ -11,32 +11,41 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".AccountAct"
-        android:screenOrientation="portrait">
+        <activity android:name=".WebActivity">
         </activity>
-        <activity android:name=".LoginAct"
-                  android:screenOrientation="portrait">
+        <activity
+                android:name=".AccountAct"
+                android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".FifthAct"
-                  android:screenOrientation="portrait">
+        <activity
+                android:name=".LoginAct"
+                android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".PhotoAct"
-                  android:screenOrientation="portrait">
+        <activity
+                android:name=".FifthAct"
+                android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".FourthAct"
-                  android:screenOrientation="portrait">
+        <activity
+                android:name=".PhotoAct"
+                android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ThirdAct"
-                  android:screenOrientation="portrait">
+        <activity
+                android:name=".FourthAct"
+                android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".SecondAct"
-                  android:screenOrientation="portrait">
+        <activity
+                android:name=".ThirdAct"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".SecondAct"
+                android:screenOrientation="portrait">
         </activity>
         <activity
                 android:name=".MainActivity"
                 android:label="@string/app_name"
-                android:theme="@style/AppTheme.NoActionBar"
-                android:screenOrientation="portrait">
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
