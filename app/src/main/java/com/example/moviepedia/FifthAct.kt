@@ -8,7 +8,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
+import com.example.moviepedia.Adapter.GenreAdapter
 import com.example.moviepedia.Adapter.PeopleAdapter
 import com.example.moviepedia.Adapter.TVAdapter
 import com.example.moviepedia.Adapter.VideoAdapter
@@ -23,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class FifthAct : AppCompatActivity() {
 
     val baseURL = "https://image.tmdb.org/t/p/original/"
-    val api_key: String = "<api_key>"
+    val api_key: String = "40c1d09ce2457ccd5cabde67ee04c652"
     val retrofit = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/")
         .addConverterFactory(GsonConverterFactory.create())
@@ -127,10 +129,8 @@ class FifthAct : AppCompatActivity() {
                     tVoverviewTV.text = it.body()!!.overview
                     tVvoteTV.text = it.body()!!.vote_average + " / 10 "
                     tVvoteTV.setTextColor(Color.CYAN)
-                    tVgenreTV.text = " "
-                    for(i in it.body()!!.genres) {
-                        tVgenreTV.setText(tVgenreTV.text.toString() + i.name + ", ")
-                    }
+                    rViewGenreTV.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+                    rViewGenreTV.adapter = GenreAdapter(this, it.body()!!.genres)
                 }
             }
         })
