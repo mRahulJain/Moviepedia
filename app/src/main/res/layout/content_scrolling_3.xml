@@ -44,7 +44,7 @@
                 android:layout_marginTop="20dp"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
-                android:text="Videos"
+                android:id="@+id/tVvideoTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         <androidx.recyclerview.widget.RecyclerView
@@ -58,7 +58,7 @@
                 android:layout_marginTop="20dp"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
-                android:text="Cast"
+                android:id="@+id/tVcastTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         <androidx.recyclerview.widget.RecyclerView
@@ -72,7 +72,7 @@
                 android:layout_marginTop="10dp"
                 android:textColor="@android:color/white"
                 android:gravity="left"
-                android:text = "Genre"
+                android:id="@+id/tVgenreTV"
                 android:textSize="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
@@ -106,21 +106,22 @@
                     android:layout_height="match_parent"/>
         </LinearLayout>
         <LinearLayout
-
-                android:orientation="horizontal"
+                android:weightSum="2"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <RatingBar
                     android:rating="0"
                     android:stepSize="0.5"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="95dp"
                     android:theme="@style/RatingBar"
                     android:numStars="5"
+                    android:layout_weight="1"
                     android:id="@+id/rateTV"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"/>
             <ImageButton
+                    android:layout_weight="1"
                     android:id="@+id/rateTVSeries"
                     android:background="@android:color/black"
                     android:layout_gravity="center"
@@ -132,7 +133,7 @@
                 android:layout_marginTop="20dp"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
-                android:text="Similar TV Series"
+                android:id="@+id/tVsimilarTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         <androidx.recyclerview.widget.RecyclerView

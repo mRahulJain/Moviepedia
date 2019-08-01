@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
@@ -25,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class FifthAct : AppCompatActivity() {
 
     val baseURL = "https://image.tmdb.org/t/p/original/"
-    val api_key: String = "40c1d09ce2457ccd5cabde67ee04c652"
+    val api_key: String = "<api_key>"
     val retrofit = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/")
         .addConverterFactory(GsonConverterFactory.create())
@@ -124,13 +125,31 @@ class FifthAct : AppCompatActivity() {
                     if(it.body()!!.poster_path == null) {
                         Picasso.with(this).load(R.drawable.baseline_broken_image_white_18dp).into(iViewTV)
                     }
-                    tVreleaseDateTV.text = "Release date : "
-                    tVreleaseDateTV.text = tVreleaseDateTV.text.toString() + it.body()!!.first_air_date
-                    tVoverviewTV.text = it.body()!!.overview
-                    tVvoteTV.text = it.body()!!.vote_average + " / 10 "
-                    tVvoteTV.setTextColor(Color.CYAN)
-                    rViewGenreTV.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-                    rViewGenreTV.adapter = GenreAdapter(this, it.body()!!.genres)
+                    if(it.body()!!.first_air_date == null) {
+                        tVreleaseDateTV.isVisible = false
+                    } else {
+                        tVreleaseDateTV.text = "Release date : "
+                        tVreleaseDateTV.text = tVreleaseDateTV.text.toString() + it.body()!!.first_air_date
+                    }
+                    if(it.body()!!.overview == null) {
+                        tVoverviewTV.isVisible = false
+                    } else {
+                        tVoverviewTV.text = it.body()!!.overview
+                    }
+                    if(it.body()!!.vote_average == null) {
+                        tVvoteTV.isVisible = false
+                    } else {
+                        tVvoteTV.text = it.body()!!.vote_average + " / 10 "
+                        tVvoteTV.setTextColor(Color.CYAN)
+                    }
+                    if(it.body()!!.genres ==  null) {
+                        tVgenreTV.isVisible = false
+                        rViewGenreTV.isVisible = false
+                    } else {
+                        tVgenreTV.text = "Genre"
+                        rViewGenreTV.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+                        rViewGenreTV.adapter = GenreAdapter(this, it.body()!!.genres)
+                    }
                 }
             }
         })
@@ -138,8 +157,14 @@ class FifthAct : AppCompatActivity() {
         videoService.getVideoTV(id,api_key).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
                 if(it.isSuccessful) {
-                    rViewVideoTV.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
-                    rViewVideoTV.adapter = VideoAdapter(this, it.body()!!)
+                    if(it.body()!!.results.size == 0) {
+                        rViewVideoTV.isVisible = false
+                        tVvideoTV.isVisible = false
+                    } else {
+                        tVvideoTV.text = "Videos"
+                        rViewVideoTV.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
+                        rViewVideoTV.adapter = VideoAdapter(this, it.body()!!)
+                    }
                 }
             }
         })
@@ -147,8 +172,14 @@ class FifthAct : AppCompatActivity() {
         similarService.getTVSimilar(id,api_key).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
                 if(it.isSuccessful) {
-                    rViewSimilarTV.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
-                    rViewSimilarTV.adapter = TVAdapter(this, it.body()!!.results)
+                    if(it.body()!!.results.size == 0) {
+                        tVsimilarTV.isVisible = false
+                        rViewSimilarTV.isVisible = false
+                    } else {
+                        tVsimilarTV.text = "Similar TV Series"
+                        rViewSimilarTV.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
+                        rViewSimilarTV.adapter = TVAdapter(this, it.body()!!.results)
+                    }
                 }
             }
         })
@@ -156,8 +187,14 @@ class FifthAct : AppCompatActivity() {
         castService.getTVCast(id,api_key).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
                 if(it.isSuccessful) {
-                    rViewCastTV.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
-                    rViewCastTV.adapter = PeopleAdapter(this, it.body()!!.cast, false)
+                    if(it.body()!!.cast.size == 0) {
+                        tVcastTV.isVisible = false
+                        rViewCastTV.isVisible = false
+                    } else {
+                        tVcastTV.text = "Cast"
+                        rViewCastTV.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
+                        rViewCastTV.adapter = PeopleAdapter(this, it.body()!!.cast, false)
+                    }
                 }
             }
         })
@@ -198,7 +235,6 @@ class FifthAct : AppCompatActivity() {
                     }
                 })
         }
-
         favTV.setOnClickListener {
             if(userPresent == null) {
                 Toast.makeText(this, "Login required!", Toast.LENGTH_SHORT).show()

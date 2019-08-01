@@ -17,6 +17,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             <LinearLayout
+                    android:weightSum="10"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -36,6 +37,7 @@
                         android:layout_height="match_parent"/>
 
                 <androidx.recyclerview.widget.RecyclerView
+                        android:layout_weight="1"
                         android:id="@+id/rView1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -57,6 +59,7 @@
                         android:layout_height="match_parent"/>
 
                 <androidx.recyclerview.widget.RecyclerView
+                        android:layout_weight="1"
                         android:id="@+id/rView2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -79,6 +82,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rView3"
+                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -100,6 +104,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rView4"
+                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -121,6 +126,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rView5"
+                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 

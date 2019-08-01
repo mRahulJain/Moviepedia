@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
@@ -25,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class ThirdAct : AppCompatActivity() {
 
     val baseURL = "https://image.tmdb.org/t/p/original/"
-    val api_key: String = "40c1d09ce2457ccd5cabde67ee04c652"
+    val api_key: String = "<api_key>"
     val retrofit = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/")
         .addConverterFactory(GsonConverterFactory.create())
@@ -126,15 +127,37 @@ class ThirdAct : AppCompatActivity() {
                         if(it.body()!!.poster_path == null) {
                             Picasso.with(this).load(R.drawable.baseline_broken_image_white_18dp).into(iView)
                         }
-                        tVTagline.text = it.body()!!.tagline
-                        tVTagline.setTextColor(Color.CYAN)
-                        tVreleaseDate.text = "Release date : "
-                        tVreleaseDate.text = tVreleaseDate.text.toString() + it.body()!!.release_date
-                        tVoverview.text = it.body()!!.overview
-                        tVvote.text = it.body()!!.vote_average + " / 10 "
-                        tVvote.setTextColor(Color.CYAN)
-                        rViewGenre.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-                        rViewGenre.adapter = GenreAdapter(this, it.body()!!.genres)
+                        if(it.body()!!.tagline == null) {
+                            tVTagline.isVisible = false
+                        } else {
+                            tVTagline.text = it.body()!!.tagline
+                            tVTagline.setTextColor(Color.CYAN)
+                        }
+                        if(it.body()!!.release_date ==  null) {
+                            tVreleaseDate.isVisible = false
+                        } else {
+                            tVreleaseDate.text = "Release date : "
+                            tVreleaseDate.text = tVreleaseDate.text.toString() + it.body()!!.release_date
+                        }
+                        if(it.body()!!.overview == null) {
+                            tVoverview.isVisible = false
+                        } else {
+                            tVoverview.text = it.body()!!.overview
+                        }
+                        if(it.body()!!.vote_average == null) {
+                            tVvote.isVisible = false
+                        } else {
+                            tVvote.text = it.body()!!.vote_average + " / 10 "
+                            tVvote.setTextColor(Color.CYAN)
+                        }
+                        if(it.body()!!.genres == null) {
+                            tV.isVisible = false
+                            rViewGenre.isVisible = false
+                        } else {
+                            tV.text = "Genre"
+                            rViewGenre.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+                            rViewGenre.adapter = GenreAdapter(this, it.body()!!.genres)
+                        }
                     }
                 }
             })
@@ -142,8 +165,14 @@ class ThirdAct : AppCompatActivity() {
             videoService.getVideo(id,api_key).enqueue(retrofitCallback{ throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
-                        rViewVideo.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
-                        rViewVideo.adapter = VideoAdapter(this, it.body()!!)
+                        if(it.body()!!.results.size == 0) {
+                            tVvideo.isVisible = false
+                            rViewVideo.isVisible = false
+                        } else {
+                            tVvideo.text = "Videos"
+                            rViewVideo.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
+                            rViewVideo.adapter = VideoAdapter(this, it.body()!!)
+                        }
                     }
                  }
             })
@@ -151,8 +180,14 @@ class ThirdAct : AppCompatActivity() {
             similarService.getSimilarMovie(id,api_key).enqueue(retrofitCallback{ throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
-                        rViewSimilar.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
-                        rViewSimilar.adapter = CommonAdapter(this, it.body()!!.results, false)
+                        if(it.body()!!.results.size == 0) {
+                            rViewSimilar.isVisible = false
+                            tVsimilar.isVisible = false
+                        } else {
+                            tVsimilar.text = "Similar Movies"
+                            rViewSimilar.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
+                            rViewSimilar.adapter = CommonAdapter(this, it.body()!!.results, false)
+                        }
                     }
                 }
             })
@@ -162,8 +197,14 @@ class ThirdAct : AppCompatActivity() {
             castService.getCast(id,api_key).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
                 if(it.isSuccessful) {
-                    rViewCast.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
-                    rViewCast.adapter = PeopleAdapter(this, it.body()!!.cast, false)
+                    if(it.body()!!.cast.size == 0) {
+                        rViewCast.isVisible = false
+                        tVcast.isVisible = false
+                    } else {
+                        tVcast.text = "Cast"
+                        rViewCast.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
+                        rViewCast.adapter = PeopleAdapter(this, it.body()!!.cast, false)
+                    }
                 }
             }
         })

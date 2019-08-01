@@ -27,7 +27,7 @@
                 android:textSize="15sp"
                 android:id="@+id/tVoverview"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"/>
+                android:layout_height="wrap_content"/>
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                 android:layout_marginTop="20dp"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
-                android:text="Videos"
+                android:id="@+id/tVvideo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         <androidx.recyclerview.widget.RecyclerView
@@ -66,7 +66,7 @@
                 android:layout_marginTop="20dp"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
-                android:text="Cast"
+                android:id="@+id/tVcast"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         <androidx.recyclerview.widget.RecyclerView
@@ -80,8 +80,8 @@
                 android:layout_marginTop="10dp"
                 android:textColor="@android:color/white"
                 android:gravity="left"
-                android:text = "Genre"
                 android:textSize="20sp"
+                android:id="@+id/tV"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
         <androidx.recyclerview.widget.RecyclerView
@@ -114,22 +114,24 @@
                     android:layout_height="match_parent"/>
         </LinearLayout>
         <LinearLayout
-                android:orientation="horizontal"
+                android:weightSum="2"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <RatingBar
+
                     android:rating="0"
                     android:stepSize="0.5"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="95dp"
+                    android:layout_weight="1"
                     android:theme="@style/RatingBar"
                     android:numStars="5"
                     android:id="@+id/rateMovie"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"/>
             <ImageButton
+                    android:layout_weight="1"
                     android:id="@+id/rateM"
-                    android:layout_marginLeft="40dp"
                     android:background="@android:color/black"
                     android:layout_gravity="center"
                     android:src="@android:drawable/ic_menu_add"
@@ -140,7 +142,7 @@
                 android:layout_marginTop="20dp"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
-                android:text="Similar Movies"
+                android:id="@+id/tVsimilar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         <androidx.recyclerview.widget.RecyclerView
