@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+        android:weightSum="10"
         android:orientation="vertical"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -9,6 +10,7 @@
         tools:context=".LoginAct" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
+            android:layout_weight="1"
             android:layout_marginTop="50dp"
             android:textSize="50sp"
             android:gravity="center"
@@ -17,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     <TextView
+            android:layout_weight="1"
             android:textSize="25sp"
             android:gravity="center"
             android:text="Join the Moviedb community here"
@@ -25,18 +28,22 @@
             android:layout_height="wrap_content"/>
 
     <LinearLayout
+            android:layout_weight="1"
             android:layout_marginTop="40dp"
             android:orientation="horizontal"
+            android:weightSum="3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <TextView
+                android:layout_weight="1"
                 android:layout_marginLeft="15dp"
                 android:background="@drawable/ic_remove_black"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"/>
         <TextView
-                android:textSize="20sp"
+                android:textSize="15sp"
+                android:layout_weight="1"
                 android:text="Create your account"
                 android:layout_gravity="center"
                 android:gravity="center"
@@ -44,13 +51,15 @@
                 android:layout_height="wrap_content"/>
         <TextView
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:background="@drawable/ic_remove_black"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
             android:layout_margin="10dp"
+            android:layout_weight="1"
             android:id="@+id/nameUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -69,6 +78,7 @@
             android:id="@+id/username"
             app:counterEnabled="true"
             app:counterMaxLength="20"
+            android:layout_weight="1"
             app:errorEnabled="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -85,6 +95,7 @@
     <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/password"
             android:layout_margin="10dp"
+            android:layout_weight="1"
             app:passwordToggleEnabled="true"
             app:errorEnabled="true"
             android:layout_width="match_parent"
@@ -100,6 +111,7 @@
     <Button
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_weight="1"
             android:id="@+id/btnAllow"
             android:background="@android:color/holo_blue_light"
             android:text="Validate your account"
@@ -111,6 +123,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_weight="1"
             android:id="@+id/btnLogin"
             android:background="@android:color/holo_blue_light"
             android:text="LOGIN"
@@ -118,27 +131,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     <LinearLayout
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="30dp"
             android:orientation="horizontal"
+            android:weightSum="3"
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <TextView
+                android:layout_weight="1"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/ic_remove_black"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"/>
         <TextView
-                android:textSize="20sp"
+                android:textSize="15sp"
+                android:layout_weight="1"
                 android:text="Or"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"/>
         <TextView
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:background="@drawable/ic_remove_black"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
     </LinearLayout>
 
@@ -148,6 +166,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
             android:layout_gravity="center"
             android:id="@+id/btnFT"
             android:background="@android:color/holo_blue_light"
