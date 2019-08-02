@@ -5,12 +5,14 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:background="@drawable/okay"
         android:layout_width="match_parent"
+        android:weightSum="5"
         android:layout_height="match_parent"
         tools:context=".LoginAct">
     <TextView
             android:layout_marginTop="50dp"
             android:textSize="50sp"
             android:gravity="center"
+            android:layout_weight="1"
             android:text="Welcome to MOVIEPEDIA"
             android:textColor="@android:color/white"
             android:layout_width="match_parent"
@@ -19,6 +21,7 @@
     <TextView
             android:textColor="@android:color/white"
             android:layout_marginTop="140dp"
+            android:layout_weight="1"
             android:id="@+id/nameUserA"
             android:textSize="30sp"
             android:layout_width="match_parent"
@@ -28,6 +31,7 @@
             android:textColor="@android:color/white"
             android:layout_marginTop="10dp"
             android:id="@+id/usernameA"
+            android:layout_weight="1"
             android:textSize="30sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -36,6 +40,7 @@
             android:textColor="@android:color/white"
             android:layout_marginTop="10dp"
             android:id="@+id/passwordA"
+            android:layout_weight="1"
             android:textSize="30sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -45,6 +50,8 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="140dp"
             android:layout_gravity="right"
+            android:layout_marginBottom="30dp"
+            android:layout_weight="1"
             android:id="@+id/btnLogout"
             android:background="@android:color/holo_blue_light"
             android:text="LOGOUT"
