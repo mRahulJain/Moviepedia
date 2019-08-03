@@ -26,6 +26,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 class ThirdAct : AppCompatActivity() {
 
     val baseURL = "https://image.tmdb.org/t/p/original/"
+    var overview : String = ""
+    var flag = 0
     val api_key: String = "<api_key>"
     val retrofit = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/")
@@ -117,12 +119,13 @@ class ThirdAct : AppCompatActivity() {
             service.getMovie(id, api_key).enqueue(retrofitCallback{ throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
+                        tVoverviewF.isVisible = false
                         movieID = it.body()!!.id
                         collapseToolBar.title = it.body()!!.original_title
                         Picasso
                             .with(this)
                             .load(baseURL + it.body()!!.poster_path)
-                            .resize(450,600)
+                            .fit()
                             .into(iView)
                         if(it.body()!!.poster_path == null) {
                             Picasso.with(this).load(R.drawable.baseline_broken_image_white_18dp).into(iView)
@@ -141,8 +144,15 @@ class ThirdAct : AppCompatActivity() {
                         }
                         if(it.body()!!.overview == null) {
                             tVoverview.isVisible = false
+                            expand_button.isVisible = false
                         } else {
+                            overview = it.body()!!.overview
                             tVoverview.text = it.body()!!.overview
+                            if(tVoverview.lineCount <= 4) {
+                                expand_button.isVisible = false
+                            } else {
+                                expand_button.setImageResource(R.drawable.ic_expand_more)
+                            }
                         }
                         if(it.body()!!.vote_average == null) {
                             tVvote.isVisible = false
@@ -208,6 +218,22 @@ class ThirdAct : AppCompatActivity() {
                 }
             }
         })
+
+        expand_button.setOnClickListener {
+            if(flag == 0) {
+                flag = 1
+                expand_button.setImageResource(R.drawable.ic_expand_less)
+                tVoverview.isVisible = false
+                tVoverviewF.isVisible = true
+                tVoverviewF.setText(overview)
+            } else {
+                flag = 0
+                expand_button.setImageResource(R.drawable.ic_expand_more)
+                tVoverview.isVisible = true
+                tVoverviewF.isVisible = false
+                tVoverview.setText(overview)
+            }
+        }
 
         seeReview.setOnClickListener {
             val intent = Intent(this, SecondAct::class.java)

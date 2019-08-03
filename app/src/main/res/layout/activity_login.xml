@@ -11,7 +11,7 @@
 
     <TextView
             android:layout_weight="1"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:textSize="50sp"
             android:gravity="center"
             android:text="Welcome to MOVIEPEDIA"
@@ -22,7 +22,7 @@
 
     <LinearLayout
             android:layout_weight="1"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal"
             android:weightSum="3"
             android:layout_width="match_parent"
@@ -69,7 +69,6 @@
     <com.google.android.material.textfield.TextInputLayout
             android:layout_margin="10dp"
             android:id="@+id/username"
-            app:counterEnabled="true"
             app:counterMaxLength="20"
             android:layout_weight="1"
             app:errorEnabled="true"
@@ -112,17 +111,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-    <Button
+    <FrameLayout
+            android:layout_weight="1"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:id="@+id/btnLogin"
-            android:background="@android:color/holo_blue_light"
-            android:text="LOGIN"
-            android:textSize="15sp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
+        <Button
+                android:id="@+id/btnLogin"
+                android:background="@android:color/holo_blue_light"
+                android:text="LOGIN"
+                android:textSize="15sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        <ProgressBar
+                android:visibility="gone"
+                android:id="@+id/pBarLogin"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:indeterminate="true"
+                android:indeterminateTintMode="src_atop"
+                android:indeterminateTint="@android:color/holo_blue_dark"
+                android:layout_height="wrap_content"/>
+    </FrameLayout>
     <LinearLayout
             android:layout_marginTop="30dp"
             android:orientation="horizontal"

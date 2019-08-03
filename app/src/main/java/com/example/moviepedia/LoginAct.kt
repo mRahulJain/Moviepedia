@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.view.isVisible
 import androidx.room.Room
 import com.example.moviepedia.Api.API
 import com.example.moviepedia.DataClass.ReqToken
@@ -70,10 +71,6 @@ class LoginAct : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-//            var intent = Intent()
-//            intent.action = Intent.ACTION_VIEW
-//            intent.data = Uri.parse("https://www.themoviedb.org/authenticate/${reqToken}")
-//            startActivity(intent)
             var intent = Intent(this, WebActivity::class.java)
             intent.putExtra("reqToken", "${reqToken}")
             startActivity(intent)
@@ -87,6 +84,8 @@ class LoginAct : AppCompatActivity() {
                     .show()
                 return@setOnClickListener
             }
+            btnLogin.isVisible = false
+            pBarLogin.isVisible = true
             flag = 2
             val serviceRT = retrofit.create(API::class.java)
             val req_token = ReqToken(reqToken)
@@ -108,6 +107,8 @@ class LoginAct : AppCompatActivity() {
                         finish()
                     } else {
                         Snackbar.make(btnLogin, "Somethings wrong!", Snackbar.LENGTH_LONG).show()
+                        pBarLogin.isVisible = false
+                        btnLogin.isVisible = true
                     }
                 }
             })

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.AbsListView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviepedia.Adapter.CommonAdapter
@@ -47,6 +48,8 @@ class SecondAct : AppCompatActivity() {
         type = intent.getStringExtra("type")
         textDest.text = type
 
+        pBar.isVisible = true
+
         toBeCalled()
 
         rView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -84,6 +87,7 @@ class SecondAct : AppCompatActivity() {
             service.getTrending(media_type, time_window, api_key, currentPage.toString()).enqueue(retrofitCallback{ throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
+                        pBar.isVisible = false
                         if(i==0) {
                             list = it.body()!!.results
                             rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
@@ -100,6 +104,7 @@ class SecondAct : AppCompatActivity() {
             service.getNowPlaying(api_key, currentPage.toString()).enqueue(retrofitCallback{ throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
+                        pBar.isVisible = false
                         if(i==0) {
                             commonList = it.body()!!.results
                             rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
@@ -116,6 +121,7 @@ class SecondAct : AppCompatActivity() {
             service.getUpcoming(api_key, currentPage.toString()).enqueue(retrofitCallback{ throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
+                        pBar.isVisible = false
                         if(i==0) {
                             commonList = it.body()!!.results
                             rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
@@ -132,6 +138,7 @@ class SecondAct : AppCompatActivity() {
             service.getPopular(api_key, currentPage.toString()).enqueue(retrofitCallback{ throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
+                        pBar.isVisible = false
                         if(i==0) {
                             commonList = it.body()!!.results
                             rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
@@ -148,6 +155,7 @@ class SecondAct : AppCompatActivity() {
             service.getTopRated(api_key, currentPage.toString()).enqueue(retrofitCallback{ throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
+                        pBar.isVisible = false
                         if(i==0) {
                             commonList = it.body()!!.results
                             rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
@@ -164,6 +172,7 @@ class SecondAct : AppCompatActivity() {
             service.getTVAiringTodayF(api_key, currentPage.toString()).enqueue(retrofitCallback{ throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
+                        pBar.isVisible = false
                         if(i==0) {
                             TVList = it.body()!!.results
                             rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
@@ -180,6 +189,7 @@ class SecondAct : AppCompatActivity() {
             service.getTVonAirF(api_key, currentPage.toString()).enqueue(retrofitCallback{ throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
+                        pBar.isVisible = false
                         if(i==0) {
                             TVList = it.body()!!.results
                             rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
@@ -196,6 +206,7 @@ class SecondAct : AppCompatActivity() {
             service.getTVPopularF(api_key, currentPage.toString()).enqueue(retrofitCallback{ throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
+                        pBar.isVisible = false
                         if(i==0) {
                             TVList = it.body()!!.results
                             rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
@@ -212,6 +223,7 @@ class SecondAct : AppCompatActivity() {
             service.getTVTopRatedF(api_key, currentPage.toString()).enqueue(retrofitCallback{ throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
+                        pBar.isVisible = false
                         if(i==0) {
                             TVList = it.body()!!.results
                             rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
@@ -229,6 +241,7 @@ class SecondAct : AppCompatActivity() {
             service.getReviewTV(id,api_key, currentPage).enqueue(retrofitCallback{ throwable, response ->
                 response?.let {
                     if(i==0) {
+                        pBar.isVisible = false
                         ReviewList = it.body()!!.results
                         rView.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
                         rView.adapter = ReviewAdapter(this, ReviewList)
@@ -244,6 +257,7 @@ class SecondAct : AppCompatActivity() {
             service.getReview(id,api_key, currentPage).enqueue(retrofitCallback{ throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
+                        pBar.isVisible = false
                         if(i==0) {
                             ReviewList = it.body()!!.results
                             rView.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)

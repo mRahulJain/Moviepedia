@@ -8,12 +8,14 @@ import android.os.Bundle
 import android.text.method.MovementMethod
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviepedia.Adapter.GetWorkAdapter
 import com.example.moviepedia.Adapter.PhotoAdapter
 import com.example.moviepedia.Api.API
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_fourth.*
+import kotlinx.android.synthetic.main.content_scrolling.*
 import kotlinx.android.synthetic.main.content_scrolling_2.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -21,6 +23,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 class FourthAct : AppCompatActivity() {
 
     val baseURL = "https://image.tmdb.org/t/p/original/"
+    var biography : String = ""
+    var flag = 0
     val api_key: String = "<api_key>"
     val retrofit = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/")
@@ -42,27 +46,52 @@ class FourthAct : AppCompatActivity() {
         service.getPeople(id, api_key).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
                 if(it.isSuccessful) {
-                    just1.text = "Also known as :"
-                    just2.text = "Known for department :"
-                    just3.text = "Work :"
                     collapseToolBar.title = it.body()!!.name
                     Picasso
                         .with(this)
                         .load(baseURL + it.body()!!.profile_path)
-                        .resize(450,600)
+                        .fit()
                         .into(iView)
                     if(it.body()!!.profile_path == null) {
                         Picasso.with(this).load(R.drawable.baseline_broken_image_white_18dp).into(iView)
                     }
-                    tVbio.text = it.body()!!.biography
-                    tVaka.text = ""
-                    for(i in it.body()!!.also_known_as) {
-                        tVaka.text = tVaka.text.toString() + i + ", "
+                    if(it.body()!!.biography == null) {
+                        expand_button_2.isVisible = false
+                        tVbio.isVisible = false
+                    } else {
+                        biography = it.body()!!.biography
+                        tVbio.text = it.body()!!.biography
+                        if(tVbio.lineCount <= 4) {
+                            expand_button_2.isVisible = false
+                        } else {
+                            expand_button_2.setImageResource(R.drawable.ic_expand_more)
+                        }
                     }
-                    tVpopularity.setTextColor(Color.CYAN)
-                    tVpopularity.text = it.body()!!.popularity + " / 100"
-                    tVkfd.text = it.body()!!.known_for_department
-                    tVkfd.setTextColor(Color.CYAN)
+                    if(it.body()!!.also_known_as == null) {
+                        just1.isVisible = false
+                        tVaka.isVisible = false
+                    } else {
+                        just1.text = "Also known as"
+                        tVaka.text = ""
+                        for(i in it.body()!!.also_known_as) {
+                            tVaka.text = tVaka.text.toString() + i + ", "
+                        }
+                        tVaka.text = tVaka.text.toString().substring(0, tVaka.text.toString().lastIndex-2)
+                    }
+                    if(it.body()!!.popularity == null) {
+                        tVpopularity.isVisible = false
+                    } else {
+                        tVpopularity.setTextColor(Color.CYAN)
+                        tVpopularity.text = it.body()!!.popularity + " / 100"
+                    }
+                    if(it.body()!!.known_for_department == null) {
+                        just2.isVisible = false
+                        tVkfd.isVisible = false
+                    } else {
+                        just2.text = "Known for department"
+                        tVkfd.text = it.body()!!.known_for_department
+                        tVkfd.setTextColor(Color.CYAN)
+                    }
                 }
             }
         })
@@ -71,8 +100,14 @@ class FourthAct : AppCompatActivity() {
         photoService.getPhoto(id,api_key).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
                 if(it.isSuccessful) {
-                    rViewPhotos.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
-                    rViewPhotos.adapter = PhotoAdapter(this, it.body()!!)
+                    if(it.body()!!.profiles.size == 0) {
+                        rViewPhotos.isVisible = false
+                        tVmp.isVisible = false
+                    } else {
+                        tVmp.text = "More Pictures"
+                        rViewPhotos.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
+                        rViewPhotos.adapter = PhotoAdapter(this, it.body()!!)
+                    }
                 }
             }
         })
@@ -80,11 +115,33 @@ class FourthAct : AppCompatActivity() {
         getWorkService.getPeopleWork(id, api_key).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
                 if(it.isSuccessful) {
-                    rViewWork.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
-                    rViewWork.adapter = GetWorkAdapter(this, it.body()!!)
+                    if(it.body()!!.cast.size == 0) {
+                        just3.isVisible = false
+                        rViewWork.isVisible = false
+                    } else {
+                        just3.text = "Work"
+                        rViewWork.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
+                        rViewWork.adapter = GetWorkAdapter(this, it.body()!!)
+                    }
                 }
             }
         })
+
+        expand_button_2.setOnClickListener {
+            if(flag == 0) {
+                flag = 1
+                expand_button_2.setImageResource(R.drawable.ic_expand_less)
+                tVbio.isVisible = false
+                tVbioF.isVisible = true
+                tVbioF.setText(biography)
+            } else {
+                flag = 0
+                expand_button_2.setImageResource(R.drawable.ic_expand_more)
+                tVbio.isVisible = true
+                tVbioF.isVisible = false
+                tVbio.setText(biography)
+            }
+        }
 
     }
 }

@@ -39,7 +39,7 @@ class CommonAdapter(val context: Context, val nameList: ArrayList<Common_results
             holder.itemView.tView.text = nameList[position].original_title
             Log.d("CHECK", "${holder.itemView.tView.text}")
             val target = nameList[position].poster_path
-            Picasso.with(this.context).load(baseURL + target).into(holder.itemView.iView)
+            Picasso.with(this.context).load(baseURL + target).fit().into(holder.itemView.iView)
             if(target == null) {
                 Picasso.with(this.context).load(R.drawable.baseline_broken_image_black_18dp).into(holder.itemView.iView)
             }

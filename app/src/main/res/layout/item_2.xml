@@ -12,7 +12,7 @@
 
         <TextView
                 android:gravity="left"
-                android:background="@color/colorPrimary"
+                android:background="@color/colorDimGray"
                 android:textColor="@android:color/white"
                 android:id="@+id/tView"
                 android:textSize="15sp"

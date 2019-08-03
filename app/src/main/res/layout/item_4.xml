@@ -7,7 +7,7 @@
         android:elevation="10dp"
         app:cardCornerRadius="8dp"
         android:id="@+id/parentLayout"
-        android:layout_width="220dp"
+        android:layout_width="200dp"
         android:layout_height="300dp">
 
         <ImageView

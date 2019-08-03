@@ -27,6 +27,8 @@ class FifthAct : AppCompatActivity() {
 
     val baseURL = "https://image.tmdb.org/t/p/original/"
     val api_key: String = "<api_key>"
+    var overview : String = ""
+    var flag = 0
     val retrofit = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/")
         .addConverterFactory(GsonConverterFactory.create())
@@ -120,7 +122,7 @@ class FifthAct : AppCompatActivity() {
                     Picasso
                         .with(this)
                         .load(baseURL + it.body()!!.poster_path)
-                        .resize(450,600)
+                        .fit()
                         .into(iViewTV)
                     if(it.body()!!.poster_path == null) {
                         Picasso.with(this).load(R.drawable.baseline_broken_image_white_18dp).into(iViewTV)
@@ -133,8 +135,15 @@ class FifthAct : AppCompatActivity() {
                     }
                     if(it.body()!!.overview == null) {
                         tVoverviewTV.isVisible = false
+                        expand_button_3.isVisible = false
                     } else {
+                        overview = it.body()!!.overview
                         tVoverviewTV.text = it.body()!!.overview
+                        if(tVoverviewTV.lineCount <= 4) {
+                            expand_button_3.isVisible = false
+                        } else {
+                            expand_button_3.setImageResource(R.drawable.ic_expand_more)
+                        }
                     }
                     if(it.body()!!.vote_average == null) {
                         tVvoteTV.isVisible = false
@@ -198,6 +207,22 @@ class FifthAct : AppCompatActivity() {
                 }
             }
         })
+
+        expand_button_3.setOnClickListener {
+            if(flag == 0) {
+                flag = 1
+                expand_button_3.setImageResource(R.drawable.ic_expand_less)
+                tVoverviewTV.isVisible = false
+                tVoverviewTVF.isVisible = true
+                tVoverviewTVF.setText(overview)
+            } else {
+                flag = 0
+                expand_button_3.setImageResource(R.drawable.ic_expand_more)
+                tVoverviewTV.isVisible = true
+                tVoverviewTVF.isVisible = false
+                tVoverviewTV.setText(overview)
+            }
+        }
 
         seeReviewsTV.setOnClickListener {
             val intent = Intent(this, SecondAct::class.java)

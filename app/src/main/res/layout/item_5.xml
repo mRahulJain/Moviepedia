@@ -3,11 +3,12 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
         android:elevation="10dp"
         app:cardCornerRadius="8dp"
         android:id="@+id/pL"
-        android:layout_width="300dp"
+        android:layout_width="240dp"
         android:layout_height="wrap_content">
 
     <LinearLayout
@@ -17,25 +18,25 @@
             android:layout_height="match_parent">
         <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="210dp">
+                android:layout_height="150dp">
             <ImageView
                     android:layout_margin="5dp"
                     android:id="@+id/iViewVid"
                     android:layout_width="match_parent"
-                    android:layout_height="210dp"/>
+                    android:layout_height="150dp"/>
             <ImageView
                     android:layout_gravity="center"
                     android:src="@drawable/ic_play_circle"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"/>
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
         </FrameLayout>
         <TextView
                 android:paddingLeft="5dp"
                 android:textColor="@android:color/white"
-                android:textSize="15sp"
+                android:textSize="10sp"
                 android:id="@+id/tVvideoName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"/>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

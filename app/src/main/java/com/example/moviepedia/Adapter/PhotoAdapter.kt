@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.item_4.view.*
 
 class PhotoAdapter(val context: Context, val nameList: PeoplePhoto) : RecyclerView.Adapter<PhotoAdapter.NameViewHolder>() {
 
-    val baseURL = "https://image.tmdb.org/t/p/w342/"
+    val baseURL = "https://image.tmdb.org/t/p/original/"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NameViewHolder {
         val li = parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -28,6 +28,7 @@ class PhotoAdapter(val context: Context, val nameList: PeoplePhoto) : RecyclerVi
         Picasso
             .with(context)
             .load(baseURL + nameList.profiles[position].file_path)
+            .fit()
             .into(holder.itemView.iViewPhoto)
     }
 

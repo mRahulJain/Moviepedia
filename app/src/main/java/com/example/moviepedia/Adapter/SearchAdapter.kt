@@ -39,10 +39,10 @@ class SearchAdapter(val context: Context, val nameList: ArrayList<Search_result>
         var target : String
         if(nameList[position].poster_path!=null) {
             target = nameList[position].poster_path
-            Picasso.with(this.context).load(baseURL + target).into(holder.itemView.iView)
+            Picasso.with(this.context).load(baseURL + target).fit().into(holder.itemView.iView)
         } else if(nameList[position].profile_path != null){
             target = nameList[position].profile_path
-            Picasso.with(this.context).load(baseURL + target).into(holder.itemView.iView)
+            Picasso.with(this.context).load(baseURL + target).fit().into(holder.itemView.iView)
         } else {
             Picasso.with(this.context).load(R.drawable.baseline_broken_image_black_18dp).into(holder.itemView.iView)
         }

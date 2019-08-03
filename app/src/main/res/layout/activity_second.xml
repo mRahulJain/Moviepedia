@@ -15,14 +15,28 @@
             android:textSize="20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-    <androidx.recyclerview.widget.RecyclerView
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:id="@+id/rView"
+    <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+        <ProgressBar
+                android:layout_gravity="center|top"
+                android:visibility="gone"
+                android:id="@+id/pBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_weight="1"
+                android:layout_marginLeft="30dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/rView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </FrameLayout>
 
 </LinearLayout>

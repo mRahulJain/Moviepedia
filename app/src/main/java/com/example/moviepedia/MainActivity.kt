@@ -28,7 +28,6 @@ import com.example.moviepedia.DataClass.TV_details
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_second.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.item_6.view.*
 import kotlinx.android.synthetic.main.item_6.view.iView
@@ -131,7 +130,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             serviceAccount.getAccountDetail(api_key, "${userPresent.session_id}").enqueue(retrofitCallback{ throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
-                            AccountID = it.body()!!.id
+                        AccountID = it.body()!!.id
                         Log.d("SESSION_ID", "${AccountID}")
                     }
                 }
@@ -340,6 +339,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         service.getTrending(media_type, time_window, api_key, currentPage.toString()).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
                 if(it.isSuccessful) {
+                    pBarMain.isVisible = false
                     rView1.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
                     rView1.adapter = TrendingAdapter(this, it.body()!!.results)
                 }
@@ -390,6 +390,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         service.getPopularPeople(api_key, currentPage).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
                 if(it.isSuccessful) {
+                    pBarMain.isVisible = false
                     if(i==0) {
                         PeopleList = it.body()!!.results
                         rView1.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
@@ -412,6 +413,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .enqueue(retrofitCallback { throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
+                        pBarMain.isVisible = false
                         if(i==0) {
                             FavMovieList = it.body()!!.results
                             rView1.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
@@ -433,6 +435,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .enqueue(retrofitCallback { throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
+                        pBarMain.isVisible = false
                         if(i==0) {
                             FavTVList = it.body()!!.results
                             rView1.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
@@ -454,6 +457,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .enqueue(retrofitCallback { throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
+                        pBarMain.isVisible = false
                         if(i==0) {
                             FavMovieList = it.body()!!.results
                             rView1.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
@@ -475,6 +479,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .enqueue(retrofitCallback { throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
+                        pBarMain.isVisible = false
                         if(i==0) {
                             FavTVList = it.body()!!.results
                             rView1.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
@@ -496,6 +501,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .enqueue(retrofitCallback { throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
+                        pBarMain.isVisible = false
                         if(i==0) {
                             WatchMovieList = it.body()!!.results
                             rView1.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
@@ -517,6 +523,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .enqueue(retrofitCallback { throwable, response ->
                 response?.let {
                     if(it.isSuccessful) {
+                        pBarMain.isVisible = false
                         if(i==0) {
                             WatchTVList = it.body()!!.results
                             rView1.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
@@ -537,6 +544,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         service.getTVAiringToday(api_key).enqueue(retrofitCallback{ throwable, response ->
             response?.let {
                 if(it.isSuccessful) {
+                    pBarMain.isVisible = false
                     rView1.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
                     rView1.adapter = TVAdapter(this, it.body()!!.results)
                 }
@@ -604,6 +612,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_movie -> {
+                pBarMain.isVisible = true
                 type = "Movie"
                 layoutSearch.isVisible = false
                 bool = false
@@ -617,9 +626,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 rView3.isVisible = true
                 rView2.isVisible = true
                 btn1.text = "  Trending"
+                btn2.text = "  Now Playing"
+                btn3.text = "  Upcoming"
+                btn4.text = "  Popular"
+                btn5.text = "  Top Rated"
                 onOpen()
             }
             R.id.nav_people -> {
+                pBarMain.isVisible = true
                 i = 0
                 currentPage = 1
                 type = "People"
@@ -637,6 +651,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen1()
             }
             R.id.nav_tv -> {
+                pBarMain.isVisible = true
                 i = 0
                 currentPage = 1
                 type = "TV"
@@ -658,6 +673,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen2()
             }
             R.id.nav_fav_movies -> {
+                pBarMain.isVisible = true
                 i = 0
                 currentPage = 1
                 if(trial == 1) {
@@ -682,6 +698,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen3()
             }
             R.id.nav_fav_TV -> {
+                pBarMain.isVisible = true
                 i = 0
                 currentPage = 1
                 if(trial == 1) {
@@ -706,6 +723,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen4()
             }
             R.id.nav_watchList_Movies -> {
+                pBarMain.isVisible = true
                 i = 0
                 currentPage = 1
                 if(trial == 1) {
@@ -730,6 +748,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen5()
             }
             R.id.nav_watchList_TV -> {
+                pBarMain.isVisible = true
                 i = 0
                 currentPage = 1
                 if(trial == 1) {
@@ -768,6 +787,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
             }
             R.id.nav_rated_movie -> {
+                pBarMain.isVisible = true
                 i = 0
                 currentPage = 1
                 if(trial == 1) {
@@ -792,6 +812,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onOpen7()
             }
             R.id.nav_rated_tv -> {
+                pBarMain.isVisible = true
                 i = 0
                 currentPage = 1
                 if(trial == 1) {

@@ -30,7 +30,7 @@ class VideoAdapter(val context: Context, val nameList: Video) : RecyclerView.Ada
     override fun onBindViewHolder(holder: VideoAdapter.NameViewHolder, position: Int) {
         var url = "https://img.youtube.com/vi/${nameList.results[position].key}/0.jpg"
         holder.itemView.tVvideoName.text = nameList.results[position].name
-        Picasso.with(context).load(url).resize(300, 200).into(holder.itemView.iViewVid)
+        Picasso.with(context).load(url).fit().into(holder.itemView.iViewVid)
         holder.itemView.pL.setOnClickListener {
             var i = Intent()
             i.action = Intent.ACTION_VIEW
