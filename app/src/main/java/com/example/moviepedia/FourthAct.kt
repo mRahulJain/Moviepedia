@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.text.method.MovementMethod
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
+import android.view.MenuItem
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviepedia.Adapter.GetWorkAdapter
@@ -25,7 +26,7 @@ class FourthAct : AppCompatActivity() {
     val baseURL = "https://image.tmdb.org/t/p/original/"
     var biography : String = ""
     var flag = 0
-    val api_key: String = "<api_key>"
+    val api_key: String = "40c1d09ce2457ccd5cabde67ee04c652"
     val retrofit = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/")
         .addConverterFactory(GsonConverterFactory.create())
@@ -40,6 +41,9 @@ class FourthAct : AppCompatActivity() {
         tVbio.movementMethod = ScrollingMovementMethod() as MovementMethod?
 
         collapseToolBar.title = "Loading..."
+
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         val id = intent.getStringExtra("id").toInt()
         val service = retrofit.create(API::class.java)
 
@@ -67,7 +71,7 @@ class FourthAct : AppCompatActivity() {
                             expand_button_2.setImageResource(R.drawable.ic_expand_more)
                         }
                     }
-                    if(it.body()!!.also_known_as == null) {
+                    if(it.body()!!.also_known_as == null || it.body()!!.also_known_as.size == 0) {
                         just1.isVisible = false
                         tVaka.isVisible = false
                     } else {
@@ -82,7 +86,7 @@ class FourthAct : AppCompatActivity() {
                         tVpopularity.isVisible = false
                     } else {
                         tVpopularity.setTextColor(Color.CYAN)
-                        tVpopularity.text = it.body()!!.popularity + " / 100"
+                        tVpopularity.text = it.body()!!.popularity
                     }
                     if(it.body()!!.known_for_department == null) {
                         just2.isVisible = false
@@ -143,5 +147,13 @@ class FourthAct : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId) {
+        android.R.id.home -> {
+            finish()
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 }

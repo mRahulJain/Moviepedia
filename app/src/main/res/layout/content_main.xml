@@ -22,119 +22,182 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                <Button
-                        android:drawableRight="@drawable/ic_keyboard_arrow_right"
+                <TextView
                         android:background="@android:color/black"
-                        android:textColor="@android:color/white"
                         android:id="@+id/btn1"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textAllCaps="true"
                         android:layout_weight="1"
                         android:layout_margin="10dp"
-                        android:gravity="left"
+                        android:gravity="center"
                         android:text="  Trending"
-                        android:textSize="30dp"
-                        android:drawableLeft="@drawable/ic_star_black"
+                        android:textSize="22sp"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="wrap_content"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                        android:layout_weight="1"
-                        android:id="@+id/rView1"
+                <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+                    <androidx.recyclerview.widget.RecyclerView
+                            android:layout_weight="1"
+                            android:id="@+id/rView1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                    </androidx.recyclerview.widget.RecyclerView>
+                    <ImageButton
+                            android:layout_marginTop="70dp"
+                            android:layout_gravity="right"
+                            android:background="#7C878E"
+                            android:alpha="0.7"
+                            android:id="@+id/click1"
+                            android:src="@drawable/ic_keyboard_arrow_right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"/>
+                </FrameLayout>
 
-                </androidx.recyclerview.widget.RecyclerView>
-
-                <Button
-                        android:drawableRight="@drawable/ic_keyboard_arrow_right"
+                <TextView
                         android:background="@android:color/black"
                         android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textAllCaps="true"
                         android:id="@+id/btn2"
                         android:layout_weight="1"
                         android:layout_margin="10dp"
-                        android:gravity="left"
+                        android:gravity="center"
                         android:text="  Now Playing"
-                        android:textSize="30dp"
-                        android:drawableLeft="@drawable/ic_star_black"
+                        android:textSize="22sp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                        android:layout_weight="1"
-                        android:layout_gravity="center"
-                        android:id="@+id/rView2"
+                <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+                    <androidx.recyclerview.widget.RecyclerView
+                            android:layout_weight="1"
+                            android:layout_gravity="center"
+                            android:id="@+id/rView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-                </androidx.recyclerview.widget.RecyclerView>
+                    </androidx.recyclerview.widget.RecyclerView>
+                    <ImageButton
+                            android:layout_marginTop="70dp"
+                            android:layout_gravity="right"
+                            android:background="#7C878E"
+                            android:alpha="0.7"
+                            android:id="@+id/click2"
+                            android:src="@drawable/ic_keyboard_arrow_right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"/>
+                </FrameLayout>
 
-                <Button
-                        android:drawableRight="@drawable/ic_keyboard_arrow_right"
+                <TextView
                         android:background="@android:color/black"
                         android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textAllCaps="true"
                         android:id="@+id/btn3"
                         android:layout_weight="1"
                         android:layout_margin="10dp"
-                        android:gravity="left"
+                        android:gravity="center"
                         android:text="  Upcoming"
-                        android:textSize="30dp"
-                        android:drawableLeft="@drawable/ic_star_black"
+                        android:textSize="22sp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rView3"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
+                <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+                    <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rView3"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-                </androidx.recyclerview.widget.RecyclerView>
+                    </androidx.recyclerview.widget.RecyclerView>
+                    <ImageButton
+                            android:layout_marginTop="70dp"
+                            android:layout_gravity="right"
+                            android:background="#7C878E"
+                            android:alpha="0.7"
+                            android:id="@+id/click3"
+                            android:src="@drawable/ic_keyboard_arrow_right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"/>
+                </FrameLayout>
 
-                <Button
-                        android:drawableRight="@drawable/ic_keyboard_arrow_right"
+                <TextView
                         android:background="@android:color/black"
                         android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textAllCaps="true"
                         android:id="@+id/btn4"
                         android:layout_weight="1"
                         android:layout_margin="10dp"
-                        android:gravity="left"
+                        android:gravity="center"
                         android:text="  Popular"
-                        android:textSize="30dp"
-                        android:drawableLeft="@drawable/ic_star_black"
+                        android:textSize="22sp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
-
-                <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rView4"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"
+                <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+                    <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rView4"
+                            android:layout_weight="1"
+                            android:layout_gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-                </androidx.recyclerview.widget.RecyclerView>
+                    </androidx.recyclerview.widget.RecyclerView>
+                    <ImageButton
+                            android:layout_marginTop="70dp"
+                            android:layout_gravity="right"
+                            android:background="#7C878E"
+                            android:alpha="0.7"
+                            android:id="@+id/click4"
+                            android:src="@drawable/ic_keyboard_arrow_right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"/>
+                </FrameLayout>
 
-                <Button
-                        android:drawableRight="@drawable/ic_keyboard_arrow_right"
+                <TextView
                         android:background="@android:color/black"
                         android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textAllCaps="true"
                         android:id="@+id/btn5"
                         android:layout_weight="1"
                         android:layout_margin="10dp"
-                        android:gravity="left"
+                        android:gravity="center"
                         android:text="  Top Rated"
-                        android:textSize="30dp"
-                        android:drawableLeft="@drawable/ic_star_black"
+                        android:textSize="22sp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rView5"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"
+                <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+                    <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rView5"
+                            android:layout_weight="1"
+                            android:layout_gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-                </androidx.recyclerview.widget.RecyclerView>
+                    </androidx.recyclerview.widget.RecyclerView>
+                    <ImageButton
+                            android:layout_marginTop="70dp"
+                            android:layout_gravity="right"
+                            android:background="#7C878E"
+                            android:id="@+id/click5"
+                            android:alpha="0.7"
+                            android:src="@drawable/ic_keyboard_arrow_right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"/>
+                </FrameLayout>
             </LinearLayout>
         </ScrollView>
 
@@ -148,6 +211,7 @@
             <LinearLayout
                     android:layout_marginTop="50dp"
                     android:layout_marginLeft="10dp"
+                    android:visibility="gone"
                     android:layout_marginRight="10dp"
                     android:id="@+id/layoutSearch"
                     android:layout_width="match_parent"

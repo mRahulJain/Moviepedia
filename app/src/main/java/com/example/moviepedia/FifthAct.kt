@@ -6,6 +6,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
@@ -26,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class FifthAct : AppCompatActivity() {
 
     val baseURL = "https://image.tmdb.org/t/p/original/"
-    val api_key: String = "<api_key>"
+    val api_key: String = "40c1d09ce2457ccd5cabde67ee04c652"
     var overview : String = ""
     var flag = 0
     val retrofit = Retrofit.Builder()
@@ -79,6 +80,8 @@ class FifthAct : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fifth)
 
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         setSupportActionBar(toolbarTV)
 
         collapseToolBarTV.title = "Loading..."
@@ -320,5 +323,12 @@ class FifthAct : AppCompatActivity() {
                 Toast.makeText(this, "Already added!", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId) {
+        android.R.id.home -> {
+            finish()
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 }

@@ -11,7 +11,8 @@ import androidx.room.Room
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_1.view.*
 
-class TrendingAdapter(val context: Context,val nameList: ArrayList<Trending_results>) : RecyclerView.Adapter<TrendingAdapter.NameViewHolder>() {
+class TrendingAdapter(val context: Context,val nameList: ArrayList<Trending_results>) :
+    RecyclerView.Adapter<TrendingAdapter.NameViewHolder>() {
 
     val baseURL = "https://image.tmdb.org/t/p/w342/"
 

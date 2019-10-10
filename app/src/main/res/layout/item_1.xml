@@ -3,12 +3,12 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="6dp"
         android:layout_marginTop="10dp"
         android:elevation="10dp"
         app:cardCornerRadius="8dp"
         android:id="@+id/parentLayout"
-        android:layout_width="160dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content">
 
     <LinearLayout
@@ -21,13 +21,14 @@
                 android:background="@android:color/darker_gray"
                 android:id="@+id/iView"
                 android:layout_width="match_parent"
-                android:layout_height="220dp"/>
+                android:layout_height="160dp"/>
         <TextView
                 android:gravity="center"
                 android:background="@android:color/black"
                 android:textColor="@android:color/white"
                 android:id="@+id/tView"
                 android:textSize="15sp"
+                android:maxLength="14"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
     </LinearLayout>

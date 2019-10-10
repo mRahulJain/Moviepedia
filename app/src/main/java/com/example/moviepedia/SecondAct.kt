@@ -21,7 +21,7 @@ class SecondAct : AppCompatActivity() {
 
     val media_type = "all"
     val time_window = "week"
-    val api_key: String = "<api_key>"
+    val api_key: String = "40c1d09ce2457ccd5cabde67ee04c652"
     val retrofit = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/")
         .addConverterFactory(GsonConverterFactory.create())
@@ -90,7 +90,7 @@ class SecondAct : AppCompatActivity() {
                         pBar.isVisible = false
                         if(i==0) {
                             list = it.body()!!.results
-                            rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                            rView.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
                             rView.adapter = TrendingAdapter(this, list)
                         } else {
                             list.addAll(it.body()!!.results)
@@ -107,7 +107,7 @@ class SecondAct : AppCompatActivity() {
                         pBar.isVisible = false
                         if(i==0) {
                             commonList = it.body()!!.results
-                            rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                            rView.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
                             rView.adapter = CommonAdapter(this, commonList, false)
                         } else {
                             commonList.addAll(it.body()!!.results)
@@ -124,7 +124,7 @@ class SecondAct : AppCompatActivity() {
                         pBar.isVisible = false
                         if(i==0) {
                             commonList = it.body()!!.results
-                            rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                            rView.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
                             rView.adapter = CommonAdapter(this, commonList, false)
                         } else {
                             commonList.addAll(it.body()!!.results)
@@ -141,7 +141,7 @@ class SecondAct : AppCompatActivity() {
                         pBar.isVisible = false
                         if(i==0) {
                             commonList = it.body()!!.results
-                            rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                            rView.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
                             rView.adapter = CommonAdapter(this, commonList, false)
                         } else {
                             commonList.addAll(it.body()!!.results)
@@ -158,7 +158,7 @@ class SecondAct : AppCompatActivity() {
                         pBar.isVisible = false
                         if(i==0) {
                             commonList = it.body()!!.results
-                            rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                            rView.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
                             rView.adapter = CommonAdapter(this, commonList, false)
                         } else {
                             commonList.addAll(it.body()!!.results)
@@ -175,7 +175,7 @@ class SecondAct : AppCompatActivity() {
                         pBar.isVisible = false
                         if(i==0) {
                             TVList = it.body()!!.results
-                            rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                            rView.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
                             rView.adapter = TVAdapter(this, TVList)
                         } else {
                             TVList.addAll(it.body()!!.results)
@@ -192,7 +192,7 @@ class SecondAct : AppCompatActivity() {
                         pBar.isVisible = false
                         if(i==0) {
                             TVList = it.body()!!.results
-                            rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                            rView.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
                             rView.adapter = TVAdapter(this, TVList)
                         } else {
                             TVList.addAll(it.body()!!.results)
@@ -209,7 +209,7 @@ class SecondAct : AppCompatActivity() {
                         pBar.isVisible = false
                         if(i==0) {
                             TVList = it.body()!!.results
-                            rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                            rView.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
                             rView.adapter = TVAdapter(this, TVList)
                         } else {
                             TVList.addAll(it.body()!!.results)
@@ -226,7 +226,7 @@ class SecondAct : AppCompatActivity() {
                         pBar.isVisible = false
                         if(i==0) {
                             TVList = it.body()!!.results
-                            rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                            rView.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
                             rView.adapter = TVAdapter(this, TVList)
                         } else {
                             TVList.addAll(it.body()!!.results)
