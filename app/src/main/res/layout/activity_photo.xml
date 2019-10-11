@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000"
+        tools:context=".PhotoAct">
+    <com.google.android.material.appbar.AppBarLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="#000000"
+            android:theme="@style/AppTheme.AppBarOverlay">
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbarViewPhoto"
+                    android:layout_width="match_parent"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                    android:layout_height="?attr/actionBarSize">
+
+            </androidx.appcompat.widget.Toolbar>
+        </FrameLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/iViewPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    </com.github.chrisbanes.photoview.PhotoView>
+
+</LinearLayout>

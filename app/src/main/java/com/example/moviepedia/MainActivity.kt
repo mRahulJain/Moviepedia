@@ -417,7 +417,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     if(i==0) {
                         PeopleList = it.body()!!.results
                         rView1.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
-                        rView1.adapter = PeopleAdapter(this, PeopleList, false)
+                        rView1.adapter = PeopleAdapter2(this, PeopleList, false)
                     } else {
                         PeopleList.addAll(it.body()!!.results)
                         rView1.adapter!!.notifyDataSetChanged()

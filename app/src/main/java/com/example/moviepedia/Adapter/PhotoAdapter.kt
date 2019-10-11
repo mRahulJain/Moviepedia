@@ -1,11 +1,13 @@
 package com.example.moviepedia.Adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviepedia.DataClass.PeoplePhoto
+import com.example.moviepedia.PhotoAct
 import com.example.moviepedia.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_4.view.*
@@ -30,6 +32,11 @@ class PhotoAdapter(val context: Context, val nameList: PeoplePhoto) : RecyclerVi
             .load(baseURL + nameList.profiles[position].file_path)
             .fit()
             .into(holder.itemView.iViewPhoto)
+        holder.itemView.iViewPhoto.setOnClickListener {
+            val intent = Intent(context, PhotoAct::class.java)
+            intent.putExtra("url", "${baseURL}${nameList.profiles[position]!!.file_path}")
+            context.startActivity(intent)
+        }
     }
 
 
