@@ -3,6 +3,7 @@ package com.example.moviepedia
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -95,6 +96,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        if(!isConnected(this@MainActivity)) {
+            buildDialog(this@MainActivity).show()
+        }
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -411,7 +416,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     pBarMain.isVisible = false
                     if(i==0) {
                         PeopleList = it.body()!!.results
-                        rView1.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
+                        rView1.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
                         rView1.adapter = PeopleAdapter(this, PeopleList, false)
                     } else {
                         PeopleList.addAll(it.body()!!.results)
@@ -434,7 +439,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         pBarMain.isVisible = false
                         if(i==0) {
                             FavMovieList = it.body()!!.results
-                            rView1.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
+                            rView1.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
                             rView1.adapter = CommonAdapter(this, FavMovieList, false)
                         } else {
                             FavMovieList.addAll(it.body()!!.results)
@@ -456,7 +461,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         pBarMain.isVisible = false
                         if(i==0) {
                             FavTVList = it.body()!!.results
-                            rView1.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
+                            rView1.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
                             rView1.adapter = TVAdapter(this, FavTVList)
                         } else {
                             FavTVList.addAll(it.body()!!.results)
@@ -478,7 +483,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         pBarMain.isVisible = false
                         if(i==0) {
                             FavMovieList = it.body()!!.results
-                            rView1.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
+                            rView1.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
                             rView1.adapter = CommonAdapter(this, FavMovieList, false)
                         } else {
                             FavMovieList.addAll(it.body()!!.results)
@@ -500,7 +505,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         pBarMain.isVisible = false
                         if(i==0) {
                             FavTVList = it.body()!!.results
-                            rView1.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
+                            rView1.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
                             rView1.adapter = TVAdapter(this, FavTVList)
                         } else {
                             FavTVList.addAll(it.body()!!.results)
@@ -522,7 +527,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         pBarMain.isVisible = false
                         if(i==0) {
                             WatchMovieList = it.body()!!.results
-                            rView1.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
+                            rView1.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
                             rView1.adapter = RatedMovieAdapter(this, WatchMovieList, false, userPresentA.session_id)
                         } else {
                             WatchMovieList.addAll(it.body()!!.results)
@@ -544,7 +549,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         pBarMain.isVisible = false
                         if(i==0) {
                             WatchTVList = it.body()!!.results
-                            rView1.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
+                            rView1.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
                             rView1.adapter = TVRatedAdapter(this, WatchTVList, userPresentA.session_id)
                         } else {
                             WatchTVList.addAll(it.body()!!.results)
@@ -601,8 +606,44 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
+        } else if(type == "Movie") {
             super.onBackPressed()
+        } else {
+            val toolbar: Toolbar = findViewById(R.id.toolbar)
+            setSupportActionBar(toolbar)
+            val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+            val navView: NavigationView = findViewById(R.id.nav_view)
+            val toggle = ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+            )
+            drawerLayout.addDrawerListener(toggle)
+            toggle.syncState()
+
+            navView.setCheckedItem(R.id.nav_movie)
+            navView.setNavigationItemSelectedListener(this)
+            pBarMain.isVisible = true
+            type = "Movie"
+            layoutSearch.isVisible = false
+            bool = false
+            btn5.isVisible = true
+            btn4.isVisible = true
+            btn3.isVisible = true
+            btn2.isVisible = true
+            click1.isVisible = true
+            click2.isVisible = true
+            click3.isVisible = true
+            click4.isVisible = true
+            click5.isVisible = true
+            rView5.isVisible = true
+            rView4.isVisible = true
+            rView3.isVisible = true
+            rView2.isVisible = true
+            btn1.text = "  Trending"
+            btn2.text = "  Now Playing"
+            btn3.text = "  Upcoming"
+            btn4.text = "  Popular"
+            btn5.text = "  Top Rated"
+            onOpen()
         }
     }
 
@@ -623,6 +664,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
         return true
+    }
+
+    fun isConnected(context: Context) : Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val netInfo = cm.activeNetworkInfo
+
+        if(netInfo != null && netInfo.isConnectedOrConnecting) {
+            val wifi = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+            val mobile = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
+            return (mobile != null && mobile.isConnectedOrConnecting) || (wifi != null && wifi.isConnectedOrConnecting)
+        } else {
+            return false
+        }
+    }
+
+    fun buildDialog(context: Context) : AlertDialog.Builder {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("No internet connectivity")
+        builder.setMessage("You need to be connected with mobile data or wifi to access information in this app." +
+                "Press ok to Exit!")
+        builder.setPositiveButton("Ok") { dialogInterface, which ->
+            finish()
+        }
+        return builder
     }
 
     @SuppressLint("WrongConstant")

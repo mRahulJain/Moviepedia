@@ -4,38 +4,34 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
         android:layout_marginTop="10dp"
         android:elevation="10dp"
-        app:cardCornerRadius="40dp"
+        app:cardCornerRadius="8dp"
         android:id="@+id/parentLayout"
-        android:layout_width="140dp"
-        android:layout_height="210dp">
+        android:layout_width="160dp"
+        android:layout_height="wrap_content">
 
     <LinearLayout
-            android:background="@drawable/custom_background_5"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <ImageView
                 android:src="@drawable/ic_cloud_download"
                 android:layout_gravity="center"
+                android:background="@android:color/darker_gray"
                 android:id="@+id/iView"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"/>
+                android:layout_height="200dp"/>
         <TextView
                 android:gravity="center"
+                android:background="@android:color/black"
                 android:textColor="@android:color/white"
                 android:id="@+id/tView"
-                android:textSize="20sp"
+                android:textSize="15sp"
+                android:maxLength="14"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"/>
-        <TextView
-                android:gravity="center"
-                android:textColor="@android:color/white"
-                android:id="@+id/tViewAs"
-                android:textSize="10sp"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"/>
+                android:layout_height="match_parent"/>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

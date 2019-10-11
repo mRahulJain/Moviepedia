@@ -3,13 +3,12 @@ package com.example.moviepedia
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.AbsListView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.moviepedia.Adapter.CommonAdapter
-import com.example.moviepedia.Adapter.ReviewAdapter
-import com.example.moviepedia.Adapter.TVAdapter
+import com.example.moviepedia.Adapter.*
 import com.example.moviepedia.Api.API
 import com.example.moviepedia.DataClass.Common_results
 import com.example.moviepedia.DataClass.TV_details
@@ -45,8 +44,14 @@ class SecondAct : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
 
+        setSupportActionBar(toolbarSecond)
+
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
         type = intent.getStringExtra("type")
-        textDest.text = type
+
+        supportActionBar!!.title = "${type}"
 
         pBar.isVisible = true
 
@@ -90,8 +95,8 @@ class SecondAct : AppCompatActivity() {
                         pBar.isVisible = false
                         if(i==0) {
                             list = it.body()!!.results
-                            rView.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
-                            rView.adapter = TrendingAdapter(this, list)
+                            rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                            rView.adapter = TrendingApdater2(this, list)
                         } else {
                             list.addAll(it.body()!!.results)
                             rView.adapter!!.notifyDataSetChanged()
@@ -107,8 +112,8 @@ class SecondAct : AppCompatActivity() {
                         pBar.isVisible = false
                         if(i==0) {
                             commonList = it.body()!!.results
-                            rView.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
-                            rView.adapter = CommonAdapter(this, commonList, false)
+                            rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                            rView.adapter = CommonAdapter2(this, commonList, false)
                         } else {
                             commonList.addAll(it.body()!!.results)
                             rView.adapter!!.notifyDataSetChanged()
@@ -124,8 +129,8 @@ class SecondAct : AppCompatActivity() {
                         pBar.isVisible = false
                         if(i==0) {
                             commonList = it.body()!!.results
-                            rView.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
-                            rView.adapter = CommonAdapter(this, commonList, false)
+                            rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                            rView.adapter = CommonAdapter2(this, commonList, false)
                         } else {
                             commonList.addAll(it.body()!!.results)
                             rView.adapter!!.notifyDataSetChanged()
@@ -141,8 +146,8 @@ class SecondAct : AppCompatActivity() {
                         pBar.isVisible = false
                         if(i==0) {
                             commonList = it.body()!!.results
-                            rView.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
-                            rView.adapter = CommonAdapter(this, commonList, false)
+                            rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                            rView.adapter = CommonAdapter2(this, commonList, false)
                         } else {
                             commonList.addAll(it.body()!!.results)
                             rView.adapter!!.notifyDataSetChanged()
@@ -158,8 +163,8 @@ class SecondAct : AppCompatActivity() {
                         pBar.isVisible = false
                         if(i==0) {
                             commonList = it.body()!!.results
-                            rView.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
-                            rView.adapter = CommonAdapter(this, commonList, false)
+                            rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                            rView.adapter = CommonAdapter2(this, commonList, false)
                         } else {
                             commonList.addAll(it.body()!!.results)
                             rView.adapter!!.notifyDataSetChanged()
@@ -175,8 +180,8 @@ class SecondAct : AppCompatActivity() {
                         pBar.isVisible = false
                         if(i==0) {
                             TVList = it.body()!!.results
-                            rView.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
-                            rView.adapter = TVAdapter(this, TVList)
+                            rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                            rView.adapter = TVAdapter2(this, TVList)
                         } else {
                             TVList.addAll(it.body()!!.results)
                             rView.adapter!!.notifyDataSetChanged()
@@ -192,8 +197,8 @@ class SecondAct : AppCompatActivity() {
                         pBar.isVisible = false
                         if(i==0) {
                             TVList = it.body()!!.results
-                            rView.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
-                            rView.adapter = TVAdapter(this, TVList)
+                            rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                            rView.adapter = TVAdapter2(this, TVList)
                         } else {
                             TVList.addAll(it.body()!!.results)
                             rView.adapter!!.notifyDataSetChanged()
@@ -209,8 +214,8 @@ class SecondAct : AppCompatActivity() {
                         pBar.isVisible = false
                         if(i==0) {
                             TVList = it.body()!!.results
-                            rView.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
-                            rView.adapter = TVAdapter(this, TVList)
+                            rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                            rView.adapter = TVAdapter2(this, TVList)
                         } else {
                             TVList.addAll(it.body()!!.results)
                             rView.adapter!!.notifyDataSetChanged()
@@ -226,8 +231,8 @@ class SecondAct : AppCompatActivity() {
                         pBar.isVisible = false
                         if(i==0) {
                             TVList = it.body()!!.results
-                            rView.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
-                            rView.adapter = TVAdapter(this, TVList)
+                            rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                            rView.adapter = TVAdapter2(this, TVList)
                         } else {
                             TVList.addAll(it.body()!!.results)
                             rView.adapter!!.notifyDataSetChanged()
@@ -271,5 +276,13 @@ class SecondAct : AppCompatActivity() {
                 }
             })
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId) {
+        android.R.id.home -> {
+            finish()
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 }

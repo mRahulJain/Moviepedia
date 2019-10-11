@@ -7,14 +7,19 @@
         android:layout_height="match_parent"
         android:background="@android:color/black"
         tools:context=".SecondAct">
-    <TextView
-            android:drawableLeft="@drawable/ic_star_black"
-            android:layout_margin="10dp"
-            android:textColor="@android:color/white"
-            android:id="@+id/textDest"
-            android:textSize="20sp"
+    <com.google.android.material.appbar.AppBarLayout
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:background="#000000"
+            android:theme="@style/AppTheme.AppBarOverlay">
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarSecond"
+                android:layout_width="match_parent"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                android:layout_height="?attr/actionBarSize">
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
     <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -26,13 +31,11 @@
                 android:layout_height="wrap_content"/>
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_weight="1"
-                android:layout_marginLeft="12dp"
                 android:layout_gravity="center"
-                android:layout_marginRight="6dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:id="@+id/rView"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
         </androidx.recyclerview.widget.RecyclerView>
