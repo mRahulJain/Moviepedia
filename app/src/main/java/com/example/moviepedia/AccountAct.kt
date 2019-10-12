@@ -37,8 +37,6 @@ class AccountAct : AppCompatActivity() {
             builder.setMessage("Are you sure ?")
                 .setTitle("Logout")
                 .setPositiveButton("Yes"){dialogInterface, which ->
-                    val alertDialog = builder.create()
-                    alertDialog.show()
                     db.UsersDao().deleteUser()
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
@@ -50,9 +48,6 @@ class AccountAct : AppCompatActivity() {
             val alertDialog = builder.create()
             alertDialog.show()
         }
-
-
-
     }
 
     override fun onBackPressed() {

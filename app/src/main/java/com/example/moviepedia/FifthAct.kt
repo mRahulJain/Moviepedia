@@ -80,11 +80,12 @@ class FifthAct : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fifth)
 
-        supportActionBar!!.setDisplayShowHomeEnabled(true)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         setSupportActionBar(toolbarTV)
 
         collapseToolBarTV.title = "Loading..."
+
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         val id = intent.getStringExtra("id").toInt()
         val userPresent = db1.UsersDao().getUser()
         val serviceAccount = retrofit.create(API::class.java)

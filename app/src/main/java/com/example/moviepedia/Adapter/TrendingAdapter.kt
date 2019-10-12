@@ -2,6 +2,7 @@ package com.example.moviepedia
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,10 +40,18 @@ class TrendingAdapter(val context: Context,val nameList: ArrayList<Trending_resu
         }
 
         holder.itemView.parentLayout.setOnClickListener {
-            var intent = Intent(context, ThirdAct::class.java)
-            intent.putExtra("id", nameList[position].id)
-            intent.putExtra("type", "Movie")
-            startActivity(context, intent, null)
+            if(nameList[position]!!.media_type == "movie") {
+                var intent = Intent(context, ThirdAct::class.java)
+                intent.putExtra("id", nameList[position].id)
+                intent.putExtra("type", "Movie")
+                startActivity(context, intent, null)
+            } else {
+                Log.d("myCHECK", "TV SECTION")
+                var intent = Intent(context, FifthAct::class.java)
+                intent.putExtra("id", nameList[position].id)
+                startActivity(context, intent, null)
+            }
+
         }
     }
 

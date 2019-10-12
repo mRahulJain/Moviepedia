@@ -14,9 +14,9 @@
         android:gravity="bottom|center">
 
     <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            app:srcCompat="@drawable/ic_person_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/user"
             android:contentDescription="@string/nav_header_desc"
             android:id="@+id/imageView"/>
 

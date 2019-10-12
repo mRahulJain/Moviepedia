@@ -2,6 +2,7 @@ package com.example.moviepedia
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.webkit.WebViewClient
 import kotlinx.android.synthetic.main.activity_web.*
 
@@ -11,7 +12,11 @@ class WebActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web)
 
-        tool.setTitle("Moviepedia")
+        setSupportActionBar(tool)
+        supportActionBar!!.title = "Moviepedia"
+
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         val reqToken = intent.getStringExtra("reqToken")
         webView.webViewClient = WebViewClient()
@@ -25,5 +30,13 @@ class WebActivity : AppCompatActivity() {
             super.onBackPressed()
         }
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId) {
+        android.R.id.home -> {
+            finish()
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 }

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:background="@drawable/gradient_1"
+        android:layout_height="match_parent"
+        tools:context=".SearchAct">
+    <com.google.android.material.appbar.AppBarLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="#000000"
+            android:theme="@style/AppTheme.AppBarOverlay">
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbarSearch"
+                    android:layout_width="match_parent"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                    android:layout_height="?attr/actionBarSize">
+            </androidx.appcompat.widget.Toolbar>
+        </FrameLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+    <TextView
+            android:layout_marginLeft="10dp"
+            android:text="Search"
+            android:textSize="30sp"
+            android:textColor="@android:color/white"
+            android:paddingLeft="15dp"
+            android:textStyle="bold"
+            android:paddingRight="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    <TextView
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textColor="@android:color/darker_gray"
+            android:text="Search Movie, TV-Series or People"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    <EditText
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="6dp"
+            android:id="@+id/textSearch"
+            android:hint="Type here..."
+            android:textColorHint="@android:color/darker_gray"
+            android:layout_marginBottom="10dp"
+            android:drawablePadding="10dp"
+            android:background="@drawable/background_3"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="10dp"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:theme="@style/progressBarOtp"
+            android:paddingBottom="10dp"
+            android:textColor="@android:color/black"
+            android:drawableLeft="@drawable/ic_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="match_parent">
+        <TextView
+                android:layout_gravity="center|top"
+                android:textColor="@android:color/white"
+                android:text="No results"
+                android:visibility="gone"
+                android:id="@+id/noSearchList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/rViewSearch"
+                android:layout_height="match_parent">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </FrameLayout>
+</LinearLayout>

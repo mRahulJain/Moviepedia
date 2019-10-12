@@ -10,7 +10,8 @@ data class Trending_results(
     val id : String,
     val original_title : String,
     val original_name : String,
-    val poster_path : String
+    val poster_path : String,
+    val media_type : String
 )
 
 data class Movie_search(

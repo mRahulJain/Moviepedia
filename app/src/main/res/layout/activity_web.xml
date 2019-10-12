@@ -7,13 +7,23 @@
         android:layout_height="match_parent"
         tools:context=".WebActivity">
 
-    <androidx.appcompat.widget.Toolbar
-            android:id="@+id/tool"
-            android:background="@color/colorPrimary"
+    <com.google.android.material.appbar.AppBarLayout
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:background="#000000"
+            android:theme="@style/AppTheme.AppBarOverlay">
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/tool"
+                    android:layout_width="match_parent"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                    android:layout_height="?attr/actionBarSize">
 
-    </androidx.appcompat.widget.Toolbar>
+            </androidx.appcompat.widget.Toolbar>
+        </FrameLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <WebView
             android:id="@+id/webView"

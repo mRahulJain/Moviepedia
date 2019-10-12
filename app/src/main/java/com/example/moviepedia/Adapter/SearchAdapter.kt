@@ -10,10 +10,9 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.moviepedia.*
-import com.example.moviepedia.DataClass.Common_results
 import com.example.moviepedia.DataClass.Search_result
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.item_1.view.*
+import kotlinx.android.synthetic.main.item_9.view.*
 
 class SearchAdapter(val context: Context, val nameList: ArrayList<Search_result>) :
     RecyclerView.Adapter<SearchAdapter.NameViewHolder>() {
@@ -22,7 +21,7 @@ class SearchAdapter(val context: Context, val nameList: ArrayList<Search_result>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NameViewHolder {
         val li = parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val itemView = li.inflate(R.layout.item_1, parent, false)
+        val itemView = li.inflate(R.layout.item_9, parent, false)
         return NameViewHolder(itemView)
     }
 
