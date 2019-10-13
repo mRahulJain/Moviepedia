@@ -82,11 +82,21 @@
                 android:layout_height="wrap_content"/>
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:id="@+id/rViewCastTV"
                 android:layout_width="match_parent"
-                android:layout_height="280dp">
+                android:layout_height="wrap_content">
 
         </androidx.recyclerview.widget.RecyclerView>
+        <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                ads:adSize="BANNER"
+                ads:adUnitId="ca-app-pub-6222464247565126/8412262744">
+        </com.google.android.gms.ads.AdView>
         <TextView
                 android:layout_marginTop="10dp"
                 android:textColor="@android:color/white"

@@ -6,13 +6,13 @@
     </style>
 
     <style name="RatingBar" parent="Theme.AppCompat">
-        <item name="colorControlNormal">@color/colorAccent</item>
-        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorControlNormal">#ececec</item>
+        <item name="colorControlActivated">@android:color/holo_red_light</item>
     </style>
     <style name="progressBarOtp" parent="@style/Theme.AppCompat.Light">
         <item name="colorAccent">#000000</item>
     </style>
     <style name="progressBarOtp1" parent="@style/Theme.AppCompat.Light">
-        <item name="colorAccent">#98AFC8</item>
+        <item name="colorAccent">@android:color/darker_gray</item>
     </style>
 </resources>

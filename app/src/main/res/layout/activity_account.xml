@@ -17,10 +17,10 @@
                 android:layout_height="match_parent">
             <TextView
                     android:layout_marginTop="50dp"
-                    android:textSize="50sp"
+                    android:textSize="25sp"
                     android:gravity="center"
                     android:layout_weight="1"
-                    android:text="Welcome to MOVIEPEDIA"
+                    android:text="Welcome to Movies Square"
                     android:textColor="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>

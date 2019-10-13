@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.example.moviepedia">
+        package="com.moviessquare.moviepedia">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -14,33 +14,37 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".SearchAct"></activity>
+        <meta-data
+                android:name="com.google.android.gms.ads.APPLICATION_ID"
+                android:value="ca-app-pub-6222464247565126~5207993837"/>
+        <activity android:name="com.moviessquare.moviepedia.SearchAct"
+                android:screenOrientation="portrait"></activity>
         <activity
-                android:name=".PhotoAct"
+                android:name="com.moviessquare.moviepedia.PhotoAct"
                 android:screenOrientation="portrait" />
         <activity
-                android:name=".WebActivity"
+                android:name="com.moviessquare.moviepedia.WebActivity"
                 android:screenOrientation="portrait" />
         <activity
-                android:name=".AccountAct"
+                android:name="com.moviessquare.moviepedia.AccountAct"
                 android:screenOrientation="portrait" />
         <activity
-                android:name=".LoginAct"
+                android:name="com.moviessquare.moviepedia.LoginAct"
                 android:screenOrientation="portrait" />
         <activity
-                android:name=".FifthAct"
+                android:name="com.moviessquare.moviepedia.FifthAct"
                 android:screenOrientation="portrait" />
         <activity
-                android:name=".FourthAct"
+                android:name="com.moviessquare.moviepedia.FourthAct"
                 android:screenOrientation="portrait" />
         <activity
-                android:name=".ThirdAct"
+                android:name="com.moviessquare.moviepedia.ThirdAct"
                 android:screenOrientation="portrait" />
         <activity
-                android:name=".SecondAct"
+                android:name="com.moviessquare.moviepedia.SecondAct"
                 android:screenOrientation="portrait" />
         <activity
-                android:name=".MainActivity"
+                android:name="com.moviessquare.moviepedia.MainActivity"
                 android:label="@string/app_name"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar">

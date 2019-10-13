@@ -1,42 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:weightSum="2"
         android:layout_height="match_parent"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:background="#000000"
+        android:layout_width="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ScrollView
+            android:background="@drawable/gradient_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <LinearLayout
-                android:layout_weight="1"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:weightSum="2"
                 android:layout_height="match_parent">
-            <FrameLayout
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                <TextView
-                        android:background="#000000"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-                <ImageView
-                        android:layout_marginTop="40dp"
-                        android:layout_gravity="bottom|center"
-                        android:layout_marginBottom="40dp"
-                        android:src="@drawable/user"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"/>
-            </FrameLayout>
             <LinearLayout
-                    android:orientation="vertical"
-                    android:background="@drawable/background_1"
                     android:layout_weight="1"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
+                <FrameLayout
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    <ImageView
+                            android:layout_marginTop="40dp"
+                            android:layout_gravity="bottom|center"
+                            android:layout_marginBottom="40dp"
+                            android:src="@drawable/user"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"/>
+                </FrameLayout>
                 <LinearLayout
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
@@ -45,19 +43,22 @@
                         android:layout_height="wrap_content">
 
                     <LinearLayout
-                            android:background="@drawable/gradient_2"
                             android:orientation="vertical"
+                            android:layout_marginTop="30dp"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
                         <com.google.android.material.textfield.TextInputLayout
                                 android:layout_margin="8dp"
                                 android:id="@+id/nameUser"
                                 android:layout_width="match_parent"
+                                android:textColorHint="@android:color/darker_gray"
                                 android:theme="@style/progressBarOtp1"
                                 android:layout_height="wrap_content">
                             <com.google.android.material.textfield.TextInputEditText
                                     android:inputType="text"
                                     android:maxLength="20"
+                                    android:textColor="@android:color/white"
+                                    android:backgroundTint="@android:color/white"
                                     android:hint="Enter you name"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"/>
@@ -68,6 +69,7 @@
                                 android:layout_margin="8dp"
                                 android:id="@+id/username"
                                 app:counterMaxLength="20"
+                                android:textColorHint="@android:color/darker_gray"
                                 android:theme="@style/progressBarOtp1"
                                 app:errorEnabled="true"
                                 android:layout_width="match_parent"
@@ -75,6 +77,8 @@
                             <com.google.android.material.textfield.TextInputEditText
                                     android:inputType="text"
                                     android:maxLength="20"
+                                    android:textColor="@android:color/white"
+                                    android:backgroundTint="@android:color/white"
                                     android:hint="Username"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"/>
@@ -85,13 +89,17 @@
                                 android:id="@+id/password"
                                 android:layout_margin="8dp"
                                 app:passwordToggleEnabled="true"
+                                android:textColorHint="@android:color/darker_gray"
                                 android:theme="@style/progressBarOtp1"
                                 app:errorEnabled="true"
+                                app:passwordToggleTint="@android:color/darker_gray"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
                             <com.google.android.material.textfield.TextInputEditText
                                     android:inputType="textPassword"
                                     android:maxLength="20"
+                                    android:textColor="@android:color/white"
+                                    android:backgroundTint="@android:color/white"
                                     android:hint="Password"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"/>
@@ -101,7 +109,7 @@
                                 android:layout_marginRight="10dp"
                                 android:textAllCaps="false"
                                 android:id="@+id/btnAllow"
-                                android:background="@drawable/background_4"
+                                android:background="@drawable/gradient_2"
                                 android:text="Validate your account"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"/>
@@ -134,7 +142,7 @@
                     <TextView
                             android:layout_marginTop="10dp"
                             android:textSize="15sp"
-                            android:textColor="@android:color/black"
+                            android:textColor="@android:color/white"
                             android:text="Or"
                             android:layout_gravity="center"
                             android:gravity="center"
@@ -143,7 +151,7 @@
                     <Button
                             android:layout_margin="10dp"
                             android:textAllCaps="false"
-                            android:textColor="@android:color/black"
+                            android:textColor="@android:color/white"
                             android:layout_gravity="center"
                             android:id="@+id/btnFT"
                             android:background="@android:color/transparent"
@@ -153,4 +161,5 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+    </ScrollView>
 </LinearLayout>

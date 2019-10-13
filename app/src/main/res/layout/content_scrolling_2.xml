@@ -80,9 +80,18 @@
                 android:layout_height="wrap_content">
 
         </androidx.recyclerview.widget.RecyclerView>
+        <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                ads:adSize="BANNER"
+                ads:adUnitId="ca-app-pub-6222464247565126/8412262744">
+        </com.google.android.gms.ads.AdView>
         <TextView
                 android:id="@+id/just2"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:textColor="@android:color/white"
                 android:textSize="25sp"
                 android:layout_width="wrap_content"
