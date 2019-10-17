@@ -1,6 +1,7 @@
 package com.moviessquare.moviepedia
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -70,8 +71,12 @@ class LoginAct : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            var intent = Intent(this, WebActivity::class.java)
-            intent.putExtra("reqToken", "${reqToken}")
+//            var intent = Intent(this, WebActivity::class.java)
+//            intent.putExtra("reqToken", "${reqToken}")
+//            startActivity(intent)
+            var intent = Intent()
+            intent.action = Intent.ACTION_VIEW
+            intent.data = Uri.parse("https://www.themoviedb.org/authenticate/${reqToken}/allow")
             startActivity(intent)
         }
 

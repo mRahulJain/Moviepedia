@@ -22,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class FourthAct : AppCompatActivity() {
 
-    val baseURL = "https://image.tmdb.org/t/p/original/"
+    val baseURL = "https://image.tmdb.org/t/p/w500/"
     var biography : String = ""
     var flag = 0
     val api_key: String = "40c1d09ce2457ccd5cabde67ee04c652"

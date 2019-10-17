@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.item_1.view.*
 class TrendingApdater2(val context: Context,val nameList: ArrayList<Trending_results>) :
     RecyclerView.Adapter<TrendingApdater2.NameViewHolder>() {
 
-    val baseURL = "https://image.tmdb.org/t/p/w342/"
+    val baseURL = "https://image.tmdb.org/t/p/w185/"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NameViewHolder {
         val li = parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater

@@ -15,6 +15,7 @@ import androidx.room.Room
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.moviessquare.moviepedia.Adapter.CommonAdapter
+import com.moviessquare.moviepedia.DataClass.fav
 import com.moviessquare.moviepedia.Adapter.GenreAdapter
 import com.moviessquare.moviepedia.Adapter.PeopleAdapter
 import com.moviessquare.moviepedia.Adapter.VideoAdapter
@@ -28,7 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ThirdAct : AppCompatActivity() {
 
-    val baseURL = "https://image.tmdb.org/t/p/original/"
+    val baseURL = "https://image.tmdb.org/t/p/w500/"
     var overview : String = ""
     var flag = 0
     val api_key: String = "40c1d09ce2457ccd5cabde67ee04c652"
@@ -291,7 +292,7 @@ class ThirdAct : AppCompatActivity() {
                 movie_id = id.toString()
             )
             if(chk == 0) {
-                val fab = com.moviessquare.moviepedia.DataClass.fav(
+                val fab = fav(
                     "movie",
                     movieID.toInt(),
                     true

@@ -9,12 +9,14 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.moviessquare.moviepedia.Adapter.SearchAdapter
 import com.moviessquare.moviepedia.Api.API
 import kotlinx.android.synthetic.main.activity_search.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.random.Random
 
 class SearchAct : AppCompatActivity() {
 
@@ -23,6 +25,7 @@ class SearchAct : AppCompatActivity() {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
     val api_key: String = "40c1d09ce2457ccd5cabde67ee04c652"
+    var count = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +40,12 @@ class SearchAct : AppCompatActivity() {
         MobileAds.initialize(this, "ca-app-pub-6222464247565126~5207993837")
         val adRequest = AdRequest.Builder().build()
         adView3.loadAd(adRequest)
+
+
+        MobileAds.initialize(this, "ca-app-pub-6222464247565126~5207993837")
+        val mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd.adUnitId = "ca-app-pub-6222464247565126/6292224226"
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
 
         textSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
@@ -57,11 +66,16 @@ class SearchAct : AppCompatActivity() {
                             rViewSearch.layoutManager = GridLayoutManager(this@SearchAct, 2,
                                 GridLayoutManager.VERTICAL, false)
                             rViewSearch.adapter = SearchAdapter(this@SearchAct, it.body()!!.results)
+
+                            val random = Random.nextInt()
+                            if(mInterstitialAd.isLoaded && random%2 == 0 && count == 0) {
+                                count = 1
+                                mInterstitialAd.show()
+                            }
                         }
                     }
                 })
             }
-
         })
 
         textSearch.setOnEditorActionListener { textView, i, keyEvent ->
@@ -75,6 +89,12 @@ class SearchAct : AppCompatActivity() {
                             rViewSearch.layoutManager = GridLayoutManager(this@SearchAct, 2,
                                 GridLayoutManager.VERTICAL, false)
                             rViewSearch.adapter = SearchAdapter(this@SearchAct, it.body()!!.results)
+
+                            val random = Random.nextInt()
+                            if(mInterstitialAd.isLoaded && random%2 == 0 && count == 0) {
+                                count = 1
+                                mInterstitialAd.show()
+                            }
                         }
                     }
                 })

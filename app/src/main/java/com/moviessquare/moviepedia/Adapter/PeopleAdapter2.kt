@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.item_7.view.*
 class PeopleAdapter2(val context: Context, val nameList: ArrayList<People_results>, val check : Boolean) :
     RecyclerView.Adapter<PeopleAdapter2.NameViewHolder>() {
 
-    val baseURL = "https://image.tmdb.org/t/p/w342/"
+    val baseURL = "https://image.tmdb.org/t/p/w185/"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NameViewHolder {
         val li = parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater

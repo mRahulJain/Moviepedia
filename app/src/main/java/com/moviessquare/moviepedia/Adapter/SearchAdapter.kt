@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.item_9.view.*
 class SearchAdapter(val context: Context, val nameList: ArrayList<Search_result>) :
     RecyclerView.Adapter<SearchAdapter.NameViewHolder>() {
 
-    val baseURL = "https://image.tmdb.org/t/p/w342/"
+    val baseURL = "https://image.tmdb.org/t/p/w185/"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NameViewHolder {
         val li = parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater

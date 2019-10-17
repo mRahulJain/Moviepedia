@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 
 import com.google.android.gms.ads.MobileAds
 import com.moviessquare.moviepedia.Adapter.*
@@ -18,6 +19,7 @@ import com.moviessquare.moviepedia.DataClass.TV_details
 import kotlinx.android.synthetic.main.activity_second.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.random.Random
 
 class SecondAct : AppCompatActivity() {
 
@@ -42,6 +44,8 @@ class SecondAct : AppCompatActivity() {
     lateinit var TVList : ArrayList<TV_details>
     lateinit var ReviewList : ArrayList<reviews>
     var i = 0
+    var count = 0
+    private lateinit var mInterstitialAd: InterstitialAd
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +54,11 @@ class SecondAct : AppCompatActivity() {
         MobileAds.initialize(this, "ca-app-pub-6222464247565126~5207993837")
         val adRequest = AdRequest.Builder().build()
         adView4.loadAd(adRequest)
+
+        MobileAds.initialize(this, "ca-app-pub-6222464247565126~5207993837")
+        mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd.adUnitId = "ca-app-pub-6222464247565126/6292224226"
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
 
         setSupportActionBar(toolbarSecond)
 
@@ -80,7 +89,6 @@ class SecondAct : AppCompatActivity() {
                     isScrolling = false
                     toBeCalled()
                 }
-
             }
 
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -107,6 +115,11 @@ class SecondAct : AppCompatActivity() {
                         } else {
                             list.addAll(it.body()!!.results)
                             rView.adapter!!.notifyDataSetChanged()
+                            val random = Random.nextInt()
+                            if(mInterstitialAd.isLoaded && random%2 == 0 && count == 0) {
+                                count = 1
+                                mInterstitialAd.show()
+                            }
                         }
                         i++
                     }
@@ -124,6 +137,11 @@ class SecondAct : AppCompatActivity() {
                         } else {
                             commonList.addAll(it.body()!!.results)
                             rView.adapter!!.notifyDataSetChanged()
+                            val random = Random.nextInt()
+                            if(mInterstitialAd.isLoaded && random%2 == 0 && count == 0) {
+                                count = 1
+                                mInterstitialAd.show()
+                            }
                         }
                         i++
                     }
@@ -141,6 +159,11 @@ class SecondAct : AppCompatActivity() {
                         } else {
                             commonList.addAll(it.body()!!.results)
                             rView.adapter!!.notifyDataSetChanged()
+                            val random = Random.nextInt()
+                            if(mInterstitialAd.isLoaded && random%2 == 0 && count == 0) {
+                                count = 1
+                                mInterstitialAd.show()
+                            }
                         }
                         i++
                     }
@@ -158,6 +181,11 @@ class SecondAct : AppCompatActivity() {
                         } else {
                             commonList.addAll(it.body()!!.results)
                             rView.adapter!!.notifyDataSetChanged()
+                            val random = Random.nextInt()
+                            if(mInterstitialAd.isLoaded && random%2 == 0 && count == 0) {
+                                count = 1
+                                mInterstitialAd.show()
+                            }
                         }
                         i++
                     }
@@ -175,6 +203,11 @@ class SecondAct : AppCompatActivity() {
                         } else {
                             commonList.addAll(it.body()!!.results)
                             rView.adapter!!.notifyDataSetChanged()
+                            val random = Random.nextInt()
+                            if(mInterstitialAd.isLoaded && random%2 == 0 && count == 0) {
+                                count = 1
+                                mInterstitialAd.show()
+                            }
                         }
                         i++
                     }
@@ -192,6 +225,11 @@ class SecondAct : AppCompatActivity() {
                         } else {
                             TVList.addAll(it.body()!!.results)
                             rView.adapter!!.notifyDataSetChanged()
+                            val random = Random.nextInt()
+                            if(mInterstitialAd.isLoaded && random%2 == 0 && count == 0) {
+                                count = 1
+                                mInterstitialAd.show()
+                            }
                         }
                         i++
                     }
@@ -209,6 +247,11 @@ class SecondAct : AppCompatActivity() {
                         } else {
                             TVList.addAll(it.body()!!.results)
                             rView.adapter!!.notifyDataSetChanged()
+                            val random = Random.nextInt()
+                            if(mInterstitialAd.isLoaded && random%2 == 0 && count == 0) {
+                                count = 1
+                                mInterstitialAd.show()
+                            }
                         }
                         i++
                     }
@@ -226,6 +269,11 @@ class SecondAct : AppCompatActivity() {
                         } else {
                             TVList.addAll(it.body()!!.results)
                             rView.adapter!!.notifyDataSetChanged()
+                            val random = Random.nextInt()
+                            if(mInterstitialAd.isLoaded && random%2 == 0 && count == 0) {
+                                count = 1
+                                mInterstitialAd.show()
+                            }
                         }
                         i++
                     }
@@ -243,6 +291,11 @@ class SecondAct : AppCompatActivity() {
                         } else {
                             TVList.addAll(it.body()!!.results)
                             rView.adapter!!.notifyDataSetChanged()
+                            val random = Random.nextInt()
+                            if(mInterstitialAd.isLoaded && random%2 == 0 && count == 0) {
+                                count = 1
+                                mInterstitialAd.show()
+                            }
                         }
                         i++
                     }
@@ -260,6 +313,11 @@ class SecondAct : AppCompatActivity() {
                     } else {
                         ReviewList.addAll(it.body()!!.results)
                         rView.adapter!!.notifyDataSetChanged()
+                        val random = Random.nextInt()
+                        if(mInterstitialAd.isLoaded && random%2 == 0 && count == 0) {
+                            count = 1
+                            mInterstitialAd.show()
+                        }
                     }
                     i++
                 }
@@ -277,6 +335,11 @@ class SecondAct : AppCompatActivity() {
                         } else {
                             ReviewList.addAll(it.body()!!.results)
                             rView.adapter!!.notifyDataSetChanged()
+                            val random = Random.nextInt()
+                            if(mInterstitialAd.isLoaded && random%2 == 0 && count == 0) {
+                                count = 1
+                                mInterstitialAd.show()
+                            }
                         }
                         i++
                     }

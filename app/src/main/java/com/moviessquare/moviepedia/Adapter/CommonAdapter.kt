@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.item_1.view.*
 
 class CommonAdapter(val context: Context, val nameList: ArrayList<Common_results>, val check : Boolean) : RecyclerView.Adapter<CommonAdapter.NameViewHolder>() {
 
-    val baseURL = "https://image.tmdb.org/t/p/w342/"
+    val baseURL = "https://image.tmdb.org/t/p/w185/"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NameViewHolder {
         val li = parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater

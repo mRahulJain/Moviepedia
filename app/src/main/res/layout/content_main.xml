@@ -230,38 +230,6 @@
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-
-            <LinearLayout
-                    android:layout_marginTop="50dp"
-                    android:layout_marginLeft="10dp"
-                    android:visibility="gone"
-                    android:layout_marginRight="10dp"
-                    android:id="@+id/layoutSearch"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                <ImageButton
-                        android:id="@+id/backSearch"
-                        android:background="@drawable/custom_background"
-                        android:src="@drawable/ic_arrow_back"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"/>
-                <EditText
-                        android:paddingLeft="20dp"
-                        android:layout_weight="1"
-                        android:background="@color/colorPrimaryDark"
-                        android:textColor="@android:color/white"
-                        android:textColorHint="@android:color/darker_gray"
-                        android:hint="Search here!"
-                        android:id="@+id/eTSearch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
-                <ImageButton
-                        android:id="@+id/goSearch"
-                        android:background="@drawable/custom_background_2"
-                        android:src="@drawable/ic_arrow_forward"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"/>
-            </LinearLayout>
     </FrameLayout>
 
 </LinearLayout>

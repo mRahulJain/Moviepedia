@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -173,7 +174,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         rView4.adapter = LoadingAdapter(this)
         rView5.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.HORIZONTAL, false)
         rView5.adapter = LoadingAdapter(this)
-        layoutSearch.isVisible = false
 
         rView1.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -193,7 +193,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         onOpen1()
                     } else if(type == "Movies") {
                         onOpen3()
-                    } else if(type =="TV") {
+                    } else if(type =="FavTV") {
                         onOpen4()
                     } else if(type == "MovieWatch") {
                         onOpen5()
@@ -256,103 +256,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             var intent = Intent(this, SecondAct::class.java)
             intent.putExtra("type", "Top Rated")
             startActivity(intent)
-        }
-
-        backSearch.setOnClickListener {
-            eTSearch.setText("")
-            if(type == "Movie") {
-                type = "Movie"
-                layoutSearch.isVisible = false
-                bool = false
-                click1.isVisible = true
-                click2.isVisible = true
-                click3.isVisible = true
-                click4.isVisible = true
-                click5.isVisible = true
-                btn1.isVisible = true
-                btn5.isVisible = true
-                btn4.isVisible = true
-                btn3.isVisible = true
-                btn2.isVisible = true
-                rView5.isVisible = true
-                rView4.isVisible = true
-                rView3.isVisible = true
-                rView2.isVisible = true
-                btn1.text = "  Trending"
-                onOpen()
-            } else if(type == "People") {
-                type = "People"
-                layoutSearch.isVisible = false
-                click1.isVisible = true
-                click2.isVisible = false
-                click3.isVisible = false
-                click4.isVisible = false
-                click5.isVisible = true
-                btn1.isVisible = true
-                btn5.isVisible = false
-                btn4.isVisible = false
-                btn3.isVisible = false
-                btn2.isVisible = false
-                rView5.isVisible = false
-                rView4.isVisible = false
-                rView3.isVisible = false
-                rView2.isVisible = false
-                btn1.text = "  Popular People"
-                onOpen1()
-            } else if(type == "TV") {
-                type = "TV"
-                layoutSearch.isVisible = false
-                bool = true
-                click1.isVisible = true
-                click2.isVisible = true
-                click3.isVisible = true
-                click4.isVisible = true
-                click5.isVisible = false
-                btn1.isVisible = true
-                btn5.isVisible = false
-                btn4.isVisible = true
-                btn3.isVisible = true
-                btn2.isVisible = true
-                rView5.isVisible = false
-                rView4.isVisible = true
-                rView3.isVisible = true
-                rView2.isVisible = true
-                btn1.text = "  TV Airing Today"
-                btn2.text = "  TV On Air"
-                btn3.text = "  TV Popular"
-                btn4.text = "  TV Top Rated"
-                onOpen2()
-            }
-        }
-
-        goSearch.setOnClickListener {
-            val text = eTSearch.text.toString()
-            if(text == "") {
-                return@setOnClickListener
-            }
-            btn1.isVisible = false
-            btn5.isVisible = false
-            btn4.isVisible = false
-            btn3.isVisible = false
-            btn2.isVisible = false
-            click1.isVisible = false
-            click2.isVisible = false
-            click3.isVisible = false
-            click4.isVisible = false
-            click5.isVisible = false
-            rView5.isVisible = false
-            rView4.isVisible = false
-            rView3.isVisible = false
-            rView2.isVisible = false
-            val serviceSearch = retrofit.create(API::class.java)
-            serviceSearch.getSearch(api_key, text).enqueue(retrofitCallback{ throwable, response ->
-                response?.let {
-                    if(it.isSuccessful) {
-                        rView1.layoutManager = GridLayoutManager(this, 2,GridLayoutManager.VERTICAL, false)
-                        rView1.adapter = SearchAdapter(this, it.body()!!.results)
-                    }
-                }
-            })
         }
     }
 
@@ -642,7 +545,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             pBarMain.isVisible = true
             emptyList.isVisible = false
             type = "Movie"
-            layoutSearch.isVisible = false
             bool = false
             btn5.isVisible = true
             btn4.isVisible = true
@@ -719,7 +621,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 emptyList.isVisible = false
                 pBarMain.isVisible = true
                 type = "Movie"
-                layoutSearch.isVisible = false
                 bool = false
                 btn5.isVisible = true
                 btn4.isVisible = true
@@ -747,7 +648,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 i = 0
                 currentPage = 1
                 type = "People"
-                layoutSearch.isVisible = false
                 btn5.isVisible = false
                 btn4.isVisible = false
                 btn3.isVisible = false
@@ -770,7 +670,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 i = 0
                 currentPage = 1
                 type = "TV"
-                layoutSearch.isVisible = false
                 bool = true
                 btn5.isVisible = false
                 click1.isVisible = true
@@ -804,7 +703,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
                 pBarMain.isVisible = true
                 type = "Favorite"
-                layoutSearch.isVisible = false
                 btn5.isVisible = false
                 btn4.isVisible = false
                 btn3.isVisible = false
@@ -833,8 +731,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     return true
                 }
                 pBarMain.isVisible = true
-                type = "TV"
-                layoutSearch.isVisible = false
+                type = "FavTV"
                 btn5.isVisible = false
                 btn4.isVisible = false
                 btn3.isVisible = false
@@ -864,7 +761,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
                 pBarMain.isVisible = true
                 type = "MovieWatch"
-                layoutSearch.isVisible = false
                 btn5.isVisible = false
                 btn4.isVisible = false
                 btn3.isVisible = false
@@ -894,7 +790,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
                 pBarMain.isVisible = true
                 type = "TVWatch"
-                layoutSearch.isVisible = false
                 btn5.isVisible = false
                 btn4.isVisible = false
                 btn3.isVisible = false
@@ -938,7 +833,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
                 pBarMain.isVisible = true
                 type = "Rated Movie"
-                layoutSearch.isVisible = false
                 btn5.isVisible = false
                 btn4.isVisible = false
                 btn3.isVisible = false
@@ -968,7 +862,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
                 pBarMain.isVisible = true
                 type = "Rated TV"
-                layoutSearch.isVisible = false
                 btn5.isVisible = false
                 btn4.isVisible = false
                 btn3.isVisible = false
@@ -984,6 +877,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 rView2.isVisible = false
                 btn1.text = "  Rated TV"
                 onOpen8()
+            }
+
+            R.id.nav_rateApp -> {
+                val intent = Intent()
+                intent.action = Intent.ACTION_VIEW
+                intent.data = Uri.parse("https://play.google.com/store/apps/details?id=com.moviessquare.moviepedia")
+                startActivity(intent)
             }
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
